@@ -10,21 +10,13 @@ import { Navbar } from "@/components/navbar";
 
 export default function Home() {
   return (
-    <main className="min-h-screen relative">
+    <main className="w-full min-h-screen relative">
       <GridWrapper />
       <div className="relative z-10">
         <Navbar />
-
-        <AnimatedSection>
-          <Hero />
-        </AnimatedSection>
-        <AnimatedSection>
-          <Hero2 />
-        </AnimatedSection>
-        <AnimatedSection>
-          <Hero3 />
-        </AnimatedSection>
-
+        <Hero />
+        <Hero2 />
+        <Hero3 />
         <Footer/>
       </div>
     </main>

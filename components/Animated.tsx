@@ -10,11 +10,11 @@ export function AnimatedSection({ children }: { children: React.ReactNode }) {
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
         variants={{
-          hidden: { opacity: 0, scale: 0.8 }, // Start invisible and scaled down
+          hidden: { opacity: 0, scale: 0.8 },
           visible: {
             opacity: 1,
-            scale: 1, // Scale back to normal size
-            transition: { duration: 0.8 }, // Smooth animation
+            scale: 1, 
+            transition: { duration: 0.8 },
           },
         }}
       >

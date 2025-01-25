@@ -3,10 +3,12 @@
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { FloatingIcons } from "./floating-icons";
+import { AnimatedSection } from "./Animated";
 
 export function Hero2() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative px-6 md:px-10 lg:px-16">
+ <AnimatedSection>
+     <div className="min-h-screen flex flex-col items-center justify-center relative px-6 md:px-10 lg:px-16">
       {/* Floating Icons */}
       <FloatingIcons />
 
@@ -46,5 +48,6 @@ export function Hero2() {
         <ArrowDown className="w-6 h-6 sm:w-8 sm:h-8 text-social-pink" />
       </motion.div>
     </div>
+ </AnimatedSection>
   );
 }
