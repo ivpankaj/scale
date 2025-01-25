@@ -1,7 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Check } from "lucide-react"
+import check from "../public/verified-check-pink.webp"
+import Image from "next/image"
 
 export function CheckBadge() {
   return (
@@ -12,7 +13,7 @@ export function CheckBadge() {
       animate={{ scale: 1 }}
       transition={{ type: "spring", stiffness: 200, damping: 10 }}
     >
-      <Check className="w-6 h-6 text-white" />
+       <Image src={ check } alt="check" width={80} height={80} className="drop-shadow-2xl" />
     </motion.div>
   )
 }
