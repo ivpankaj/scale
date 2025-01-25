@@ -28,13 +28,7 @@ export function Hero2() {
             platforms.
           </span>
         </h1>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="border-2 border-[#ff2868] text-[#ff2868] border-dashed hover:bg-[#ff2868] hover:text-black px-6 sm:px-8 py-3 rounded-lg text-base sm:text-lg md:text-xl transition-colors"
-        >
-          Let&apos;s Talk
-        </motion.button>
+
       </motion.div>
 
       {/* Arrow Down Animation */}

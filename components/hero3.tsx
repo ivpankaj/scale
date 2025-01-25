@@ -60,14 +60,6 @@ export function Hero3() {
             </motion.div>
           ))}
         </motion.div>
-
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="border-2 border-[#ff2868] text-[#ff2868] border-dashed hover:bg-[#ff2868]  hover:text-black px-8 py-3 rounded-lg text-lg hover:bg-social-pink/10 transition-colors mt-10"
-        >
-          Let&apos;s Talk
-        </motion.button>
       </motion.div>
 
       <motion.div
