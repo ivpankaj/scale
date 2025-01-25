@@ -1,7 +1,6 @@
 "use client"
 
 import { Menu } from "lucide-react"
-import { motion } from "framer-motion"
 import Link from "next/link"
 
 export function Navbar() {
