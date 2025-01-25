@@ -23,7 +23,7 @@ export function FloatingIcons() {
           repeatType: "reverse",
         }}
       >
-        <Image src={youtube} alt="YouTube" width={80} height={80} className="drop-shadow-2xl" />
+        <Image src={youtube} alt="YouTube" width={100} height={100} className="drop-shadow-2xl" />
       </motion.div>
 
       {/* Instagram Icon */}
@@ -40,7 +40,7 @@ export function FloatingIcons() {
           delay: 0.5,
         }}
       >
-        <Image src={instagram} alt="Instagram" width={80} height={80} className="drop-shadow-2xl" />
+        <Image src={instagram} alt="Instagram" width={100} height={100} className="drop-shadow-2xl" />
       </motion.div>
 
       {/* Twitter Icon */}
