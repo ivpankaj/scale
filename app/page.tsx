@@ -1,5 +1,6 @@
 "use client"
 import { AnimatedSection } from "@/components/Animated";
+import { Footer } from "@/components/Footer";
 import { GridWrapper } from "@/components/grid-wrapper";
 import { Hero } from "@/components/hero";
 import { Hero2 } from "@/components/hero2";
@@ -23,6 +24,8 @@ export default function Home() {
         <AnimatedSection>
           <Hero3 />
         </AnimatedSection>
+
+        <Footer/>
       </div>
     </main>
   );
