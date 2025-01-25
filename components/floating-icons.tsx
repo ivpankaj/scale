@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image"
-import youtube from "../public/youtube.png"
-import instagram from "../public/instagram.png"
-import x from "../public/x.png"
-import linkedin from "../public/linkedin.png"
+import youtube from "../public/youtube.webp"
+import instagram from "../public/instagram.webp"
+import x from "../public/twitter.webp"
+import linkedin from "../public/linkedin.webp"
 
 export function FloatingIcons() {
   return (
