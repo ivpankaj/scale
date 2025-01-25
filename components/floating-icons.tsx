@@ -2,6 +2,10 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image"
+import youtube from "../public/youtube.png"
+import instagram from "../public/instagram.png"
+import x from "../public/x.png"
+import linkedin from "../public/linkedin.png"
 
 export function FloatingIcons() {
   return (
@@ -11,7 +15,7 @@ export function FloatingIcons() {
         className="absolute top-[20%] left-[20%]"
         animate={{
           y: [0, -20, 0],
-          rotate: [0, 10, -10, 0],
+          rotate: [0, 10, -10, 0]
         }}
         transition={{
           duration: 5,
@@ -19,7 +23,7 @@ export function FloatingIcons() {
           repeatType: "reverse",
         }}
       >
-        <Image src="/youtube-icon.png" alt="YouTube" width={80} height={80} className="drop-shadow-2xl" />
+        <Image src={youtube} alt="YouTube" width={80} height={80} className="drop-shadow-2xl" />
       </motion.div>
 
       {/* Instagram Icon */}
@@ -36,12 +40,12 @@ export function FloatingIcons() {
           delay: 0.5,
         }}
       >
-        <Image src="/" alt="Instagram" width={80} height={80} className="drop-shadow-2xl" />
+        <Image src={instagram} alt="Instagram" width={80} height={80} className="drop-shadow-2xl" />
       </motion.div>
 
       {/* Twitter Icon */}
       <motion.div
-        className="absolute bottom-[30%] left-[25%]"
+        className="absolute bottom-[20%] left-[25%]"
         animate={{
           x: [0, -20, 0],
           rotate: [0, -10, 10, 0],
@@ -53,12 +57,12 @@ export function FloatingIcons() {
           delay: 1,
         }}
       >
-        <Image src="/twitter-icon.png" alt="Twitter" width={80} height={80} className="drop-shadow-2xl" />
+        <Image src={x} alt="Twitter" width={80} height={80} className="drop-shadow-2xl" />
       </motion.div>
 
       {/* LinkedIn Icon */}
       <motion.div
-        className="absolute bottom-[30%] right-[25%]"
+        className="absolute bottom-[25%] right-[25%]"
         animate={{
           x: [0, 20, 0],
           rotate: [0, 10, -10, 0],
@@ -70,7 +74,7 @@ export function FloatingIcons() {
           delay: 1.5,
         }}
       >
-        <Image src="/linkedin-icon.png" alt="LinkedIn" width={80} height={80} className="drop-shadow-2xl" />
+        <Image src={linkedin  } alt="LinkedIn" width={80} height={80} className="drop-shadow-2xl" />
       </motion.div>
     </div>
   )
