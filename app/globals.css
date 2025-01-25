@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --social-pink: #ff1b6b;
+  --grid-size: 60px;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white;
+  }
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400;
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px white;
+  color: transparent;
+}
+
+.text-stroke span {
+  -webkit-text-stroke: 0;
+}
+
+@media (max-width: 768px) {
+  .text-stroke {
+    -webkit-text-stroke-width: 0.5px;
+  }
+}
