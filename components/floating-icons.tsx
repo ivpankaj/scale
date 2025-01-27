@@ -12,7 +12,7 @@ export function FloatingIcons() {
     <div className="absolute inset-0 pointer-events-none">
       {/* YouTube Icon */}
       <motion.div
-        className="absolute top-[25%] left-[10%]"
+        className="absolute top-[20%] left-[0%]"
         animate={{
           y: [0, -20, 0],
           rotate: [0, 10, -10, 0]
@@ -23,12 +23,12 @@ export function FloatingIcons() {
           repeatType: "reverse",
         }}
       >
-        <Image src={youtube} alt="YouTube" width={80} height={80} className="drop-shadow-2xl" />
+        <Image src={youtube} alt="YouTube" width={60} height={60} className="drop-shadow-2xl" />
       </motion.div>
 
       {/* Instagram Icon */}
       <motion.div
-        className="absolute top-[25%] right-[20%]"
+        className="absolute top-[20%] right-[0%]"
         animate={{
           y: [0, 20, 0],
           rotate: [0, -10, 10, 0],
@@ -40,12 +40,12 @@ export function FloatingIcons() {
           delay: 0.5,
         }}
       >
-        <Image src={instagram} alt="YouTube" width={80} height={80} className="drop-shadow-2xl rounded-2xl" />
+        <Image src={instagram} alt="YouTube" width={60} height={60} className="drop-shadow-2xl rounded-2xl" />
       </motion.div>
 
       {/* Twitter Icon */}
       <motion.div
-        className="absolute bottom-[20%] left-[25%]"
+        className="absolute bottom-[20%] left-[0%]"
         animate={{
           x: [0, -20, 0],
           rotate: [0, -10, 10, 0],
@@ -57,12 +57,12 @@ export function FloatingIcons() {
           delay: 1,
         }}
       >
-     <Image src={x} alt="YouTube" width={80} height={80} className="drop-shadow-2xl rounded-xl" />
+     <Image src={x} alt="YouTube" width={60} height={60} className="drop-shadow-2xl rounded-xl" />
       </motion.div>
 
       {/* LinkedIn Icon */}
       <motion.div
-        className="absolute bottom-[25%] right-[20%]"
+        className="absolute bottom-[20%] right-[0%]"
         animate={{
           x: [0, 20, 0],
           rotate: [0, 10, -10, 0],
@@ -74,7 +74,7 @@ export function FloatingIcons() {
           delay: 1.5,
         }}
       >
-        <Image src={linkedin  } alt="LinkedIn" width={80} height={80} className="drop-shadow-2xl rounded-xl" />
+        <Image src={linkedin  } alt="LinkedIn" width={60} height={60} className="drop-shadow-2xl rounded-xl" />
       </motion.div>
     </div>
   )

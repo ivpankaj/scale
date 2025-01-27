@@ -31,20 +31,19 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
           className="text-2xl md:text-3xl text-gray-400 mb-4"
         >
-          Mployee.me job search
+          Mployee.me Job Search
           <br />
-          assist you
+          plan assist you,
         </motion.h2>
         {/* Description */}
         <motion.p
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
-          className="text-gray-500 text-lg md:text-xl mb-8"
+       className="text-2xl md:text-3xl text-gray-400 mb-4"
         >
-          till you find           The Job
+          till you find The Job
           <br />
-
         </motion.p>
       </motion.div>
 
