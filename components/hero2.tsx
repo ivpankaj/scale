@@ -44,7 +44,7 @@ export function Hero2({ onCountrySelect, onExperienceSelect, onJobRoleSelect, va
   };
 
   const getBorderColor = (value: string) => {
-    return value || !validationTriggered ? 'border-white' : 'border-red-500';
+    return value || !validationTriggered ? 'border-white' : 'border-[#ff9800]';
   };
 
   return (

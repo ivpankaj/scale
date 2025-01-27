@@ -132,9 +132,9 @@ const PageScroll: React.FC = () => {
           />
         </div>
       ))}
-      <nav className="fixed bottom-0 left-0 w-full z-50">
+      {/* <nav className="fixed bottom-0 left-0 w-full z-50">
         <Footer />
-      </nav>
+      </nav> */}
     </div>
   );
 };

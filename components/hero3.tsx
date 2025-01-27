@@ -23,7 +23,7 @@ export function Hero3() {
         <div className="flex items-center justify-center gap-4 mb-2">
           <CheckBadge />
           <motion.h1
-            className="text-2xl md:text-5xl sm:text-xl font-bold text-[#ff2868]"
+            className="text-2xl md:text-5xl sm:text-xl font-bold text-[#ff9800]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
