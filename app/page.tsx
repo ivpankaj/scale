@@ -15,6 +15,7 @@ interface Section {
 const PageScroll: React.FC = () => {
   const [activeSection, setActiveSection] = useState<number>(0)
   const [isScrolling, setIsScrolling] = useState<boolean>(false)
+  const [touchStart, setTouchStart] = useState<number>(0)
 
   const sections: Section[] = [
     { id: 0, Component: Hero },
@@ -22,27 +23,50 @@ const PageScroll: React.FC = () => {
     { id: 2, Component: Hero3 }
   ]
 
-  const handleScroll = (e: WheelEvent): void => {
-    if (isScrolling) return // Prevent multiple transitions at the same time
+  const handleScroll = (e: WheelEvent | TouchEvent): void => {
+    if (isScrolling) return
 
-    const direction = e.deltaY > 0 ? 1 : -1 // Determine scroll direction
+    let direction: number
+    if (e instanceof WheelEvent) {
+      direction = e.deltaY > 0 ? 1 : -1
+    } else if (e instanceof TouchEvent) {
+      const touchEnd = e.changedTouches[0]?.clientY
+      if (!touchEnd || touchStart === 0) return
+
+      direction = touchEnd - touchStart > 0 ? -1 : 1
+    } else {
+      return
+    }
+
     const newSection = activeSection + direction
-
-    // Ensure the new section index is within bounds
     if (newSection >= 0 && newSection < sections.length) {
       setIsScrolling(true)
       setActiveSection(newSection)
 
-      // Wait for the animation to finish before allowing the next scroll
-      setTimeout(() => setIsScrolling(false), 1000) // Match transition duration
+      setTimeout(() => setIsScrolling(false), 1000)
     }
+  }
+
+  const handleTouchStart = (e: TouchEvent) => {
+    const touchStartPosition = e.changedTouches[0].clientY
+    setTouchStart(touchStartPosition)
+  }
+
+  const handleTouchMove = (e: TouchEvent) => {
+    handleScroll(e)
   }
 
   useEffect(() => {
     window.addEventListener('wheel', handleScroll, { passive: false })
+    window.addEventListener('touchstart', handleTouchStart, { passive: true })
+    window.addEventListener('touchmove', handleTouchMove, { passive: true })
 
-    return () => window.removeEventListener('wheel', handleScroll)
-  }, [activeSection, isScrolling])
+    return () => {
+      window.removeEventListener('wheel', handleScroll)
+      window.removeEventListener('touchstart', handleTouchStart)
+      window.removeEventListener('touchmove', handleTouchMove)
+    }
+  }, [activeSection, isScrolling, touchStart])
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
