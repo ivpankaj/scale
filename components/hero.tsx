@@ -33,7 +33,7 @@ export function Hero() {
         >
           Mployee.me Job Search
           <br />
-          Plan assist you,
+          Plan assists you,
         </motion.h2>
         {/* Description */}
         <motion.p
