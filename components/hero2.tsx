@@ -1,19 +1,24 @@
+// hero2.tsx
 "use client";
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { FloatingIcons } from "./floating-icons";
 import { AnimatedSection } from "./Animated";
-import { useState } from "react";
+import React, { useState } from "react";
 
-export function Hero2({ onCountrySelect }:any) {
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedExperience, setSelectedExperience] = useState("");
-  const [selectedJobRole, setSelectedJobRole] = useState("");
+export interface Hero2Props {
+  onCountrySelect: (country: string) => void;
+}
+
+export function Hero2({ onCountrySelect }: Hero2Props) {
+  const [selectedCountry, setSelectedCountry] = useState<string>("");
+  const [selectedExperience, setSelectedExperience] = useState<string>("");
+  const [selectedJobRole, setSelectedJobRole] = useState<string>("");
   const countries = ["USA", "Canada", "India", "Germany", "Australia"];
   const experiences = ["0-2 years", "2-5 years", "5-10 years", "10+ years"];
   const jobRoles = ["Developer", "Designer", "Manager", "Tester", "Data Analyst"];
 
-  const handleCountryChange = (e:any) => {
+  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setSelectedCountry(value);
     if (onCountrySelect) {
@@ -60,7 +65,9 @@ export function Hero2({ onCountrySelect }:any) {
               <select
                 className="block w-full px-4 py-2 bg-transparent border border-social-pink text-white rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-social-pink focus:border-social-pink"
                 value={selectedExperience}
-                onChange={(e) => setSelectedExperience(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                  setSelectedExperience(e.target.value)
+                }
               >
                 <option value="" disabled>
                   Select Experience
@@ -76,7 +83,9 @@ export function Hero2({ onCountrySelect }:any) {
               <select
                 className="block w-full px-4 py-2 bg-transparent border border-social-pink text-white rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-social-pink focus:border-social-pink"
                 value={selectedJobRole}
-                onChange={(e) => setSelectedJobRole(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                  setSelectedJobRole(e.target.value)
+                }
               >
                 <option value="" disabled>
                   Select Job Role

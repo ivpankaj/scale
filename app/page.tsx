@@ -1,17 +1,17 @@
+// page-scroll.tsx
 "use client";
 import { Footer } from "@/components/Footer";
 import { GridWrapper } from "@/components/grid-wrapper";
 import { Hero } from "@/components/hero";
 import { Hero2 } from "@/components/hero2";
 import { Hero3 } from "@/components/hero3";
-
 import { Hero4 } from "@/components/hero4";
 import { Navbar } from "@/components/navbar";
 import React, { useState, useEffect } from "react";
 
 interface Section {
   id: number;
-  Component: React.ComponentType;
+  Component: React.ComponentType<any>;
 }
 
 const PageScroll: React.FC = () => {
@@ -64,13 +64,13 @@ const PageScroll: React.FC = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("wheel", handleScroll, { passive: false });
+    window.addEventListener("wheel", handleScroll as any, { passive: false });
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove as any, { passive: true });
     return () => {
-      window.removeEventListener("wheel", handleScroll);
+      window.removeEventListener("wheel", handleScroll as any);
       window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchmove", handleTouchMove as any);
     };
   }, [activeSection, isScrolling, touchStart, renderHero3]);
 
