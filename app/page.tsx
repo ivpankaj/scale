@@ -1,5 +1,4 @@
 "use client"
-
 import { GridWrapper } from '@/components/grid-wrapper'
 import { Hero } from '@/components/hero'
 import { Hero2 } from '@/components/hero2'
@@ -12,7 +11,6 @@ interface Section {
   Component: React.ComponentType
 }
 
-
 const PageScroll: React.FC = () => {
   const [activeSection, setActiveSection] = useState<number>(0)
   const [lastScrollY, setLastScrollY] = useState<number>(0)
@@ -21,19 +19,20 @@ const PageScroll: React.FC = () => {
     const handleScroll = (): void => {
       const currentScrollY = window.scrollY
       const windowHeight = window.innerHeight
-      const scrollPosition = window.scrollY
-      const newSection = Math.round(scrollPosition / windowHeight)
+      const newSection = Math.round(currentScrollY / windowHeight)
 
-      setLastScrollY(currentScrollY)
-
-      if (newSection !== activeSection && newSection >= 0 && newSection <= 2) {
+      // Only update if the new section is different and within bounds
+      if (newSection !== activeSection && newSection >= 0 && newSection <= sections.length - 1) {
         setActiveSection(newSection)
       }
+
+      setLastScrollY(currentScrollY)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
+
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [lastScrollY, activeSection])
+  }, [activeSection])
 
   const sections: Section[] = [
     { id: 0, Component: Hero },
@@ -47,24 +46,24 @@ const PageScroll: React.FC = () => {
       <nav className="fixed top-0 left-0 w-full z-50">
         <Navbar />
       </nav>
-      
+
       {sections.map(({ id, Component }) => (
         <div
           key={id}
           className={`
-            fixed top-0 left-0 w-full h-screen 
-            transition-all duration-300 ease-in-out
+            fixed top-0 left-0 w-full 
+            transition-all duration-1000 ease-out-cubic  // Increased duration for smoother animation
             ${id === activeSection 
-              ? 'scale-100 opacity-100' 
-              : 'scale-50 opacity-0'
+              ? 'scale-100 opacity-100 translate-y-0' 
+              : 'scale-90 opacity-0 translate-y-10'  // Adjust scale and translation for better effect
             }
           `}
         >
           <Component />
         </div>
       ))}
-      
-      <div className="h-[100vh]" />
+
+      <div className="h-[300vh]" />
     </div>
   )
 }
