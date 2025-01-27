@@ -42,7 +42,7 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
           className="text-2xl md:text-3xl text-gray-400 mb-4"
         >
-          till you find The Job
+          till you find the Job
           <br />
         </motion.p>
       </motion.div>
