@@ -1,4 +1,5 @@
 "use client"
+import { Footer } from '@/components/Footer'
 import { GridWrapper } from '@/components/grid-wrapper'
 import { Hero } from '@/components/hero'
 import { Hero2 } from '@/components/hero2'
@@ -62,7 +63,9 @@ const PageScroll: React.FC = () => {
           <Component />
         </div>
       ))}
-
+  <nav className="fixed bottom-0 left-0 w-full z-50">
+        <Footer />
+      </nav>
       <div className="h-[300vh]" />
     </div>
   )
