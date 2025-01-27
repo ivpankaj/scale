@@ -34,12 +34,10 @@ export function Hero2() {
             </span>
           </h1>
 
-          {/* Dropdown Menu */}
           <div className="space-y-4 mt-8">
-            {/* Country Dropdown */}
             <div className="relative">
               <select
-                className="block w-full px-4 py-2 bg-transparent border border-social-pink text-white rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-social-pink focus:border-social-pink"
+                className="block w-full px-4 py-2 bg-transparent border border-social-pink text-white rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-social-pink focus:border-social-pink z-10"
                 value={selectedCountry}
                 onChange={(e) => setSelectedCountry(e.target.value)}
               >
@@ -53,8 +51,6 @@ export function Hero2() {
                 ))}
               </select>
             </div>
-
-            {/* Experience Dropdown */}
             <div className="relative">
               <select
                 className="block w-full px-4 py-2 bg-transparent border border-social-pink text-white rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-social-pink focus:border-social-pink"
@@ -71,8 +67,6 @@ export function Hero2() {
                 ))}
               </select>
             </div>
-
-            {/* Job Role Dropdown */}
             <div className="relative">
               <select
                 className="block w-full px-4 py-2 bg-transparent border border-social-pink text-white rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-social-pink focus:border-social-pink"
@@ -91,8 +85,6 @@ export function Hero2() {
             </div>
           </div>
         </motion.div>
-
-        {/* Arrow Down Animation */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

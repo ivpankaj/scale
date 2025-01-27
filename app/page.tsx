@@ -1,72 +1,72 @@
-"use client"
-import { Footer } from '@/components/Footer'
-import { GridWrapper } from '@/components/grid-wrapper'
-import { Hero } from '@/components/hero'
-import { Hero2 } from '@/components/hero2'
-import { Hero3 } from '@/components/hero3'
-import { Navbar } from '@/components/navbar'
-import React, { useState, useEffect } from 'react'
+"use client";
+import { Footer } from "@/components/Footer";
+import { GridWrapper } from "@/components/grid-wrapper";
+import { Hero } from "@/components/hero";
+import { Hero2 } from "@/components/hero2";
+import { Hero3 } from "@/components/hero3";
+import { Navbar } from "@/components/navbar";
+import React, { useState, useEffect } from "react";
 
 interface Section {
-  id: number
-  Component: React.ComponentType
+  id: number;
+  Component: React.ComponentType;
 }
 
 const PageScroll: React.FC = () => {
-  const [activeSection, setActiveSection] = useState<number>(0)
-  const [isScrolling, setIsScrolling] = useState<boolean>(false)
-  const [touchStart, setTouchStart] = useState<number>(0)
+  const [activeSection, setActiveSection] = useState<number>(0);
+  const [isScrolling, setIsScrolling] = useState<boolean>(false);
+  const [touchStart, setTouchStart] = useState<number>(0);
 
   const sections: Section[] = [
     { id: 0, Component: Hero },
     { id: 1, Component: Hero2 },
-    { id: 2, Component: Hero3 }
-  ]
+    { id: 2, Component: Hero3 },
+  ];
 
   const handleScroll = (e: WheelEvent | TouchEvent): void => {
-    if (isScrolling) return
+    if (isScrolling) return;
 
-    let direction: number
+    let direction: number;
     if (e instanceof WheelEvent) {
-      direction = e.deltaY > 0 ? 1 : -1
+      direction = e.deltaY > 0 ? 1 : -1;
     } else if (e instanceof TouchEvent) {
-      const touchEnd = e.changedTouches[0]?.clientY
-      if (!touchEnd || touchStart === 0) return
+      const touchEnd = e.changedTouches[0]?.clientY;
+      if (!touchEnd || touchStart === 0) return;
 
-      direction = touchEnd - touchStart > 0 ? -1 : 1
+      direction = touchEnd - touchStart > 0 ? -1 : 1;
     } else {
-      return
+      return;
     }
 
-    const newSection = activeSection + direction
+    const newSection = activeSection + direction;
     if (newSection >= 0 && newSection < sections.length) {
-      setIsScrolling(true)
-      setActiveSection(newSection)
+      setIsScrolling(true);
+      setActiveSection(newSection);
 
-      setTimeout(() => setIsScrolling(false), 1000)
+      setTimeout(() => setIsScrolling(false), 1000);
     }
-  }
+  };
 
   const handleTouchStart = (e: TouchEvent) => {
-    const touchStartPosition = e.changedTouches[0].clientY
-    setTouchStart(touchStartPosition)
-  }
+    const touchStartPosition = e.changedTouches[0].clientY;
+    setTouchStart(touchStartPosition);
+  };
 
   const handleTouchMove = (e: TouchEvent) => {
-    handleScroll(e)
-  }
+    handleScroll(e);
+  };
 
   useEffect(() => {
-    window.addEventListener('wheel', handleScroll, { passive: false })
-    window.addEventListener('touchstart', handleTouchStart, { passive: true })
-    window.addEventListener('touchmove', handleTouchMove, { passive: true })
+    window.addEventListener("wheel", handleScroll, { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
     return () => {
-      window.removeEventListener('wheel', handleScroll)
-      window.removeEventListener('touchstart', handleTouchStart)
-      window.removeEventListener('touchmove', handleTouchMove)
-    }
-  }, [activeSection, isScrolling, touchStart])
+      window.removeEventListener("wheel", handleScroll);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+    };
+  }, [activeSection, isScrolling, touchStart]);
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
@@ -80,11 +80,12 @@ const PageScroll: React.FC = () => {
           key={id}
           className={`absolute top-0 left-0 w-full h-screen flex justify-center items-center transition-all duration-1000 ease-out-cubic ${
             id === activeSection
-              ? 'scale-100 opacity-100'
-              : 'scale-50 opacity-0'
+              ? "scale-100 opacity-100" // Active section, fully visible
+              : "scale-50 opacity-0" // Inactive section, scaled down and invisible
           }`}
           style={{
-            transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)', // Smooth scaling
+            visibility: id === activeSection ? "visible" : "hidden", // Keep the section in the DOM but invisible
+            transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         >
           <Component />
@@ -95,7 +96,7 @@ const PageScroll: React.FC = () => {
         <Footer />
       </nav>
     </div>
-  )
-}
+  );
+};
 
-export default PageScroll
+export default PageScroll;

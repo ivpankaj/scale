@@ -29,35 +29,23 @@ export function Hero() {
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-          className="text-2xl md:text-3xl text-gray-400 mb-4"
+          className="text-2xl md:text-3xl text-gray-400"
         >
           Mployee.me Job Search
           <br />
-          plan assist you,
+          Plan assist you,
         </motion.h2>
         {/* Description */}
         <motion.p
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
-       className="text-2xl md:text-3xl text-gray-400 mb-4"
+          className="text-2xl md:text-3xl text-gray-400 mb-4"
         >
           till you find The Job
           <br />
         </motion.p>
       </motion.div>
-
-      {/* Home Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.8 }}
-        className="absolute bottom-8 right-8"
-      >
-        <span className="text-gray-400 text-lg">Home</span>
-      </motion.div>
-
-      {/* Arrow Indicator */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
