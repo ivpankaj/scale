@@ -31,3 +31,26 @@
     -webkit-text-stroke-width: 0.5px;
   }
 }
+
+
+/* Add this to your CSS file or inside a <style> tag */
+@keyframes fadeInCenter {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-center {
+  opacity: 0;
+  animation: fadeInCenter 1s forwards;
+}
+/* Add this to your CSS file or inside a <style> tag */
+.fade-in-center.active {
+  opacity: 1;
+  animation: fadeInCenter 1s forwards;
+}
