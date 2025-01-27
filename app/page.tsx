@@ -22,7 +22,7 @@ const PageScroll: React.FC = () => {
       const currentScrollY = window.scrollY
       const windowHeight = window.innerHeight
       const scrollPosition = window.scrollY
-      const newSection = Math.round(scrollPosition / windowHeight) // Changed from Math.floor to Math.round
+      const newSection = Math.round(scrollPosition / windowHeight)
 
       setLastScrollY(currentScrollY)
 
@@ -53,7 +53,7 @@ const PageScroll: React.FC = () => {
           key={id}
           className={`
             fixed top-0 left-0 w-full h-screen 
-            transition-all duration-700 ease-in-out
+            transition-all duration-300 ease-in-out
             ${id === activeSection 
               ? 'scale-100 opacity-100' 
               : 'scale-50 opacity-0'
@@ -64,7 +64,7 @@ const PageScroll: React.FC = () => {
         </div>
       ))}
       
-      <div className="h-[300vh]" />
+      <div className="h-[100vh]" />
     </div>
   )
 }
