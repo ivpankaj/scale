@@ -8,7 +8,7 @@ import { Hero3 } from "@/components/hero3";
 import { Hero4 } from "@/components/hero4";
 import { Hero5 } from "@/components/hero5";
 import { Navbar } from "@/components/navbar";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 interface Section {
   id: number;
@@ -20,15 +20,18 @@ const PageScroll: React.FC = () => {
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
   const [touchStart, setTouchStart] = useState<number>(0);
   const [renderHero3, setRenderHero3] = useState<boolean>(false);
+  const [selectedExperience, setSelectedExperience] = useState<string>("");
 
-  const sections: Section[] = [
+  // Memoized sections array
+  const sections: Section[] = React.useMemo(() => [
     { id: 0, Component: Hero },
     { id: 1, Component: Hero2 },
-    { id: 2, Component: renderHero3 ? Hero4 : Hero3 },
+    { id: 2, Component: renderHero3 ? Hero3 : Hero4 },
     { id: 3, Component: Hero5 },
-  ];
+  ], [renderHero3]);
 
-  const handleScroll = (e: WheelEvent | TouchEvent): void => {
+  // Memoized scroll handler
+  const handleScroll = useCallback((e: WheelEvent | TouchEvent): void => {
     if (isScrolling) return;
     let direction: number;
     if (e instanceof WheelEvent) {
@@ -46,35 +49,40 @@ const PageScroll: React.FC = () => {
       setActiveSection(newSection);
       setTimeout(() => setIsScrolling(false), 1000);
     }
-  };
+  }, [isScrolling, touchStart, activeSection, sections]);
 
-  const handleTouchStart = (e: TouchEvent) => {
+  const handleTouchStart = useCallback((e: TouchEvent) => {
     const touchStartPosition = e.changedTouches[0].clientY;
     setTouchStart(touchStartPosition);
-  };
+  }, []);
 
-  const handleTouchMove = (e: TouchEvent) => {
+  const handleTouchMove = useCallback((e: TouchEvent) => {
     handleScroll(e);
-  };
+  }, [handleScroll]);
 
-  const handleCountrySelect = (country: string) => {
+  const handleCountrySelect = useCallback((country: string) => {
     if (country === "India") {
       setRenderHero3(true);
     } else {
       setRenderHero3(false);
     }
-  };
+  }, []);
+
+  const handleExperienceSelect = useCallback((experience: string) => {
+    setSelectedExperience(experience);
+  }, []);
 
   useEffect(() => {
     window.addEventListener("wheel", handleScroll as any, { passive: false });
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
     window.addEventListener("touchmove", handleTouchMove as any, { passive: true });
+
     return () => {
       window.removeEventListener("wheel", handleScroll as any);
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchmove", handleTouchMove as any);
     };
-  }, [activeSection, isScrolling, touchStart, renderHero3]);
+  }, [handleScroll, handleTouchStart, handleTouchMove]);
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
@@ -95,7 +103,11 @@ const PageScroll: React.FC = () => {
             transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         >
-          <Component onCountrySelect={handleCountrySelect} />
+          <Component 
+            onCountrySelect={id === 1 ? handleCountrySelect : undefined} 
+            onExperienceSelect={id === 1 ? handleExperienceSelect : undefined}
+            selectedExperience={id === 3 ? selectedExperience : undefined}
+          />
         </div>
       ))}
       <nav className="fixed bottom-0 left-0 w-full z-50">

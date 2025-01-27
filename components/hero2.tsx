@@ -8,21 +8,39 @@ import React, { useState } from "react";
 
 export interface Hero2Props {
   onCountrySelect: (country: string) => void;
+  onExperienceSelect: (experience: string) => void;
 }
 
-export function Hero2({ onCountrySelect }: Hero2Props) {
+export function Hero2({ onCountrySelect, onExperienceSelect }: Hero2Props) {
   const [selectedCountry, setSelectedCountry] = useState<string>("");
   const [selectedExperience, setSelectedExperience] = useState<string>("");
   const [selectedJobRole, setSelectedJobRole] = useState<string>("");
   const countries = ["USA", "Canada", "India", "Germany", "Australia"];
-  const experiences = ["0 - less than 1", "1 - less than 2", "2 - less than 4", "4 - less than 7","7 - less than 10","10 - less than 15","15 plus"];
-  const jobRoles = ["Developer", "Designer", "Manager", "Tester", "Data Analyst"];
+  const experiences = [
+    "0 - less than 1",
+    "1 - less than 2",
+    "2 - less than 4",
+    "4 - less than 7",
+    "7 - less than 10",
+    "10 - less than 15",
+    "15 plus"
+  ];
+  const jobRoles = ["AI/ML", " Automation & DevOps", " Data Analytics", " Digital Marketing", " Finance & Accounts"," Human Resources (HR)"," Information Technology (IT)"," Legal & Compliance"," Operations & Supply Chain"," Product & Project Management"," Quality Assurance"," Sales & Marketing"," Search Engine Optimization (SEO)"," Software Development","Compliance Executive / Officer","Customer Success Manager"];
 
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setSelectedCountry(value);
     if (onCountrySelect) {
       onCountrySelect(value);
+    }
+  };
+
+  const handleExperienceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setSelectedExperience(value);
+    
+    if (onExperienceSelect) {
+      onExperienceSelect(value);
     }
   };
 
@@ -65,9 +83,7 @@ export function Hero2({ onCountrySelect }: Hero2Props) {
               <select
                 className="block w-full px-4 py-2 bg-transparent border border-social-pink text-white rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-social-pink focus:border-social-pink"
                 value={selectedExperience}
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                  setSelectedExperience(e.target.value)
-                }
+                onChange={handleExperienceChange}
               >
                 <option value="" disabled>
                   Select Experience
