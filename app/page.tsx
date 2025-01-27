@@ -1,4 +1,3 @@
-// page-scroll.tsx
 "use client";
 import { Footer } from "@/components/Footer";
 import { GridWrapper } from "@/components/grid-wrapper";
@@ -8,7 +7,7 @@ import { Hero3 } from "@/components/hero3";
 import { Hero4 } from "@/components/hero4";
 import { Hero5 } from "@/components/hero5";
 import { Navbar } from "@/components/navbar";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 
 interface Section {
   id: number;
@@ -21,9 +20,12 @@ const PageScroll: React.FC = () => {
   const [touchStart, setTouchStart] = useState<number>(0);
   const [renderHero3, setRenderHero3] = useState<boolean>(false);
   const [selectedExperience, setSelectedExperience] = useState<string>("");
+  const [selectedCountry, setSelectedCountry] = useState<string>("");
+  const [selectedJobRole, setSelectedJobRole] = useState<string>("");
+  const [validationTriggered, setValidationTriggered] = useState<boolean>(false);
 
   // Memoized sections array
-  const sections: Section[] = React.useMemo(() => [
+  const sections: Section[] = useMemo(() => [
     { id: 0, Component: Hero },
     { id: 1, Component: Hero2 },
     { id: 2, Component: renderHero3 ? Hero3 : Hero4 },
@@ -33,6 +35,7 @@ const PageScroll: React.FC = () => {
   // Memoized scroll handler
   const handleScroll = useCallback((e: WheelEvent | TouchEvent): void => {
     if (isScrolling) return;
+
     let direction: number;
     if (e instanceof WheelEvent) {
       direction = e.deltaY > 0 ? 1 : -1;
@@ -43,13 +46,26 @@ const PageScroll: React.FC = () => {
     } else {
       return;
     }
+
     const newSection = activeSection + direction;
+
+    // Validate if all fields are selected before proceeding to section 2 or 3
+    if ((newSection === 2 || newSection === 3) && !(
+      selectedCountry && selectedExperience && selectedJobRole
+    )) {
+      setValidationTriggered(true);
+      alert("Please select all fields before proceeding.");
+      return;
+    } else {
+      setValidationTriggered(false);
+    }
+
     if (newSection >= 0 && newSection < sections.length) {
       setIsScrolling(true);
       setActiveSection(newSection);
       setTimeout(() => setIsScrolling(false), 1000);
     }
-  }, [isScrolling, touchStart, activeSection, sections]);
+  }, [isScrolling, touchStart, activeSection, sections, selectedCountry, selectedExperience, selectedJobRole, validationTriggered]);
 
   const handleTouchStart = useCallback((e: TouchEvent) => {
     const touchStartPosition = e.changedTouches[0].clientY;
@@ -61,6 +77,7 @@ const PageScroll: React.FC = () => {
   }, [handleScroll]);
 
   const handleCountrySelect = useCallback((country: string) => {
+    setSelectedCountry(country);
     if (country === "India") {
       setRenderHero3(true);
     } else {
@@ -72,11 +89,14 @@ const PageScroll: React.FC = () => {
     setSelectedExperience(experience);
   }, []);
 
+  const handleJobRoleSelect = useCallback((jobRole: string) => {
+    setSelectedJobRole(jobRole);
+  }, []);
+
   useEffect(() => {
     window.addEventListener("wheel", handleScroll as any, { passive: false });
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
     window.addEventListener("touchmove", handleTouchMove as any, { passive: true });
-
     return () => {
       window.removeEventListener("wheel", handleScroll as any);
       window.removeEventListener("touchstart", handleTouchStart);
@@ -106,7 +126,9 @@ const PageScroll: React.FC = () => {
           <Component 
             onCountrySelect={id === 1 ? handleCountrySelect : undefined} 
             onExperienceSelect={id === 1 ? handleExperienceSelect : undefined}
+            onJobRoleSelect={id === 1 ? handleJobRoleSelect : undefined}
             selectedExperience={id === 3 ? selectedExperience : undefined}
+            validationTriggered={id === 1 ? validationTriggered : false}
           />
         </div>
       ))}
