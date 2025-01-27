@@ -31,7 +31,7 @@ export function Hero3() {
             How we help!!
 
           </motion.h1>
-          <CheckBadge />
+   
         </div>
         <motion.div
           className="space-y-4 mt-10"
