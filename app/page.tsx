@@ -6,6 +6,7 @@ import { Hero } from "@/components/hero";
 import { Hero2 } from "@/components/hero2";
 import { Hero3 } from "@/components/hero3";
 import { Hero4 } from "@/components/hero4";
+import { Hero5 } from "@/components/hero5";
 import { Navbar } from "@/components/navbar";
 import React, { useState, useEffect } from "react";
 
@@ -24,6 +25,7 @@ const PageScroll: React.FC = () => {
     { id: 0, Component: Hero },
     { id: 1, Component: Hero2 },
     { id: 2, Component: renderHero3 ? Hero4 : Hero3 },
+    { id: 3, Component: Hero5 },
   ];
 
   const handleScroll = (e: WheelEvent | TouchEvent): void => {

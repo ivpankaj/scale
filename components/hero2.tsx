@@ -15,7 +15,7 @@ export function Hero2({ onCountrySelect }: Hero2Props) {
   const [selectedExperience, setSelectedExperience] = useState<string>("");
   const [selectedJobRole, setSelectedJobRole] = useState<string>("");
   const countries = ["USA", "Canada", "India", "Germany", "Australia"];
-  const experiences = ["0-2 years", "2-5 years", "5-10 years", "10+ years"];
+  const experiences = ["0 - less than 1", "1 - less than 2", "2 - less than 4", "4 - less than 7","7 - less than 10","10 - less than 15","15 plus"];
   const jobRoles = ["Developer", "Designer", "Manager", "Tester", "Data Analyst"];
 
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
