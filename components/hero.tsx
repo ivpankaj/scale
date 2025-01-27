@@ -20,9 +20,9 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
           className="text-6xl md:text-8xl font-bold mb-6 text-gradient"
         >
-          One Stop
+          Find Next
           <br />
-          Solution
+          Job Here !
         </motion.h1>
         {/* Subheading */}
         <motion.h2
@@ -31,9 +31,9 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
           className="text-2xl md:text-3xl text-gray-400 mb-4"
         >
-          For All Your Influencer
+          Mployee.me job search
           <br />
-          Marketing Needs.
+          assist you
         </motion.h2>
         {/* Description */}
         <motion.p
@@ -42,9 +42,9 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
           className="text-gray-500 text-lg md:text-xl mb-8"
         >
-          We help brands with Strategy Led Influencer
+          till you find           The Job
           <br />
-          Marketing Campaigns.
+
         </motion.p>
       </motion.div>
 
