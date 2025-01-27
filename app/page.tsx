@@ -28,7 +28,7 @@ const PageScroll: React.FC = () => {
   const sections: Section[] = useMemo(() => [
     { id: 0, Component: Hero },
     { id: 1, Component: Hero2 },
-    { id: 2, Component: renderHero3 ? Hero3 : Hero4 },
+    { id: 2, Component: renderHero3 ? Hero4 : Hero3 },
     { id: 3, Component: Hero5 },
   ], [renderHero3]);
 
