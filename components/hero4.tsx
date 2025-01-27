@@ -6,11 +6,13 @@ import { ServiceButton } from "./service-button"
 import { CheckBadge } from "./check-badge"
 import { AnimatedSection } from "./Animated"
 
-export function Hero3() {
+export function Hero4() {
   const services = [
+    "5 Jobs Daily till you get a job",
     "Resume for Each Job (Total 100 Downloadable Resume)",
     "Master Resume with 80% ATS Score on Naukri.com",
   ]
+
   return (
  <AnimatedSection>
      <div className="min-h-screen  flex flex-col items-center justify-center relative px-4">

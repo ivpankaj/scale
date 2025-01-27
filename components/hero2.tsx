@@ -1,19 +1,25 @@
 "use client";
-
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { FloatingIcons } from "./floating-icons";
 import { AnimatedSection } from "./Animated";
 import { useState } from "react";
 
-export function Hero2() {
+export function Hero2({ onCountrySelect }:any) {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedExperience, setSelectedExperience] = useState("");
   const [selectedJobRole, setSelectedJobRole] = useState("");
-
   const countries = ["USA", "Canada", "India", "Germany", "Australia"];
   const experiences = ["0-2 years", "2-5 years", "5-10 years", "10+ years"];
   const jobRoles = ["Developer", "Designer", "Manager", "Tester", "Data Analyst"];
+
+  const handleCountryChange = (e:any) => {
+    const value = e.target.value;
+    setSelectedCountry(value);
+    if (onCountrySelect) {
+      onCountrySelect(value);
+    }
+  };
 
   return (
     <AnimatedSection>
@@ -33,13 +39,12 @@ export function Hero2() {
               <br />
             </span>
           </h1>
-
           <div className="space-y-4 mt-8">
             <div className="relative">
               <select
                 className="block w-full px-4 py-2 bg-transparent border border-social-pink text-white rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-social-pink focus:border-social-pink z-10"
                 value={selectedCountry}
-                onChange={(e) => setSelectedCountry(e.target.value)}
+                onChange={handleCountryChange}
               >
                 <option value="" disabled>
                   Select Country
