@@ -1,20 +1,8 @@
 "use client";
 import { useRef, useEffect, useState } from "react";
-import styles from "./Slide.module.css"; // Import CSS module for scoped styling
 import { Play } from "lucide-react";
-
-interface SlideData {
-  title: string;
-  button: string;
-  src: string;
-  youtubeUrl: string;
-}
-interface SlideProps {
-  slide: SlideData;
-  index: number;
-  current: number;
-  handleSlideClick: (index: number) => void;
-}
+import Popup from "./Popup"; // Import the Popup component
+import { SlideProps } from "./type";
 
 const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -57,21 +45,13 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
     event.currentTarget.style.opacity = "1";
   };
 
-  const handleButtonClick = () => {
-    setIsPopupOpen(true);
-  };
-
-  const closePopup = () => {
-    setIsPopupOpen(false);
-  };
-
   const { src, button, title, youtubeUrl } = slide;
 
   return (
     <div className="[perspective:1200px] [transform-style:preserve-3d]">
       <li
         ref={slideRef}
-        className="flex flex-1 flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out w-[70vmin] h-[70vmin] mx-[4vmin] z-10"
+        className="flex flex-1 flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out w-[70vmin] h-[100vmin] mx-[4vmin] z-10"
         onClick={() => handleSlideClick(index)}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -119,35 +99,21 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
           <div className="flex justify-center items-center">
             <button
               className="p-2 mx-auto sm:text-sm text-black bg-[#ff9800] text-lg flex justify-center items-center rounded-xl transition duration-200"
-              onClick={handleButtonClick}
+              onClick={() => setIsPopupOpen(true)}
             >
-             <span className="mr-2"><Play/></span> {button}
+              <span className="mr-2">
+                <Play />
+              </span>{" "}
+              {button}
             </button>
           </div>
         </article>
       </li>
-      {isPopupOpen && (
-        <div className={`${styles.popupBackground} fixed top-0 left-0 w-full h-[400px] bg-black/50 flex items-center justify-center z-10`}>
-          <div className={`${styles.popupContainer} ${styles.popupAnimation} rounded-3xl max-w-[80vw] max-h-screen overflow-hidden relative mt-5`}>
-            <button
-              className="absolute top-1 right-3 text-[45px] font-bold text-[#ff9800]"
-              onClick={closePopup}
-            >
-              &times;
-            </button>
-            <iframe
-              width="100%"
-              className="rounded-2xl"
-              height="500vh"
-              src={youtubeUrl}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
-        </div>
-      )}
+      <Popup
+        isOpen={isPopupOpen}
+        youtubeUrl={youtubeUrl}
+        onClose={() => setIsPopupOpen(false)}
+      />
     </div>
   );
 };

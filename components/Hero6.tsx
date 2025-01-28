@@ -33,7 +33,6 @@ export function Hero6() {
 
   return (
     <div className="relative overflow-hidden w-full h-full py-52 md:py-20">
-
       <Carousel slides={slideData} />
     </div>
   );
