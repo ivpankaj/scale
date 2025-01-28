@@ -111,7 +111,7 @@ const PageScroll: React.FC = () => {
       {sections.map(({ id, Component }) => (
         <div
           key={`section-${id}-${sectionKey}`}
-          className={`absolute top-0 left-0 w-full h-screen flex justify-center items-center transition-all duration-1000 ease-out-cubic ${
+          className={`absolute top-0 left-0 w-full flex justify-center items-center transition-all duration-1000 ease-out-cubic ${
             id === activeSection
               ? "scale-100 opacity-100"
               : "scale-50 opacity-0"
