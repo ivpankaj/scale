@@ -1,0 +1,12 @@
+.flag {
+    position: absolute;
+    background-color: black;
+    left: 10px;
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+  }
+  
+  .customDropdown {
+    padding-left: 40px; /* Adjust based on flag size */
+  }

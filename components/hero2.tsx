@@ -1,3 +1,4 @@
+// Hero2.tsx
 "use client";
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
@@ -5,27 +6,19 @@ import { FloatingIcons } from "./floating-icons";
 import { AnimatedSection } from "./Animated";
 import React from "react";
 import { countries, experiences, jobRoles } from "@/lib/data";
+import { Dropdown } from "./hero2 component/Dropdown";
+import { Hero2Props } from "./hero2 component/type";
 
-export interface Hero2Props {
-  onCountrySelect: (country: string) => void;
-  onExperienceSelect: (experience: string) => void;
-  onJobRoleSelect: (jobRole: string) => void;
-  validationTriggered: boolean;
-  selectedCountry: string;
-  selectedExperience: string;
-  selectedJobRole: string;
-}
-
-export function Hero2({ 
-  onCountrySelect, 
-  onExperienceSelect, 
-  onJobRoleSelect, 
+export function Hero2({
+  onCountrySelect,
+  onExperienceSelect,
+  onJobRoleSelect,
   validationTriggered,
   selectedCountry,
   selectedExperience,
-  selectedJobRole 
-}: Hero2Props) {
-  
+  selectedJobRole,
+  onPhoneNumberChange, // Add this prop for handling phone number change
+}: Hero2Props & { onPhoneNumberChange: (phoneNumber: string) => void }) {
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     if (onCountrySelect) {
@@ -47,10 +40,6 @@ export function Hero2({
     }
   };
 
-  const getBorderColor = (value: string) => {
-    return value || !validationTriggered ? 'border-white' : 'border-[#ff9800]';
-  };
-
   return (
     <AnimatedSection>
       <div className="min-h-screen flex flex-col items-center justify-center relative px-6 md:px-10 lg:px-16">
@@ -69,55 +58,50 @@ export function Hero2({
               <br />
             </span>
           </h1>
-          <div className="space-y-4 mt-8">
-            <div className="relative">
-              <select
-                className={`block w-full px-4 py-2 border bg-transparent ${getBorderColor(selectedCountry)} text-white rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-social-pink focus:border-social-pink z-10`}
-                value={selectedCountry}
-                onChange={handleCountryChange}
-              >
-                <option value="" disabled>
-                  Select Country
-                </option>
-                {countries.map((country) => (
-                  <option key={country} value={country} className="text-black">
-                    {country}
-                  </option>
-                ))}
-              </select>
+          <div className="space-y-4 mt-8 bg-black">
+            <div className="flex ">
+              <input
+                className={`block w-16 mr-2 px-4 py-2 border bg-transparent text-white rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-social-pink focus:border-social-pink appearance-none`}
+                type="text"
+                placeholder="+91"
+              />
+              <input
+                className={`block w-full px-4 py-2 border bg-transparent text-white rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-social-pink focus:border-social-pink appearance-none`}
+                type="text"
+                placeholder="Enter Your Number"
+                maxLength={10} // Restrict to 10 characters
+                onChange={(e) => {
+                  const value = e.target.value.replace(/[^0-9]/g, ""); // Allow only numbers
+                  e.target.value = value;
+                }}
+                onBlur={(e) => {
+                  if (e.target.value.length !== 10) {
+                    alert("Please enter exactly 10 digits!");
+                  }
+                }}
+              />
             </div>
-            <div className="relative">
-              <select
-                className={`block w-full px-4 py-2 border bg-transparent ${getBorderColor(selectedExperience)} text-white rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-social-pink focus:border-social-pink`}
-                value={selectedExperience}
-                onChange={handleExperienceChange}
-              >
-                <option value="" disabled>
-                  Select Experience
-                </option>
-                {experiences.map((experience) => (
-                  <option key={experience} value={experience} className="text-black">
-                    {experience}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="relative">
-              <select
-                className={`block w-full px-4 py-2 border bg-transparent ${getBorderColor(selectedJobRole)} text-white rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-social-pink focus:border-social-pink`}
-                value={selectedJobRole}
-                onChange={handleJobRoleChange}
-              >
-                <option value="" disabled>
-                  Select Job Role
-                </option>
-                {jobRoles.map((jobRole) => (
-                  <option key={jobRole} value={jobRole} className="text-black">
-                    {jobRole}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Dropdown
+              value={selectedCountry}
+              onChange={handleCountryChange}
+              options={countries}
+              placeholder="Select Country"
+              validationTriggered={validationTriggered}
+            />
+            <Dropdown
+              value={selectedExperience}
+              onChange={handleExperienceChange}
+              options={experiences}
+              placeholder="Select Experience"
+              validationTriggered={validationTriggered}
+            />
+            <Dropdown
+              value={selectedJobRole}
+              onChange={handleJobRoleChange}
+              options={jobRoles}
+              placeholder="Select Job Role"
+              validationTriggered={validationTriggered}
+            />
           </div>
         </motion.div>
         <motion.div
