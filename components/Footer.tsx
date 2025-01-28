@@ -12,7 +12,7 @@ export function Footer() {
           whileTap={{ scale: 0.95 }}
           className="border-2 border-[#ff9800] text-[#ff9800] border-dashed hover:bg-[#ff9800]  hover:text-black px-4 py-3 rounded-lg text-2xl font-bold hover:bg-social-pink/10 transition-colors"
         >
-          Let&apos;s Talk
+          No More
         </motion.button>
       </div>
     </nav>

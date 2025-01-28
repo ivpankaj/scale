@@ -7,6 +7,7 @@ import { ServiceButton } from "./service-button";
 import { CheckBadge } from "./check-badge";
 import { AnimatedSection } from "./Animated";
 import React from "react";
+import { Footer } from "./Footer";
 
 interface Hero5Props {
   selectedExperience: string; // Experience string to map price
@@ -29,7 +30,8 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience }) => {
     prices[selectedExperience] || "Price : Rs. 999 - Rs. 4499/-";
 
   return (
-    <AnimatedSection>
+    <>
+        <AnimatedSection>
       <div className="min-h-screen flex flex-col items-center justify-center relative px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -91,7 +93,12 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience }) => {
         >
           <ArrowDown className="w-8 h-8 text-social-pink" />
         </motion.div>
+   
       </div>
+   
     </AnimatedSection>
+       <Footer/>
+    </>
+
   );
 };
