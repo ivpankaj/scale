@@ -5,7 +5,7 @@ import { ArrowDown } from "lucide-react";
 
 export function Hero() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative px-4">
+    <div className="min-h-[90vh] flex flex-col items-center justify-center relative px-4">
       {/* Animated Content Container */}
       <motion.div
         initial={{ opacity: 0, y: -50 }} // Start slightly above

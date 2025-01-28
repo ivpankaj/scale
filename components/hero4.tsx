@@ -49,7 +49,7 @@ export function Hero4() {
             >
               How we help!!
             </motion.h1>
-            <CheckBadge />
+         
           </div>
           <motion.div
             className="space-y-4 mt-10"

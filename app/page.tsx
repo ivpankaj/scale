@@ -115,7 +115,7 @@ const PageScroll: React.FC = () => {
   }, [handleScroll, handleTouchStart, handleTouchMove]);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full h-[90vh] overflow-hidden">
       <GridWrapper />
       <nav className="fixed top-0 left-0 w-full z-50">
         <Navbar />
