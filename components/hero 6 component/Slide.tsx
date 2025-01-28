@@ -84,7 +84,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
         }}
       >
         <div
-          className="absolute top-0 left-0 w-full h-full bg-[#1D1F2F] rounded-3xl overflow-hidden transition-all duration-150 ease-out"
+          className="absolute top-0 left-0 w-full h-[500px] bg-[#1D1F2F] rounded-3xl overflow-hidden transition-all duration-150 ease-out"
           style={{
             transform:
               current === index
@@ -93,7 +93,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
           }}
         >
           <img
-            className="absolute inset-0 w-[120%] h-[120%] object-cover opacity-100 transition-opacity duration-600 ease-in-out rounded-3xl"
+            className="absolute inset-0 w-[120%] h-[500px] object-cover opacity-100 transition-opacity duration-600 ease-in-out rounded-3xl"
             style={{
               opacity: current === index ? 1 : 0.5,
             }}
@@ -104,20 +104,20 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
             decoding="sync"
           />
           {current === index && (
-            <div className="absolute inset-0 bg-black/30 transition-all duration-1000 rounded-3xl" />
+            <div className="absolute inset-0 bg-black/30 transition-all duration-1000 rounded-3xl h-[500px]" />
           )}
         </div>
         <article
-          className={`relative p-[4vmin] transition-opacity duration-1000 ease-in-out ${
+          className={`relative p-[4vmin] transition-opacity duration-1000 ease-in-out flex flex-col justify-center items-center ${
             current === index ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
         >
-          <h2 className="text-lg md:text-2xl lg:text-4xl font-semibold relative bottom-0">
+          <h2 className="text-lg md:text-2xl lg:text-4xl font-semibold relative mt-44">
             {title}
           </h2>
-          <div className="flex justify-center">
+          <div className="flex justify-center items-center">
             <button
-              className="mt-6 px-4 py-2 w-fit mx-auto sm:text-sm text-black bg-white h-12 border border-transparent text-xs flex justify-center items-center rounded-2xl hover:shadow-lg transition duration-200 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
+              className="mt-10 px-4 py-2 w-fit mx-auto sm:text-sm text-black bg-white h-12 border border-transparent text-xs flex justify-center items-center rounded-2xl hover:shadow-lg transition duration-200 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
               onClick={handleButtonClick}
             >
               {button}
@@ -126,8 +126,8 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
         </article>
       </li>
       {isPopupOpen && (
-        <div className={`${styles.popupBackground} fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50`}>
-          <div className={`${styles.popupContainer} ${styles.popupAnimation} bg-white p-1 rounded-xl max-w-[80vw] max-h-screen overflow-hidden relative mt-5`}>
+        <div className={`${styles.popupBackground} fixed top-0 left-0 w-full h-[400px] bg-black/50 flex items-center justify-center z-10`}>
+          <div className={`${styles.popupContainer} ${styles.popupAnimation} rounded-3xl max-w-[80vw] max-h-screen overflow-hidden relative mt-5`}>
             <button
               className="absolute top-1 right-3 text-[45px] font-bold text-[#ff9800]"
               onClick={closePopup}
@@ -137,7 +137,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
             <iframe
               width="100%"
               className="rounded-2xl"
-              height="600vh"
+              height="500vh"
               src={youtubeUrl}
               title="YouTube video player"
               frameBorder="0"
