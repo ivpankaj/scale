@@ -17,7 +17,7 @@ interface Section {
 const PageScroll: React.FC = () => {
   const [activeSection, setActiveSection] = useState<number>(0);
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
-  const [touchStart, setTouchStart] = useState<number>(0);
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
   const [renderHero3, setRenderHero3] = useState<boolean>(false);
   const [selectedExperience, setSelectedExperience] = useState<string>("");
   const [selectedCountry, setSelectedCountry] = useState<string>("");
@@ -41,14 +41,13 @@ const PageScroll: React.FC = () => {
       direction = e.deltaY > 0 ? 1 : -1;
     } else if (e instanceof TouchEvent) {
       const touchEnd = e.changedTouches[0]?.clientY;
-      if (!touchEnd || touchStart === 0) return;
-      direction = touchEnd - touchStart > 0 ? -1 : 1;
+      if (!touchEnd || !touchStart || touchStart.y === 0) return;
+      direction = touchEnd - touchStart.y > 0 ? -1 : 1;
     } else {
       return;
     }
 
     const newSection = activeSection + direction;
-
     if ((newSection === 2 || newSection === 3) && !(
       selectedCountry && selectedExperience && selectedJobRole
     )) {
@@ -68,13 +67,24 @@ const PageScroll: React.FC = () => {
   }, [isScrolling, touchStart, activeSection, sections, selectedCountry, selectedExperience, selectedJobRole, validationTriggered]);
 
   const handleTouchStart = useCallback((e: TouchEvent) => {
-    const touchStartPosition = e.changedTouches[0].clientY;
-    setTouchStart(touchStartPosition);
+    const touchStartPosition = e.changedTouches[0];
+    setTouchStart({ x: touchStartPosition.clientX, y: touchStartPosition.clientY });
   }, []);
 
   const handleTouchMove = useCallback((e: TouchEvent) => {
-    handleScroll(e);
-  }, [handleScroll]);
+    if (!touchStart) return;
+
+    const touchEnd = e.changedTouches[0];
+    const deltaX = touchEnd.clientX - touchStart.x;
+    const deltaY = touchEnd.clientY - touchStart.y;
+
+    // Only consider the touch event if it's more vertical than horizontal
+    if (Math.abs(deltaY) > Math.abs(deltaX)) {
+      handleScroll(e);
+    }
+
+    setTouchStart({ x: touchEnd.clientX, y: touchEnd.clientY });
+  }, [touchStart, handleScroll]);
 
   const handleCountrySelect = useCallback((country: string) => {
     setSelectedCountry(country);
@@ -120,7 +130,7 @@ const PageScroll: React.FC = () => {
           }`}
           style={{
             visibility: id === activeSection ? "visible" : "hidden",
-            transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)", 
+            transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         >
           {id === activeSection && (
