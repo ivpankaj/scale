@@ -27,8 +27,9 @@ export function Hero6() {
     },
   ];
   return (
-    <div className="relative overflow-hidden w-full h-full py-20 md:mt-0 sm:mt-40">
-      <Carousel slides={slideData} />
-    </div>
+<div className="relative overflow-hidden w-full h-full py-64 md:py-20">
+  <Carousel slides={slideData} />
+</div>
+
   );
 }
