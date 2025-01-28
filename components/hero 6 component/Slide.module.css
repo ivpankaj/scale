@@ -1,0 +1,25 @@
+.popupBackground {
+    /* Ensure background covers the whole viewport */
+    backdrop-filter: blur(2px);
+  }
+  
+  .popupContainer {
+    /* Initial scale and perspective */
+    transform: scale(0.5);
+    transform-origin: center;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .popupAnimation {
+    /* Apply the animation to scale up the popup */
+    animation: popupZoomIn 0.5s ease-in-out forwards;
+  }
+  
+  @keyframes popupZoomIn {
+    from {
+      transform: scale(0.5);
+    }
+    to {
+      transform: scale(1);
+    }
+  }

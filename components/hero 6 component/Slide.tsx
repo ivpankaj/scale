@@ -1,13 +1,13 @@
 "use client";
 import { useRef, useEffect, useState } from "react";
+import styles from "./Slide.module.css"; // Import CSS module for scoped styling
 
 interface SlideData {
   title: string;
   button: string;
   src: string;
-  youtubeUrl: string; // Add a field for the YouTube URL
+  youtubeUrl: string;
 }
-
 interface SlideProps {
   slide: SlideData;
   index: number;
@@ -125,19 +125,18 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
           </div>
         </article>
       </li>
-
-      {/* Popup */}
       {isPopupOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white p-2 rounded-lg max-w-[80vw] max-h-screen overflow-hidden relative">
+        <div className={`${styles.popupBackground} fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50`}>
+          <div className={`${styles.popupContainer} ${styles.popupAnimation} bg-white p-1 rounded-xl max-w-[80vw] max-h-screen overflow-hidden relative mt-5`}>
             <button
-              className="absolute top-4 right-4 text-3xl font-bold text-[#ff9800]"
+              className="absolute top-1 right-3 text-[45px] font-bold text-[#ff9800]"
               onClick={closePopup}
             >
               &times;
             </button>
             <iframe
               width="100%"
+              className="rounded-2xl"
               height="600vh"
               src={youtubeUrl}
               title="YouTube video player"
