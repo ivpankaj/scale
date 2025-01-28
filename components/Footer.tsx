@@ -11,9 +11,9 @@ export function Footer() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="border-2 border-[#ff9800] text-[#ff9800] border-dashed hover:bg-[#ff9800]  hover:text-black px-4 py-3 rounded-lg text-2xl font-bold hover:bg-social-pink/10 transition-colors"
+              className="border-2 border-[#ff9800] text-[#ff9800] border-dashed hover:bg-[#ff9800]  hover:text-black px-4 py-3 rounded-lg md:text-2xl sm:text-lg font-bold hover:bg-social-pink/10 transition-colors"
             >
-              No More
+             Quick Guide
             </motion.button>
           </div>
         </nav>{" "}
@@ -22,9 +22,9 @@ export function Footer() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="border-2 border-[#ff9800] text-[#ff9800] border-dashed hover:bg-[#ff9800]  hover:text-black px-4 py-3 rounded-lg text-2xl font-bold hover:bg-social-pink/10 transition-colors"
+              className="border-2 border-[#ff9800] text-[#ff9800] border-dashed hover:bg-[#ff9800]  hover:text-black px-4 py-3 rounded-lg md:text-2xl sm:text-lg font-bold hover:bg-social-pink/10 transition-colors"
             >
-              Quick Guide
+             Know More
             </motion.button>
           </div>
         </nav>

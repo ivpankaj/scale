@@ -73,7 +73,7 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            <button className="md:w-[300px] sm:w-[100px] bg-[#ff9800] backdrop-blur-sm border border-gray-600 rounded-xl p-4 text-lg text-white transition-colors">
+            <button className="md:w-[300px] sm:w-[100px] bg-[#ff9800] backdrop-blur-sm border border-gray-600 rounded-xl p-4 text-lg text-black font-semibold transition-colors">
               Get Rs 200 Discount
             </button>
           </motion.div>
@@ -91,7 +91,7 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience }) => {
           }}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
         >
-          <ArrowDown className="w-8 h-8 text-social-pink" />
+
         </motion.div>
    
       </div>

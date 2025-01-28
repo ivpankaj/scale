@@ -1,26 +1,43 @@
-"use client";
-import { motion } from "framer-motion";
+import React, { ReactNode } from 'react';
+import { motion } from 'framer-motion';
 
-interface ServiceButtonProps {
-  children: React.ReactNode;
-  onClick?: () => void; // Make onClick optional
+interface ServiceButton2Props {
+  children: ReactNode;
+  onClick: () => void;
   expanded: boolean;
-  staticData?: React.ReactNode; // Optional static data to show when expanded
+  staticData: ReactNode;
+  toggleButtonText: string;
 }
 
-export function ServiceButton2({ children, onClick, expanded, staticData }: ServiceButtonProps) {
+const ServiceButton2: React.FC<ServiceButton2Props> = ({
+  children,
+  onClick,
+  expanded,
+  staticData,
+  toggleButtonText,
+}) => {
   return (
-    <motion.button
-      onClick={onClick}
-      className={`w-full bg-[#202020] backdrop-blur-sm border border-gray-600 rounded-lg p-4 text-lg text-white transition-colors ${
-        expanded ? "h-20" : "h-16"
-      }`}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      animate={{ height: expanded ? "9rem" : "5rem" }} // Adjust these values as needed
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-    >
-      {expanded && staticData ? staticData : children}
-    </motion.button>
+    <div className="relative group w-full max-w-lg mx-auto">
+      <button
+        onClick={onClick}
+        className="flex items-center justify-between w-full p-4 bg-[#202020] rounded-lg transition-colors"
+      >
+        <span>{children}</span>
+        <span>{toggleButtonText}</span>
+      </button>
+      {expanded && (
+        <motion.div
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 'auto', opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.1 }}
+          className="p-4 bg-[#202020] border border-gray-200 rounded-lg"
+        >
+          {staticData}
+        </motion.div>
+      )}
+    </div>
   );
-}
+};
+
+export default ServiceButton2;

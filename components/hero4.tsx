@@ -1,10 +1,11 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { useState } from "react";
 import { CheckBadge } from "./check-badge";
 import { AnimatedSection } from "./Animated";
-import { ServiceButton2} from "./service-button2"; // Assuming you have a ServiceButton2Props type
+import ServiceButton2 from "./service-button2";
+
 
 export function Hero4() {
   const services = [
@@ -13,7 +14,12 @@ export function Hero4() {
     "Master Resume with 80% ATS Score on Naukri.com",
   ];
 
-  // State to keep track of which buttons are expanded
+  const staticData = [
+    "We provide 5 job listings daily until you secure a position.",
+    "You can download up to 100 resumes tailored to specific jobs.",
+    "Receive a master resume optimized for an 80% ATS score on Naukri.com."
+  ];
+
   const [expandedIndices, setExpandedIndices] = useState<number[]>([]);
 
   const toggleExpand = (index: number) => {
@@ -61,7 +67,8 @@ export function Hero4() {
                 <ServiceButton2
                   onClick={() => toggleExpand(index)}
                   expanded={expandedIndices.includes(index)}
-                  staticData={<span>Static Data Shown When Expanded</span>}
+                  staticData={<span>{staticData[index]}</span>}
+                  toggleButtonText={expandedIndices.includes(index) ? "-" : "+"}
                 >
                   {service}
                 </ServiceButton2>
@@ -85,12 +92,4 @@ export function Hero4() {
       </div>
     </AnimatedSection>
   );
-}
-
-// Define the ServiceButton2Props interface if not already defined
-interface ServiceButton2Props {
-  onClick: () => void;
-  expanded: boolean;
-  staticData: JSX.Element;
-  children: string;
 }
