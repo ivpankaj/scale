@@ -17,7 +17,7 @@ export function ServiceButton2({ children, onClick, expanded, staticData }: Serv
       }`}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      animate={{ height: expanded ? "9rem" : "" }} // Adjust these values as needed
+      animate={{ height: expanded ? "9rem" : "5rem" }} // Adjust these values as needed
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       {expanded && staticData ? staticData : children}

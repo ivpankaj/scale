@@ -1,13 +1,14 @@
-// Hero2.tsx
 "use client";
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { FloatingIcons } from "./floating-icons";
 import { AnimatedSection } from "./Animated";
-import React from "react";
+import React, { useState } from "react";
 import { countries, experiences, jobRoles } from "@/lib/data";
 import { Dropdown } from "./hero2 component/Dropdown";
 import { Hero2Props } from "./hero2 component/type";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 export function Hero2({
   onCountrySelect,
@@ -17,8 +18,11 @@ export function Hero2({
   selectedCountry,
   selectedExperience,
   selectedJobRole,
-  onPhoneNumberChange, // Add this prop for handling phone number change
-}: Hero2Props & { onPhoneNumberChange: (phoneNumber: string) => void }) {
+  onPhoneNumberChange,
+}: Hero2Props & { onPhoneNumberChange?: (phoneNumber: string) => void }) {  // Made onPhoneNumberChange optional
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [isPhoneNumberValid, setIsPhoneNumberValid] = useState<boolean>(true);
+
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     if (onCountrySelect) {
@@ -40,6 +44,26 @@ export function Hero2({
     }
   };
 
+  const handlePhoneNumberChange = (value: string) => {
+    setPhoneNumber(value);
+    const digitsOnly = value.replace(/\D/g, "");
+    if (digitsOnly.length >= 10) {
+      setIsPhoneNumberValid(true);
+      // Only call onPhoneNumberChange if it exists
+      if (onPhoneNumberChange) {
+        onPhoneNumberChange(digitsOnly);
+      }
+    } else {
+      setIsPhoneNumberValid(false);
+    }
+  };
+
+  React.useEffect(() => {
+    if (validationTriggered && phoneNumber.replace(/\D/g, "").length < 10) {
+      setIsPhoneNumberValid(false);
+    }
+  }, [validationTriggered, phoneNumber]);
+
   return (
     <AnimatedSection>
       <div className="min-h-screen flex flex-col items-center justify-center relative px-6 md:px-10 lg:px-16">
@@ -59,28 +83,81 @@ export function Hero2({
             </span>
           </h1>
           <div className="space-y-4 mt-8 bg-black">
-            <div className="flex ">
-              <input
-                className={`block w-16 mr-2 px-4 py-2 border bg-transparent text-white rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-social-pink focus:border-social-pink appearance-none`}
-                type="text"
-                placeholder="+91"
-              />
-              <input
-                className={`block w-full px-4 py-2 border bg-transparent text-white rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-social-pink focus:border-social-pink appearance-none`}
-                type="text"
-                placeholder="Enter Your Number"
-                maxLength={10} // Restrict to 10 characters
-                onChange={(e) => {
-                  const value = e.target.value.replace(/[^0-9]/g, ""); // Allow only numbers
-                  e.target.value = value;
+            <div className="phone-input-container">
+              <style jsx global>{`
+                .phone-input-container .react-tel-input .form-control {
+                  width: 100%;
+                  height: 42px;
+                  background-color: transparent !important;
+                  border: 1px solid ${!isPhoneNumberValid && validationTriggered ? "#ff9800" : "#ffffff"};
+                  color: white;
+                  border-radius: 0.375rem;
+                  padding-left: 48px;
+                }
+                
+                .phone-input-container .react-tel-input .flag-dropdown {
+                  background-color: transparent;
+                  border: none;
+                  border-right: 1px solid ${!isPhoneNumberValid && validationTriggered ? "#ff9800" : "#ffffff"};
+                }
+                
+                .phone-input-container .react-tel-input .selected-flag:hover,
+                .phone-input-container .react-tel-input .selected-flag:focus,
+                .phone-input-container .react-tel-input .selected-flag.open {
+                  background-color: transparent;
+                }
+                
+                .phone-input-container .react-tel-input .country-list {
+                  background-color: #1a1a1a;
+                  color: white;
+                  border: 1px solid #333;
+                }
+                
+                .phone-input-container .react-tel-input .country-list .country:hover {
+                  background-color: #333;
+                }
+                
+                .phone-input-container .react-tel-input .country-list .country.highlight {
+                  background-color: #333;
+                }
+                
+                .phone-input-container .react-tel-input .form-control:focus {
+                  outline: none;
+                  box-shadow: 0 0 0 2px #ff9800;
+                  border-color: #ff9800;
+                }
+                
+                .phone-input-container .react-tel-input .country-list .search {
+                  background-color: #1a1a1a;
+                  border: 1px solid #333;
+                }
+                
+                .phone-input-container .react-tel-input .country-list .search-box {
+                  background-color: transparent;
+                  color: white;
+                }
+              `}</style>
+              <PhoneInput
+                country="in"
+                value={phoneNumber}
+                onChange={handlePhoneNumberChange}
+                inputProps={{
+                  maxLength: 16,
+                  onBlur: (e: React.FocusEvent<HTMLInputElement>) => {
+                    if (e.target.value.replace(/\D/g, "").length < 10) {
+                   
+                    }
+                  },
                 }}
-                onBlur={(e) => {
-                  if (e.target.value.length !== 10) {
-                    alert("Please enter exactly 10 digits!");
-                  }
-                }}
+                enableSearch
+                searchPlaceholder="Search countries..."
+                containerClass="phone-input-container"
               />
+              {!isPhoneNumberValid && validationTriggered && (
+                <p className="text-[#ff9800] mt-1"></p>
+              )}
             </div>
+
             <Dropdown
               value={selectedCountry}
               onChange={handleCountryChange}
@@ -115,7 +192,7 @@ export function Hero2({
           }}
           className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2"
         >
-          <ArrowDown className="w-6 h-6 sm:w-8 sm:h-8 text-social-pink" />
+          <ArrowDown className="w-6 h-6 sm:w-8 sm:h-8 text-[#ff9800]" />
         </motion.div>
       </div>
     </AnimatedSection>
