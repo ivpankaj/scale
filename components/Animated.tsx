@@ -7,7 +7,7 @@ export function AnimatedSection({ children }: { children: React.ReactNode }) {
     return (
       <motion.div
         ref={ref}
-        initial="hidden"
+        initial="visible"
         animate={inView ? "visible" : "hidden"}
         variants={{
           hidden: { opacity: 0, scale: 0.8 },

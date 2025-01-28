@@ -4,7 +4,6 @@ import { motion } from "framer-motion"
 import { ArrowDown } from "lucide-react"
 import { ServiceButton } from "./service-button" 
 import { CheckBadge } from "./check-badge"
-import { AnimatedSection } from "./Animated"
 
 export function Hero3() {
   const services = [
@@ -12,7 +11,6 @@ export function Hero3() {
     "Master Resume with 80% ATS Score on Naukri.com",
   ]
   return (
- <AnimatedSection>
      <div className="min-h-screen  flex flex-col items-center justify-center relative px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -62,7 +60,7 @@ export function Hero3() {
         <ArrowDown className="w-8 h-8 text-social-pink" />
       </motion.div>
     </div>
- </AnimatedSection>
+
   )
 }
 

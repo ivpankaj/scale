@@ -1,10 +1,9 @@
-// hero2.tsx
 "use client";
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { FloatingIcons } from "./floating-icons";
 import { AnimatedSection } from "./Animated";
-import React, { useState } from "react";
+import React from "react";
 import { countries, experiences, jobRoles } from "@/lib/data";
 
 export interface Hero2Props {
@@ -12,16 +11,23 @@ export interface Hero2Props {
   onExperienceSelect: (experience: string) => void;
   onJobRoleSelect: (jobRole: string) => void;
   validationTriggered: boolean;
+  selectedCountry: string;
+  selectedExperience: string;
+  selectedJobRole: string;
 }
 
-export function Hero2({ onCountrySelect, onExperienceSelect, onJobRoleSelect, validationTriggered }: Hero2Props) {
-  const [selectedCountry, setSelectedCountry] = useState<string>("");
-  const [selectedExperience, setSelectedExperience] = useState<string>("");
-  const [selectedJobRole, setSelectedJobRole] = useState<string>("");
-
+export function Hero2({ 
+  onCountrySelect, 
+  onExperienceSelect, 
+  onJobRoleSelect, 
+  validationTriggered,
+  selectedCountry,
+  selectedExperience,
+  selectedJobRole 
+}: Hero2Props) {
+  
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
-    setSelectedCountry(value);
     if (onCountrySelect) {
       onCountrySelect(value);
     }
@@ -29,7 +35,6 @@ export function Hero2({ onCountrySelect, onExperienceSelect, onJobRoleSelect, va
 
   const handleExperienceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
-    setSelectedExperience(value);
     if (onExperienceSelect) {
       onExperienceSelect(value);
     }
@@ -37,7 +42,6 @@ export function Hero2({ onCountrySelect, onExperienceSelect, onJobRoleSelect, va
 
   const handleJobRoleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
-    setSelectedJobRole(value);
     if (onJobRoleSelect) {
       onJobRoleSelect(value);
     }

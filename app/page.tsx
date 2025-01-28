@@ -1,5 +1,4 @@
 "use client";
-import { Footer } from "@/components/Footer";
 import { GridWrapper } from "@/components/grid-wrapper";
 import { Hero } from "@/components/hero";
 import { Hero2 } from "@/components/hero2";
@@ -23,8 +22,8 @@ const PageScroll: React.FC = () => {
   const [selectedCountry, setSelectedCountry] = useState<string>("");
   const [selectedJobRole, setSelectedJobRole] = useState<string>("");
   const [validationTriggered, setValidationTriggered] = useState<boolean>(false);
+  const [sectionKey, setSectionKey] = useState<number>(0);
 
-  // Memoized sections array
   const sections: Section[] = useMemo(() => [
     { id: 0, Component: Hero },
     { id: 1, Component: Hero2 },
@@ -32,7 +31,6 @@ const PageScroll: React.FC = () => {
     { id: 3, Component: Hero5 },
   ], [renderHero3]);
 
-  // Memoized scroll handler
   const handleScroll = useCallback((e: WheelEvent | TouchEvent): void => {
     if (isScrolling) return;
 
@@ -49,7 +47,6 @@ const PageScroll: React.FC = () => {
 
     const newSection = activeSection + direction;
 
-    // Validate if all fields are selected before proceeding to section 2 or 3
     if ((newSection === 2 || newSection === 3) && !(
       selectedCountry && selectedExperience && selectedJobRole
     )) {
@@ -62,6 +59,7 @@ const PageScroll: React.FC = () => {
 
     if (newSection >= 0 && newSection < sections.length) {
       setIsScrolling(true);
+      setSectionKey(prev => prev + 1);
       setActiveSection(newSection);
       setTimeout(() => setIsScrolling(false), 1000);
     }
@@ -112,7 +110,7 @@ const PageScroll: React.FC = () => {
       </nav>
       {sections.map(({ id, Component }) => (
         <div
-          key={id}
+          key={`section-${id}-${sectionKey}`}
           className={`absolute top-0 left-0 w-full h-screen flex justify-center items-center transition-all duration-1000 ease-out-cubic ${
             id === activeSection
               ? "scale-100 opacity-100"
@@ -123,18 +121,19 @@ const PageScroll: React.FC = () => {
             transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         >
-          <Component 
-            onCountrySelect={id === 1 ? handleCountrySelect : undefined} 
-            onExperienceSelect={id === 1 ? handleExperienceSelect : undefined}
-            onJobRoleSelect={id === 1 ? handleJobRoleSelect : undefined}
-            selectedExperience={id === 3 ? selectedExperience : undefined}
-            validationTriggered={id === 1 ? validationTriggered : false}
-          />
+          {id === activeSection && (
+            <Component 
+              onCountrySelect={id === 1 ? handleCountrySelect : undefined} 
+              onExperienceSelect={id === 1 ? handleExperienceSelect : undefined}
+              onJobRoleSelect={id === 1 ? handleJobRoleSelect : undefined}
+              selectedExperience={selectedExperience}
+              selectedCountry={selectedCountry}
+              selectedJobRole={selectedJobRole}
+              validationTriggered={id === 1 ? validationTriggered : false}
+            />
+          )}
         </div>
       ))}
-      {/* <nav className="fixed bottom-0 left-0 w-full z-50">
-        <Footer />
-      </nav> */}
     </div>
   );
 };
