@@ -1,4 +1,5 @@
 "use client";
+import { Youtube } from "lucide-react";
 import { CheckBadge } from "./check-badge";
 import Carousel from "./ui/carousel";
 import { motion } from "framer-motion";
@@ -33,14 +34,14 @@ export function Hero6() {
   return (
     <div className="relative overflow-hidden w-full h-full py-52 md:py-20">
       <div className="flex items-center justify-center gap-4 mb-2">
-        <CheckBadge />
+     <span className="text-2xl text-[#ff9800]">   <Youtube /></span>
         <motion.h1
           className="text-2xl md:text-5xl sm:text-xl font-bold text-[#ff9800]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          Videos which will help you!!
+          Videos!!
         </motion.h1>
       </div>
       <Carousel slides={slideData} />
