@@ -64,18 +64,6 @@ export default function Carousel({ slides }: CarouselProps) {
           />
         ))}
       </ul>
-      {/* <div className="absolute flex justify-center w-full top-[calc(100%+1rem)]">
-        <CarouselControl
-          type="previous"
-          title="Go to previous slide"
-          handleClick={handlePreviousClick}
-        />
-        <CarouselControl
-          type="next"
-          title="Go to next slide"
-          handleClick={handleNextClick}
-        />
-      </div> */}
     </div>
   );
 }
