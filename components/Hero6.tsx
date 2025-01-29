@@ -30,12 +30,12 @@ export function Hero6() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="flex-1 relative overflow-hidden h-[80vh] py-36 w-[100vw]">
+    <div className="flex flex-col min-h-[90vh]">
+      <div className="flex-1 relative overflow-hidden h-[90vh] py-40 w-[100vw]">
         <Carousel slides={slideData} />
       </div>
       
-      <div className="sticky bottom-0 w-full">
+      <div className="sticky bottom-0">
         <motion.div
           className="w-full"
           initial={{ opacity: 0, y: 20 }}
