@@ -108,7 +108,7 @@ export function Hero2({
 
   return (
     <AnimatedSection>
-      <div className="min-h-[90vh] flex flex-col items-center justify-center relative px-6 md:px-10 lg:px-16">
+      <div className="min-h-[80vh] flex flex-col items-center justify-center relative px-6 md:px-10 lg:px-16">
         <FloatingIcons />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -242,8 +242,7 @@ export function Hero2({
           </div>
         </motion.div>
         <button onClick={handleSubmit} className="block w-full px-4 py-2 border mt-1 bg-[#ff9800] text-black rounded-md shadow-md focus:outline-none focus:ring-2 ">
-          Submit
-        </button>
+          Move to Next Page     </button>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

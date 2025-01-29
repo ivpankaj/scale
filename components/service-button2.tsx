@@ -23,7 +23,7 @@ const ServiceButton2: React.FC<ServiceButton2Props> = ({
         className="flex items-center justify-between w-full p-4 bg-[#202020] rounded-lg transition-colors"
       >
         <span>{children}</span>
-        <span>{toggleButtonText}</span>
+        <span className='text-[#ff9800] text-xl'>{toggleButtonText}</span>
       </button>
       {expanded && (
         <motion.div
@@ -31,7 +31,7 @@ const ServiceButton2: React.FC<ServiceButton2Props> = ({
           animate={{ height: 'auto', opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
           transition={{ duration: 0.1 }}
-          className="p-4 bg-[#202020] border border-gray-200 rounded-lg"
+          className="p-4 bg-[#393737] border border-[#ff9800] rounded-lg"
         >
           {staticData}
         </motion.div>

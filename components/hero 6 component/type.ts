@@ -10,3 +10,5 @@ export interface SlideProps {
   current: number;
   handleSlideClick: (index: number) => void;
 }
+
+// hero2-component/types.ts

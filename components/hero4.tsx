@@ -6,33 +6,28 @@ import { CheckBadge } from "./check-badge";
 import { AnimatedSection } from "./Animated";
 import ServiceButton2 from "./service-button2";
 
-
 export function Hero4() {
   const services = [
     "5 Jobs Daily till you get a job",
     "Resume for Each Job (Total 100 Downloadable Resume)",
-    "Master Resume with 80% ATS Score on Naukri.com",
+    "Master Resume with 80% ATS Score on Naukri.com",
   ];
 
   const staticData = [
     "We provide 5 job listings daily until you secure a position.",
     "You can download up to 100 resumes tailored to specific jobs.",
-    "Receive a master resume optimized for an 80% ATS score on Naukri.com."
+    "Receive a master resume optimized for an 80% ATS score on Naukri.com"
   ];
 
-  const [expandedIndices, setExpandedIndices] = useState<number[]>([]);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const toggleExpand = (index: number) => {
-    if (expandedIndices.includes(index)) {
-      setExpandedIndices(expandedIndices.filter((i) => i !== index));
-    } else {
-      setExpandedIndices([...expandedIndices, index]);
-    }
+    setExpandedIndex(expandedIndex === index ? null : index);
   };
 
   return (
     <AnimatedSection>
-      <div className="min-h-screen flex flex-col items-center justify-center relative px-4">
+      <div className="min-h-[80vh] flex flex-col items-center justify-center relative px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -49,7 +44,6 @@ export function Hero4() {
             >
               How we help!!
             </motion.h1>
-         
           </div>
           <motion.div
             className="space-y-4 mt-10"
@@ -66,9 +60,9 @@ export function Hero4() {
               >
                 <ServiceButton2
                   onClick={() => toggleExpand(index)}
-                  expanded={expandedIndices.includes(index)}
+                  expanded={expandedIndex === index}
                   staticData={<span>{staticData[index]}</span>}
-                  toggleButtonText={expandedIndices.includes(index) ? "-" : "+"}
+                  toggleButtonText={expandedIndex === index ? "-" : "+"}
                 >
                   {service}
                 </ServiceButton2>
