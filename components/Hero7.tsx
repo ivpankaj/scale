@@ -19,7 +19,7 @@ export function Hero7() {
         transition={{ duration: 0.8 }}
         className="text-center max-w-3xl mx-auto"
       >
-        <div className="flex items-center justify-center gap-4 mb-2">
+        <div className="flex items-center justify-center gap-1 mb-2">
           <CheckBadge />
           <motion.h1
             className="text-2xl md:text-xl sm:text-lg font-bold text-[#ff9800]"
