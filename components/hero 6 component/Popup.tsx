@@ -1,4 +1,3 @@
-"use client";
 import { useEffect } from "react";
 import { CircleX } from "lucide-react";
 
@@ -23,11 +22,14 @@ const Popup: React.FC<PopupProps> = ({ isOpen, youtubeUrl, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 w-full h-full bg-black/70 backdrop-blur-lg z-50 flex items-center justify-center p-2 sm:p-4">
-      <div className="relative w-full h-full max-w-6xl max-h-[90dvh] aspect-video">
+    <div 
+      className="fixed inset-0 w-screen h-[100vh] bg-black/70 backdrop-blur-lg z-[9999] flex items-center justify-center p-4 sm:p-4"
+      style={{ position: 'fixed', top: 0, left: 0 }}
+    >
+      <div className="relative w-full h-full max-w-6xl aspect-video">
         <button
-          className="absolute right-2 sm:-top-10 sm:right-0 text-[#ff9800] hover:text-[#ffac33] 
-          z-50 transition-colors p-2"
+          className="absolute right-0 text-[#ff9800] hover:text-[#ffac33] 
+          z-[10000] transition-colors p-2"
           onClick={onClose}
           aria-label="Close video"
         >
