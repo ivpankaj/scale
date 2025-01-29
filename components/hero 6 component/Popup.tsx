@@ -56,10 +56,10 @@ const Popup: React.FC<PopupProps> = ({ isOpen, youtubeUrl, onClose }) => {
           <CircleX className="w-8 h-8 sm:w-10 sm:h-10" />
         </button>
         
-        <div className="relative w-full bg-black rounded-xl overflow-hidden shadow-2xl">
+        <div className="relative w-full h-[70vh] bg-black rounded-xl overflow-hidden shadow-2xl">
           <div className="relative pb-[56.25%]"> {/* 16:9 aspect ratio */}
             <iframe
-              className="absolute top-0 left-0 w-full h-full"
+              className="absolute top-0 left-0 w-screen h-screen"
               src={youtubeUrl}
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
