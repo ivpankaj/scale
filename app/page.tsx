@@ -72,7 +72,13 @@ const PageScroll: React.FC = () => {
       setTimeout(() => setIsScrolling(false), 1000);
     }
   }, [isScrolling, touchStart, activeSection, sections, selectedCountry, selectedExperience, selectedJobRole]);
-
+  const goToNextSection = useCallback(() => {
+    if (activeSection < sections.length - 1) {
+      setIsScrolling(true);
+      setActiveSection(activeSection + 1);
+      setTimeout(() => setIsScrolling(false), 1000);
+    }
+  }, [activeSection, sections]);
   const handleTouchStart = useCallback((e: TouchEvent) => {
     const touchStartPosition = e.changedTouches[0];
     setTouchStart({ x: touchStartPosition.clientX, y: touchStartPosition.clientY });
@@ -146,6 +152,7 @@ const PageScroll: React.FC = () => {
                 selectedCountry={selectedCountry}
                 selectedJobRole={selectedJobRole}
                 validationTriggered={id === 1 ? validationTriggered : false}
+                onSubmitSuccess={goToNextSection}
               />
             )}
           </div>

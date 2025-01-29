@@ -9,13 +9,12 @@ import { Footer } from "./Footer";
 import { Hero7 } from "./Hero7";
 import { Hero6 } from "./Hero6";
 
-
 interface Hero5Props {
-  selectedExperience: string; // Experience string to map price
+  selectedExperience: string;
+  selectedCountry: string;
 }
 
-// Define the price mapping explicitly with types
-const prices: Record<string, string> = {
+const pricesInINR: Record<string, string> = {
   "0 - less than 1": "Price : Rs. 1099 /-",
   "1 - less than 2": "Price : Rs. 1499 /-",
   "2 - less than 4": "Price : Rs. 1799 /-",
@@ -25,7 +24,7 @@ const prices: Record<string, string> = {
   "15 plus": "Price : Rs. 4999 /-",
 };
 
-export const Hero5: React.FC<Hero5Props> = ({ selectedExperience }) => {
+export const Hero5: React.FC<Hero5Props> = ({ selectedExperience, selectedCountry }) => {
   const [activeComponent, setActiveComponent] = useState<string | null>(null);
 
   const handleQuickGuideClick = () => {
@@ -36,13 +35,11 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience }) => {
     setActiveComponent("Hero6");
   };
 
-  const handleClose = () => {
-    setActiveComponent(null);
-  };
-
-  // Safely retrieve the price, fallback for unknown experience
+  // Determine the price based on the selected country
   const selectedPrice =
-    prices[selectedExperience] || "Price : Rs. 999 - Rs. 4499/-";
+    selectedCountry === "India"
+      ? pricesInINR[selectedExperience] || "Price : Rs. 999 - Rs. 4499/-"
+      : "Price : $49 - $199 USD";
 
   return (
     <>
@@ -63,7 +60,7 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience }) => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                   Job Search Plan Costs
+                  Job Search Plan Costs
                 </motion.h1>
                 <CheckBadge />
               </div>
@@ -88,7 +85,7 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience }) => {
                 transition={{ delay: 0.6 }}
               >
                 <button className="md:w-[300px] sm:w-[100px] bg-[#ff9800] backdrop-blur-sm border border-gray-600 rounded-xl p-4 text-lg text-black font-semibold transition-colors">
-                Proceed to Pay
+                  Proceed to Pay
                 </button>
               </motion.div>
             </motion.div>
@@ -106,12 +103,15 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience }) => {
           </div>
         </AnimatedSection>
       )}
+      {activeComponent === "Hero7" && <Hero7 />}
+      {activeComponent === "Hero6" && <Hero6 />}
 
-      {activeComponent === "Hero7" && <Hero7  />}
-      {activeComponent === "Hero6" && <Hero6  />}
-
-      {/* Render Footer only if no hero component is active */}
-      {!activeComponent && <Footer handleQuickGuideClick={handleQuickGuideClick} handleKnowMoreClick={handleKnowMoreClick} />}
+      {!activeComponent && (
+        <Footer
+          handleQuickGuideClick={handleQuickGuideClick}
+          handleKnowMoreClick={handleKnowMoreClick}
+        />
+      )}
     </>
   );
 };

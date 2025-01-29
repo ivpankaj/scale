@@ -1,15 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
 import { ServiceButton } from "./service-button";
 import { CheckBadge } from "./check-badge";
 
 export function Hero7() {
   const services = [
-    "1. Consultant Assigned",
-    "2. Resume Write with 80% Score",
-    "3. 5 Jobs dialy",
+    "1. Consultant would be assigned to you over chat",
+    "2. Consultant would create & optimize your resume with a guaranteed 80% ATS Score",
+    "3. Access to all the software would be provided for jobs, customized resumes and JD Keyword Tool",
   ];
   return (
     <div className="min-h-[80vh]  flex flex-col items-center justify-center relative px-4">

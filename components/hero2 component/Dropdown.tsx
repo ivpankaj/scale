@@ -1,5 +1,3 @@
-import React from "react";
-
 interface DropdownProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -8,27 +6,30 @@ interface DropdownProps {
   validationTriggered: boolean;
 }
 
-export function Dropdown({ value, onChange, options, placeholder, validationTriggered }: DropdownProps) {
-  const getBorderColor = (value: string) => {
-    return value || !validationTriggered ? "border-white" : "border-[#ff9800]";
-  };
-
+export const Dropdown: React.FC<DropdownProps> = ({
+  value,
+  onChange,
+  options,
+  placeholder,
+  validationTriggered,
+}) => {
+  
   return (
-    <div className="relative">
-      <select
-        className={`block w-full px-4 py-2 border bg-transparent ${getBorderColor(value)} text-white rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-social-pink focus:border-social-pink`}
-        value={value}
-        onChange={onChange}
-      >
-        <option value="" disabled>
-          {placeholder}
+    <select
+      value={value}
+      onChange={onChange}
+      className={`w-full px-4 py-2 bg-transparent border ${
+        !value && validationTriggered ? "border-[#ff9800]" : "border-white"
+      } rounded-md focus:outline-none focus:border-[#ff9800]`}
+    >
+      <option value="" disabled>
+        {placeholder}
+      </option>
+      {options.map((option) => (
+        <option className="bg-black" key={option} value={option}>
+          {option}
         </option>
-        {options.map((option) => (
-          <option key={option} value={option} className="text-black">
-            {option}
-          </option>
-        ))}
-      </select>
-    </div>
+      ))}
+    </select>
   );
-}
+};
