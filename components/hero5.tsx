@@ -18,7 +18,7 @@ interface Hero5Props {
 const prices: Record<string, string> = {
   "0 - less than 1": "Price : Rs. 1099 /-",
   "1 - less than 2": "Price : Rs. 1499 /-",
-  "2 - less than 4": "Price : Rs. 1899 /-",
+  "2 - less than 4": "Price : Rs. 1799 /-",
   "4 - less than 7": "Price : Rs. 2399 /-",
   "7 - less than 10": "Price : Rs. 2999 /-",
   "10 - less than 15": "Price : Rs. 3499 /-",
@@ -48,7 +48,7 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience }) => {
     <>
       {!activeComponent && (
         <AnimatedSection>
-          <div className="min-h-[80vh] flex flex-col items-center justify-center relative px-4">
+          <div className="min-h-[100vh] flex flex-col items-center justify-center relative px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -63,7 +63,7 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience }) => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  The Package Costs
+                   Job Search Plan Costs
                 </motion.h1>
                 <CheckBadge />
               </div>
@@ -88,7 +88,7 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience }) => {
                 transition={{ delay: 0.6 }}
               >
                 <button className="md:w-[300px] sm:w-[100px] bg-[#ff9800] backdrop-blur-sm border border-gray-600 rounded-xl p-4 text-lg text-black font-semibold transition-colors">
-                  Get Rs 200 Discount
+                Proceed to Pay
                 </button>
               </motion.div>
             </motion.div>

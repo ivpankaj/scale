@@ -54,3 +54,16 @@
   opacity: 1;
   animation: fadeInCenter 1s forwards;
 }
+
+/* globals.css */
+/* globals.css */
+:root {
+  --vh: 1vh; /* Default in case JavaScript fails */
+  --vw: 1vw; /* Default for width */
+}
+
+.full-screen {
+  height: calc(var(--vh, 1vh) * 100);
+  width: calc(var(--vw, 1vw) * 100);
+}
+

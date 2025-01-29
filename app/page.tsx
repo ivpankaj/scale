@@ -6,6 +6,8 @@ import { Hero3 } from "@/components/hero3";
 import { Hero4 } from "@/components/hero4";
 import { Hero5 } from "@/components/hero5";
 import { Navbar } from "@/components/navbar";
+import useVh from "@/hooks/useVh";
+import useVw from "@/hooks/useVw";
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 
 interface Section {
@@ -23,7 +25,8 @@ const PageScroll: React.FC = () => {
   const [selectedJobRole, setSelectedJobRole] = useState<string>("");
   const [validationTriggered, setValidationTriggered] = useState<boolean>(false);
   const [sectionKey, setSectionKey] = useState<number>(0);
-
+  useVh();
+  useVw(); 
   const sections: Section[] = useMemo(() => [
     { id: 0, Component: Hero },
     { id: 1, Component: Hero2 },
@@ -114,39 +117,40 @@ const PageScroll: React.FC = () => {
       window.removeEventListener("touchmove", handleTouchMove as any);
     };
   }, [handleScroll, handleTouchStart, handleTouchMove]);
-
   return (
-    <div className="relative w-full h-[80vh] overflow-hidden">
+    <div className="fixed inset-0 w-full h-[calc(var(--vh,1vh)*100)] overflow-hidden">
       <GridWrapper />
-      <nav className="fixed top-0 left-0 w-full z-50">
+      <nav className="fixed top-0 left-0 z-50">
         <Navbar />
       </nav>
-      {sections.map(({ id, Component }) => (
-        <div
-          key={`section-${id}-${sectionKey}`}
-          className={`absolute top-0 left-0 w-full flex justify-center items-center transition-all duration-1000 ease-out-cubic ${
-            id === activeSection
-              ? "scale-100 opacity-100"
-              : "scale-50 opacity-0"
-          }`}
-          style={{
-            visibility: id === activeSection ? "visible" : "hidden",
-            transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-          }}
-        >
-          {id === activeSection && (
-            <Component 
-              onCountrySelect={id === 1 ? handleCountrySelect : undefined} 
-              onExperienceSelect={id === 1 ? handleExperienceSelect : undefined}
-              onJobRoleSelect={id === 1 ? handleJobRoleSelect : undefined}
-              selectedExperience={selectedExperience}
-              selectedCountry={selectedCountry}
-              selectedJobRole={selectedJobRole}
-              validationTriggered={id === 1 ? validationTriggered : false}
-            />
-          )}
-        </div>
-      ))}
+      <div className="relative w-full h-full">
+        {sections.map(({ id, Component }) => (
+          <div
+            key={`section-${id}-${sectionKey}`}
+            className={`absolute inset-0 flex items-center justify-center transition-all duration-1000 ease-out-cubic ${
+              id === activeSection
+                ? "scale-100 opacity-100"
+                : "scale-50 opacity-0 pointer-events-none"
+            }`}
+            style={{
+              visibility: id === activeSection ? "visible" : "hidden",
+              transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
+          >
+            {id === activeSection && (
+              <Component 
+                onCountrySelect={id === 1 ? handleCountrySelect : undefined} 
+                onExperienceSelect={id === 1 ? handleExperienceSelect : undefined}
+                onJobRoleSelect={id === 1 ? handleJobRoleSelect : undefined}
+                selectedExperience={selectedExperience}
+                selectedCountry={selectedCountry}
+                selectedJobRole={selectedJobRole}
+                validationTriggered={id === 1 ? validationTriggered : false}
+              />
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

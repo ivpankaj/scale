@@ -1,4 +1,4 @@
-  export const countries = ["USA", "Canada", "India", "Germany", "Australia"];
+  export const countries = [ "India", "International"];
   export const experiences = [
     "0 - less than 1",
     "1 - less than 2",

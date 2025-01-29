@@ -8,15 +8,19 @@ import ServiceButton2 from "./service-button2";
 
 export function Hero4() {
   const services = [
-    "5 Jobs Daily till you get a job",
-    "Resume for Each Job (Total 100 Downloadable Resume)",
-    "Master Resume with 80% ATS Score on Naukri.com",
+    "Resume re-created with guaranteed 80% above score",
+    "5 jobs daily till you get a job",
+    "Customized resume for each job",
+    "Job Description Keyword Finder",
+    "Linkedin optimization Guide"
   ];
 
   const staticData = [
-    "We provide 5 job listings daily until you secure a position.",
-    "You can download up to 100 resumes tailored to specific jobs.",
-    "Receive a master resume optimized for an 80% ATS score on Naukri.com"
+    "Our team of experts will create your resume with unlimited revisions and give you proof of ATS Score from 3 platforms including Naukri.com.",
+    "We will give you access to software which gives you 5 jobs daily based on your resume and skills. Note, you will have to apply to these job yourself only",
+    "We will provide you access to a Software that lets you download customised resumes based on JD.",
+    "A software access to let you find all the keywords that you need to add in your resume based on JD. (Lifetime + Unlimited Access)",
+    "Our guide will help you edit and optimize your LinkedIn profile based on the above resume created by our team"
   ];
 
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);

@@ -1,11 +1,15 @@
 "use client";
 
+import useVh from "@/hooks/useVh";
+import useVw from "@/hooks/useVw";
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 
 export function Hero() {
+  useVh()
+  useVw()
   return (
-    <div className="min-h-[80vh] flex flex-col items-center justify-center relative px-4">
+    <div className=" h-[calc(var(--vh,1vh)*100)] flex  items-center justify-center relative px-4">
       {/* Animated Content Container */}
       <motion.div
         initial={{ opacity: 0, y: -50 }} // Start slightly above
