@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { FloatingIcons } from "./floating-icons";
 import { AnimatedSection } from "./Animated";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { countries, experiences, jobRoles } from "@/lib/data";
 import { Dropdown } from "./hero2 component/Dropdown";
 import { Hero2Props } from "./hero2 component/type";
@@ -19,10 +19,29 @@ export function Hero2({
   selectedExperience,
   selectedJobRole,
   onPhoneNumberChange,
-}: Hero2Props & { onPhoneNumberChange?: (phoneNumber: string) => void }) {  // Made onPhoneNumberChange optional
+}: Hero2Props & { onPhoneNumberChange?: (phoneNumber: string) => void }) {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [isPhoneNumberValid, setIsPhoneNumberValid] = useState<boolean>(true);
 
+  // Add viewport meta tag dynamically
+  useEffect(() => {
+    // Find existing viewport meta tag
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport) {
+      // Update existing viewport meta tag
+      viewport.setAttribute('content', 
+        'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'
+      );
+    } else {
+      // Create new viewport meta tag if it doesn't exist
+      const meta = document.createElement('meta');
+      meta.name = 'viewport';
+      meta.content = 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0';
+      document.head.appendChild(meta);
+    }
+  }, []);
+
+  // Rest of your component logic remains the same
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     if (onCountrySelect) {
@@ -49,7 +68,6 @@ export function Hero2({
     const digitsOnly = value.replace(/\D/g, "");
     if (digitsOnly.length >= 10) {
       setIsPhoneNumberValid(true);
-      // Only call onPhoneNumberChange if it exists
       if (onPhoneNumberChange) {
         onPhoneNumberChange(digitsOnly);
       }
@@ -88,6 +106,7 @@ export function Hero2({
                 .phone-input-container .react-tel-input .form-control {
                   width: 100%;
                   height: 42px;
+                  font-size: 16px !important;
                   background-color: transparent !important;
                   border: 1px solid ${!isPhoneNumberValid && validationTriggered ? "#ff9800" : "#ffffff"};
                   color: white;
@@ -111,6 +130,7 @@ export function Hero2({
                   background-color: #1a1a1a;
                   color: white;
                   border: 1px solid #333;
+                  font-size: 16px !important;
                 }
                 
                 .phone-input-container .react-tel-input .country-list .country:hover {
@@ -135,6 +155,7 @@ export function Hero2({
                 .phone-input-container .react-tel-input .country-list .search-box {
                   background-color: transparent;
                   color: white;
+                  font-size: 16px !important;
                 }
               `}</style>
               <PhoneInput
@@ -145,7 +166,7 @@ export function Hero2({
                   maxLength: 16,
                   onBlur: (e: React.FocusEvent<HTMLInputElement>) => {
                     if (e.target.value.replace(/\D/g, "").length < 10) {
-                   
+                      // Handle validation if needed
                     }
                   },
                 }}
