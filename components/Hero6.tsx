@@ -30,20 +30,21 @@ export function Hero6() {
   ];
 
   return (
-    <div className="flex flex-col min-h-[90vh]">
-      <div className="flex-1 relative overflow-hidden h-[90vh] py-40 w-[100vw]">
+    <div className="flex flex-col min-h-[80vh]">
+      <div className="flex-1 relative overflow-hidden h-[80vh] py-40 w-[100vw]">
         <Carousel slides={slideData} />
       </div>
-      
-      <div className="sticky bottom-0">
+
+      <div className="fixed bottom-0 left-0 right-0 z-10 bg-white">
         <motion.div
           className="w-full"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
         >
-          <button className="w-full p-4 bg-[#ff9800] hover:bg-[#f57c00] transition-colors font-medium">
+          <button className="w-full p-4 bg-[#ff9800] hover:bg-[#f57c00] transition-colors text-black font-medium flex items-center justify-center gap-2">
             Proceed To Pay
+       
           </button>
         </motion.div>
       </div>

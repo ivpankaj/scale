@@ -57,7 +57,7 @@ export function Hero3() {
         transition={{ delay: 1.2, duration: 0.8, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
-        <ArrowDown className="w-8 h-8 text-social-pink" />
+        <ArrowDown className="w-8 h-8 text-[#ff9800]" />
       </motion.div>
     </div>
 
