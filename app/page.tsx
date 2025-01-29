@@ -23,18 +23,25 @@ const PageScroll: React.FC = () => {
   const [selectedJobRole, setSelectedJobRole] = useState<string>("");
   const [validationTriggered, setValidationTriggered] = useState<boolean>(false);
   const [sectionKey, setSectionKey] = useState<number>(0);
- 
 
   const sections: Section[] = useMemo(() => [
     { id: 0, Component: Hero },
     { id: 1, Component: Hero2 },
     { id: 2, Component: renderHero3 ? Hero4 : Hero3 },
     { id: 3, Component: Hero5 },
-  
   ], [renderHero3]);
 
   const handleScroll = useCallback((e: WheelEvent | TouchEvent): void => {
     if (isScrolling) return;
+
+    // Prevent scrolling if already at the last section
+    if (activeSection === sections.length - 1 && e instanceof WheelEvent && e.deltaY > 0) {
+      return;
+    }
+    if (activeSection === 0 && e instanceof WheelEvent && e.deltaY < 0) {
+      return;
+    }
+
     let direction: number;
     if (e instanceof WheelEvent) {
       direction = e.deltaY > 0 ? 1 : -1;
@@ -45,9 +52,8 @@ const PageScroll: React.FC = () => {
     } else {
       return;
     }
-  
+
     const newSection = activeSection + direction;
-  
 
     if ((newSection === 2 || newSection === 3) && !(
       selectedCountry && selectedExperience && selectedJobRole 
@@ -55,7 +61,7 @@ const PageScroll: React.FC = () => {
       alert("Please select all fields including a valid phone number before proceeding.");
       return;
     }
-  
+
     if (newSection >= 0 && newSection < sections.length) {
       setIsScrolling(true);
       setSectionKey(prev => prev + 1);
@@ -63,6 +69,7 @@ const PageScroll: React.FC = () => {
       setTimeout(() => setIsScrolling(false), 1000);
     }
   }, [isScrolling, touchStart, activeSection, sections, selectedCountry, selectedExperience, selectedJobRole]);
+
   const handleTouchStart = useCallback((e: TouchEvent) => {
     const touchStartPosition = e.changedTouches[0];
     setTouchStart({ x: touchStartPosition.clientX, y: touchStartPosition.clientY });
@@ -70,16 +77,13 @@ const PageScroll: React.FC = () => {
 
   const handleTouchMove = useCallback((e: TouchEvent) => {
     if (!touchStart) return;
-
     const touchEnd = e.changedTouches[0];
     const deltaX = touchEnd.clientX - touchStart.x;
     const deltaY = touchEnd.clientY - touchStart.y;
-
     // Only consider the touch event if it's more vertical than horizontal
     if (Math.abs(deltaY) > Math.abs(deltaX)) {
       handleScroll(e);
     }
-
     setTouchStart({ x: touchEnd.clientX, y: touchEnd.clientY });
   }, [touchStart, handleScroll]);
 
@@ -138,7 +142,6 @@ const PageScroll: React.FC = () => {
               selectedExperience={selectedExperience}
               selectedCountry={selectedCountry}
               selectedJobRole={selectedJobRole}
-       
               validationTriggered={id === 1 ? validationTriggered : false}
             />
           )}
