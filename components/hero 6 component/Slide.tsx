@@ -56,7 +56,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
         <li
           ref={slideRef}
           className={`flex flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out 
-          w-[75vw] sm:w-[70vmin] aspect-[3/4.5] mx-[2vmin] sm:mx-[4vmin] ${isPopupOpen ? 'pointer-events-none' : 'z-10'}`}
+          w-[55vw] sm:w-[70vmin] aspect-[3/4.5] mx-[2vmin] sm:mx-[4vmin] ${isPopupOpen ? 'pointer-events-none' : 'z-10'}`}
           onClick={() => !isPopupOpen && handleSlideClick(index)}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
