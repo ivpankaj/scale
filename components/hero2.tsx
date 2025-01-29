@@ -29,14 +29,16 @@ export function Hero2({
     const viewport = document.querySelector('meta[name="viewport"]');
     if (viewport) {
       // Update existing viewport meta tag
-      viewport.setAttribute('content', 
-        'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'
+      viewport.setAttribute(
+        "content",
+        "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
       );
     } else {
       // Create new viewport meta tag if it doesn't exist
-      const meta = document.createElement('meta');
-      meta.name = 'viewport';
-      meta.content = 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0';
+      const meta = document.createElement("meta");
+      meta.name = "viewport";
+      meta.content =
+        "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0";
       document.head.appendChild(meta);
     }
   }, []);
@@ -76,6 +78,28 @@ export function Hero2({
     }
   };
 
+  const handleSubmit = async () => {
+    try {
+      try {
+        const response = await fetch(`http://localhost:4000/start/save`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            phoneNumber:phoneNumber,
+            country:selectedCountry,
+            experience: selectedExperience,
+            jobRole:selectedJobRole,
+          }),
+        });
+        console.log(response,"")
+        if (!response.ok) throw new Error("Save failed");
+        console.log("Data saved successfully");
+        alert("Data Saved Successfully")
+      } catch (error) {
+        console.error("Error saving data:", error);
+      }
+    } catch (error) {}
+  };
   React.useEffect(() => {
     if (validationTriggered && phoneNumber.replace(/\D/g, "").length < 10) {
       setIsPhoneNumberValid(false);
@@ -108,51 +132,66 @@ export function Hero2({
                   height: 42px;
                   font-size: 16px !important;
                   background-color: transparent !important;
-                  border: 1px solid ${!isPhoneNumberValid && validationTriggered ? "#ff9800" : "#ffffff"};
+                  border: 1px solid
+                    ${!isPhoneNumberValid && validationTriggered
+                      ? "#ff9800"
+                      : "#ffffff"};
                   color: white;
                   border-radius: 0.375rem;
                   padding-left: 48px;
                 }
-                
+
                 .phone-input-container .react-tel-input .flag-dropdown {
                   background-color: transparent;
                   border: none;
-                  border-right: 1px solid ${!isPhoneNumberValid && validationTriggered ? "#ff9800" : "#ffffff"};
+                  border-right: 1px solid
+                    ${!isPhoneNumberValid && validationTriggered
+                      ? "#ff9800"
+                      : "#ffffff"};
                 }
-                
+
                 .phone-input-container .react-tel-input .selected-flag:hover,
                 .phone-input-container .react-tel-input .selected-flag:focus,
                 .phone-input-container .react-tel-input .selected-flag.open {
                   background-color: transparent;
                 }
-                
+
                 .phone-input-container .react-tel-input .country-list {
                   background-color: #1a1a1a;
                   color: white;
                   border: 1px solid #333;
                   font-size: 16px !important;
                 }
-                
-                .phone-input-container .react-tel-input .country-list .country:hover {
+
+                .phone-input-container
+                  .react-tel-input
+                  .country-list
+                  .country:hover {
                   background-color: #333;
                 }
-                
-                .phone-input-container .react-tel-input .country-list .country.highlight {
+
+                .phone-input-container
+                  .react-tel-input
+                  .country-list
+                  .country.highlight {
                   background-color: #333;
                 }
-                
+
                 .phone-input-container .react-tel-input .form-control:focus {
                   outline: none;
                   box-shadow: 0 0 0 2px #ff9800;
                   border-color: #ff9800;
                 }
-                
+
                 .phone-input-container .react-tel-input .country-list .search {
                   background-color: #1a1a1a;
                   border: 1px solid #333;
                 }
-                
-                .phone-input-container .react-tel-input .country-list .search-box {
+
+                .phone-input-container
+                  .react-tel-input
+                  .country-list
+                  .search-box {
                   background-color: transparent;
                   color: white;
                   font-size: 16px !important;
@@ -202,6 +241,9 @@ export function Hero2({
             />
           </div>
         </motion.div>
+        <button onClick={handleSubmit} className="block w-full px-4 py-2 border mt-1 bg-[#ff9800] text-black rounded-md shadow-md focus:outline-none focus:ring-2 ">
+          Submit
+        </button>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
