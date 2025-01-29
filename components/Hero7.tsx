@@ -22,7 +22,7 @@ export function Hero7() {
         <div className="flex items-center justify-center gap-4 mb-2">
           <CheckBadge />
           <motion.h1
-            className="text-2xl md:text-3xl sm:text-lg font-bold text-[#ff9800]"
+            className="text-2xl md:text-xl sm:text-lg font-bold text-[#ff9800]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -60,7 +60,7 @@ export function Hero7() {
         }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
-        <ArrowDown className="w-8 h-8 text-social-pink" />
+
       </motion.div>
     </div>
   );
