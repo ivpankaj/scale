@@ -13,7 +13,7 @@ interface GridTileProps {
 function GridTile({ x, y, delay }: GridTileProps) {
   return (
     <motion.div
-      className="w-[90px] h-[90px] border-[#333] relative"
+      className="w-[80px] h-[80px] border-[#333] relative"
       initial={{ opacity: 0.3 }}
       animate={{
         opacity: [0.3, 1, 0.3],
@@ -50,7 +50,7 @@ export function InteractiveGrid() {
   }, [])
 
   return (
-    <div className="fixed inset-0 bg-black overflow-hidden w-[1655px]">
+    <div className="fixed inset-0 bg-black overflow-hidden w-[120vw]">
       <div className="absolute inset-0 flex flex-wrap w-full">
         {Array.from({ length: gridSize.height }).map((_, y) =>
           Array.from({ length: gridSize.width }).map((_, x) => (
