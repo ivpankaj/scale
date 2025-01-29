@@ -1,6 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import styles from "./Slide.module.css";
+import { CircleX } from "lucide-react";
 
 interface PopupProps {
   isOpen: boolean;
@@ -32,11 +33,11 @@ const Popup: React.FC<PopupProps> = ({ isOpen, youtubeUrl, onClose }) => {
           onClick={onClose}
           aria-label="Close video"
         >
-          &times;
+          <CircleX/>
         </button>
-        <div className="flex items-center justify-center w-full h-full p-4">
+        <div className="flex items-center justify-center w-full h-[1200px] p-4">
           <iframe
-            className="w-full h-full max-w-[1600px] max-h-[900px]"
+            className="w-full h-full max-w-[1600px] max-h-[1200px] rounded-xl"
             src={youtubeUrl}
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
