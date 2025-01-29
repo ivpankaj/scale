@@ -65,16 +65,27 @@ export function Hero2({
     }
   };
   const preventScrollPropagation = (event:any) => {
-    if (event.target.closest('.country-list')) {
+    const countryList = document.querySelector('.country-list');
+    if (countryList && countryList.contains(event.target)) {
       event.stopPropagation();
     }
   };
 
   useEffect(() => {
-    document.addEventListener('wheel', preventScrollPropagation, { passive: false });
+    const handleTouchMove = (event:any) => {
+      preventScrollPropagation(event);
+    };
+
+    const handleWheel = (event:any) => {
+      preventScrollPropagation(event);
+    };
+
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('wheel', handleWheel, { passive: false });
 
     return () => {
-      document.removeEventListener('wheel', preventScrollPropagation);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('wheel', handleWheel);
     };
   }, []);
   const handlePhoneNumberChange = (value: string) => {
@@ -168,6 +179,7 @@ export function Hero2({
     overflow-y: auto; /* Enable vertical scrolling */
     position: absolute; /* Ensure it's positioned absolutely */
     z-index: 1000; /* Ensure it's above other elements */
+    -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
   }
   .phone-input-container .react-tel-input .country-list .country:hover {
     background-color: #333;
