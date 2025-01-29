@@ -2,7 +2,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
 import { ServiceButton } from "./service-button";
 import { CheckBadge } from "./check-badge";
 import { AnimatedSection } from "./Animated";
