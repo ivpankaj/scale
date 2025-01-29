@@ -89,7 +89,7 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience }) => {
             repeat: Infinity,
             repeatType: "reverse",
           }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-0 left-1/2 transform -translate-x-1/2"
         >
 
         </motion.div>

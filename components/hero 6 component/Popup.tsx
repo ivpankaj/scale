@@ -59,7 +59,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, youtubeUrl, onClose }) => {
         <div className="relative w-full h-[70vh] bg-black rounded-xl overflow-hidden shadow-2xl">
           <div className="relative pb-[56.25%]"> {/* 16:9 aspect ratio */}
             <iframe
-              className="absolute top-0 left-0 w-screen h-screen"
+              className="absolute top-0 left-0 w-full h-[70vh]"
               src={youtubeUrl}
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
