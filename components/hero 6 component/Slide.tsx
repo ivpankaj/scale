@@ -1,3 +1,5 @@
+
+
 // Slide.tsx
 import { useRef, useEffect, useState } from "react";
 import { Play } from "lucide-react";
@@ -29,7 +31,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
   }, []);
 
   const handleMouseMove = (event: React.MouseEvent) => {
-    if (isPopupOpen) return; // Disable mouse move effect when popup is open
+    if (isPopupOpen) return;
     const el = slideRef.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
