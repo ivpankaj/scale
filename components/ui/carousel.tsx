@@ -24,13 +24,15 @@ export default function Carousel({ slides }: CarouselProps) {
   }, []);
 
   const handlePreviousClick = () => {
-    const previous = current - 1;
-    setCurrent(previous < 0 ? slides.length - 1 : previous);
+    if (current > 0) {
+      setCurrent(current - 1);
+    }
   };
 
   const handleNextClick = () => {
-    const next = current + 1;
-    setCurrent(next === slides.length ? 0 : next);
+    if (current < slides.length - 1) {
+      setCurrent(current + 1);
+    }
   };
 
   const handleSlideClick = (index: number) => {
@@ -53,17 +55,14 @@ export default function Carousel({ slides }: CarouselProps) {
           opacity: 0;
           transition: opacity 1s ease-in-out;
         }
-
         .carousel-container.loaded {
           opacity: 1;
         }
-
         .slides-container {
           display: flex;
           transition: transform 1s ease-in-out;
         }
       `}</style>
-
       <div
         className={`relative w-[70vmin] h-[70vmin] mx-auto md:mt-0 sm:mt-10 carousel-container ${isLoaded ? 'loaded' : ''}`}
         aria-labelledby={`carousel-heading-${id}`}
@@ -89,4 +88,3 @@ export default function Carousel({ slides }: CarouselProps) {
     </div>
   );
 }
-``
