@@ -5,8 +5,11 @@ import { Hero2 } from "@/components/hero2";
 import { Hero3 } from "@/components/hero3";
 import { Hero4 } from "@/components/hero4";
 import { Hero5 } from "@/components/hero5";
+import { Hero6 } from "@/components/Hero6";
+import { Hero7 } from "@/components/Hero7";
 import { Navbar } from "@/components/navbar";
 import React, { useState, useEffect, useCallback, useMemo } from "react";
+
 
 interface Section {
   id: number;
@@ -29,6 +32,8 @@ const PageScroll: React.FC = () => {
     { id: 1, Component: Hero2 },
     { id: 2, Component: renderHero3 ? Hero4 : Hero3 },
     { id: 3, Component: Hero5 },
+    { id: 4, Component: Hero6 },
+    { id: 5, Component: Hero7 },
   ], [renderHero3]);
 
   const handleScroll = useCallback((e: WheelEvent | TouchEvent): void => {
@@ -104,6 +109,10 @@ const PageScroll: React.FC = () => {
     setSelectedJobRole(jobRole);
   }, []);
 
+  const handleBackButtonClick = useCallback(() => {
+    setActiveSection(3); // Set to Hero5 which has id 3
+  }, []);
+
   useEffect(() => {
     window.addEventListener("wheel", handleScroll as any, { passive: false });
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
@@ -143,6 +152,7 @@ const PageScroll: React.FC = () => {
               selectedCountry={selectedCountry}
               selectedJobRole={selectedJobRole}
               validationTriggered={id === 1 ? validationTriggered : false}
+              onBack={id === 4 || id === 5 ? handleBackButtonClick : undefined}
             />
           )}
         </div>

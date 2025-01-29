@@ -107,8 +107,8 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience }) => {
         </AnimatedSection>
       )}
 
-      {activeComponent === "Hero7" && <Hero7/>}
-      {activeComponent === "Hero6" && <Hero6 />}
+      {activeComponent === "Hero7" && <Hero7  />}
+      {activeComponent === "Hero6" && <Hero6  />}
 
       {/* Render Footer only if no hero component is active */}
       {!activeComponent && <Footer handleQuickGuideClick={handleQuickGuideClick} handleKnowMoreClick={handleKnowMoreClick} />}
