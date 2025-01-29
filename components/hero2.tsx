@@ -64,7 +64,19 @@ export function Hero2({
       onJobRoleSelect(value);
     }
   };
+  const preventScrollPropagation = (event:any) => {
+    if (event.target.closest('.country-list')) {
+      event.stopPropagation();
+    }
+  };
 
+  useEffect(() => {
+    document.addEventListener('wheel', preventScrollPropagation, { passive: false });
+
+    return () => {
+      document.removeEventListener('wheel', preventScrollPropagation);
+    };
+  }, []);
   const handlePhoneNumberChange = (value: string) => {
     setPhoneNumber(value);
     const digitsOnly = value.replace(/\D/g, "");
@@ -85,16 +97,16 @@ export function Hero2({
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            phoneNumber:phoneNumber,
-            country:selectedCountry,
+            phoneNumber: phoneNumber,
+            country: selectedCountry,
             experience: selectedExperience,
-            jobRole:selectedJobRole,
+            jobRole: selectedJobRole,
           }),
         });
-        console.log(response,"")
+        console.log(response, "");
         if (!response.ok) throw new Error("Save failed");
         console.log("Data saved successfully");
-        alert("Data Saved Successfully")
+        alert("Data Saved Successfully");
       } catch (error) {
         console.error("Error saving data:", error);
       }
@@ -126,77 +138,62 @@ export function Hero2({
           </h1>
           <div className="space-y-4 mt-8 bg-black">
             <div className="phone-input-container">
-              <style jsx global>{`
-                .phone-input-container .react-tel-input .form-control {
-                  width: 100%;
-                  height: 42px;
-                  font-size: 16px !important;
-                  background-color: transparent !important;
-                  border: 1px solid
-                    ${!isPhoneNumberValid && validationTriggered
-                      ? "#ff9800"
-                      : "#ffffff"};
-                  color: white;
-                  border-radius: 0.375rem;
-                  padding-left: 48px;
-                }
-
-                .phone-input-container .react-tel-input .flag-dropdown {
-                  background-color: transparent;
-                  border: none;
-                  border-right: 1px solid
-                    ${!isPhoneNumberValid && validationTriggered
-                      ? "#ff9800"
-                      : "#ffffff"};
-                }
-
-                .phone-input-container .react-tel-input .selected-flag:hover,
-                .phone-input-container .react-tel-input .selected-flag:focus,
-                .phone-input-container .react-tel-input .selected-flag.open {
-                  background-color: transparent;
-                }
-
-                .phone-input-container .react-tel-input .country-list {
-                  background-color: #1a1a1a;
-                  color: white;
-                  border: 1px solid #333;
-                  font-size: 16px !important;
-                }
-
-                .phone-input-container
-                  .react-tel-input
-                  .country-list
-                  .country:hover {
-                  background-color: #333;
-                }
-
-                .phone-input-container
-                  .react-tel-input
-                  .country-list
-                  .country.highlight {
-                  background-color: #333;
-                }
-
-                .phone-input-container .react-tel-input .form-control:focus {
-                  outline: none;
-                  box-shadow: 0 0 0 2px #ff9800;
-                  border-color: #ff9800;
-                }
-
-                .phone-input-container .react-tel-input .country-list .search {
-                  background-color: #1a1a1a;
-                  border: 1px solid #333;
-                }
-
-                .phone-input-container
-                  .react-tel-input
-                  .country-list
-                  .search-box {
-                  background-color: transparent;
-                  color: white;
-                  font-size: 16px !important;
-                }
-              `}</style>
+            <style jsx global>{`
+  .phone-input-container .react-tel-input .form-control {
+    width: 100%;
+    height: 42px;
+    font-size: 16px !important;
+    background-color: transparent !important;
+    border: 1px solid ${!isPhoneNumberValid && validationTriggered ? "#ff9800" : "#ffffff"};
+    color: white;
+    border-radius: 0.375rem;
+    padding-left: 48px;
+  }
+  .phone-input-container .react-tel-input .flag-dropdown {
+    background-color: transparent;
+    border: none;
+    border-right: 1px solid ${!isPhoneNumberValid && validationTriggered ? "#ff9800" : "#ffffff"};
+  }
+  .phone-input-container .react-tel-input .selected-flag:hover,
+  .phone-input-container .react-tel-input .selected-flag:focus,
+  .phone-input-container .react-tel-input .selected-flag.open {
+    background-color: transparent;
+  }
+  .phone-input-container .react-tel-input .country-list {
+    background-color: #1a1a1a;
+    color: white;
+    border: 1px solid #333;
+    font-size: 16px !important;
+    max-height: 200px; /* Set a maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    position: absolute; /* Ensure it's positioned absolutely */
+    z-index: 1000; /* Ensure it's above other elements */
+  }
+  .phone-input-container .react-tel-input .country-list .country:hover {
+    background-color: #333;
+  }
+  .phone-input-container .react-tel-input .country-list .country.highlight {
+    background-color: #333;
+  }
+  .phone-input-container .react-tel-input .form-control:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #ff9800;
+    border-color: #ff9800;
+  }
+  .phone-input-container .react-tel-input .country-list .search {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+  }
+  .phone-input-container .react-tel-input .country-list .search-box {
+    background-color: transparent;
+    color: white;
+    font-size: 16px !important;
+  }
+  .custom-country-list .react-tel-input .country-list {
+    max-height: 200px; /* Adjust as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+`}</style>
               <PhoneInput
                 country="in"
                 value={phoneNumber}
@@ -211,7 +208,7 @@ export function Hero2({
                 }}
                 enableSearch
                 searchPlaceholder="Search countries..."
-                containerClass="phone-input-container"
+                containerClass="phone-input-container custom-country-list"
               />
               {!isPhoneNumberValid && validationTriggered && (
                 <p className="text-[#ff9800] mt-1"></p>
@@ -241,8 +238,12 @@ export function Hero2({
             />
           </div>
         </motion.div>
-        <button onClick={handleSubmit} className="block w-full px-4 py-2 border mt-1 bg-[#ff9800] text-black rounded-md shadow-md focus:outline-none focus:ring-2 ">
-          Move to Next Page     </button>
+        <button
+          onClick={handleSubmit}
+          className="block w-full px-4 py-2 border mt-1 bg-[#ff9800] text-black rounded-md shadow-md focus:outline-none focus:ring-2 "
+        >
+          Move to Next Page{" "}
+        </button>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
