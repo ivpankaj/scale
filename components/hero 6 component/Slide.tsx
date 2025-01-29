@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useEffect, useState } from "react";
 import { Play } from "lucide-react";
-import Popup from "./Popup"; // Import the Popup component
+import Popup from "./Popup";
 import { SlideProps } from "./type";
 
 const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
@@ -51,7 +51,8 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
     <div className="[perspective:1200px] [transform-style:preserve-3d]">
       <li
         ref={slideRef}
-        className="flex flex-1 flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out w-[70vmin] h-[80vh] mx-[4vmin] z-10"
+        className="flex flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out 
+        w-[85vw] sm:w-[70vmin] aspect-[4/5] mx-[2vmin] sm:mx-[4vmin] z-10"
         onClick={() => handleSlideClick(index)}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -65,7 +66,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
         }}
       >
         <div
-          className="absolute top-0 left-0 w-full h-[1200px] bg-[#1D1F2F] rounded-3xl overflow-hidden transition-all duration-150 ease-out"
+          className="absolute top-0 left-0 w-full h-full bg-[#1D1F2F] rounded-3xl overflow-hidden transition-all duration-150 ease-out"
           style={{
             transform:
               current === index
@@ -74,7 +75,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
           }}
         >
           <img
-            className="absolute inset-0 w-[120%] h-[500px] object-cover opacity-100 transition-opacity duration-600 ease-in-out rounded-3xl"
+            className="absolute inset-0 w-[120%] h-full object-cover opacity-100 transition-opacity duration-600 ease-in-out rounded-3xl"
             style={{
               opacity: current === index ? 1 : 0.5,
             }}
@@ -109,11 +110,13 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
           </div>
         </article>
       </li>
-      <Popup
-        isOpen={isPopupOpen}
-        youtubeUrl={youtubeUrl}
-        onClose={() => setIsPopupOpen(false)}
-      />
+      <div className="w-full">
+        <Popup
+          isOpen={isPopupOpen}
+          youtubeUrl={youtubeUrl}
+          onClose={() => setIsPopupOpen(false)}
+        />
+      </div>
     </div>
   );
 };

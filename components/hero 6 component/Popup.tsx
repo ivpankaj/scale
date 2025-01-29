@@ -1,6 +1,5 @@
 "use client";
 import { useEffect } from "react";
-import styles from "./Slide.module.css";
 import { CircleX } from "lucide-react";
 
 interface PopupProps {
@@ -24,20 +23,20 @@ const Popup: React.FC<PopupProps> = ({ isOpen, youtubeUrl, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div
-      className="fixed top-0 left-0 w-full h-full bg-black/70 backdrop-blur-lg z-50"
-    >
-      <div className="relative w-full h-full">
+    <div className="fixed inset-0 w-full h-full bg-black/70 backdrop-blur-lg z-50 flex items-center justify-center p-2 sm:p-4">
+      <div className="relative w-full h-full max-w-6xl max-h-[90dvh] aspect-video">
         <button
-          className="absolute top-6 right-6 text-5xl font-bold text-[#ff9800] z-50 hover:text-[#ffac33] transition-colors"
+          className="absolute right-2 sm:-top-10 sm:right-0 text-[#ff9800] hover:text-[#ffac33] 
+          z-50 transition-colors p-2"
           onClick={onClose}
           aria-label="Close video"
         >
-          <CircleX/>
+          <CircleX className="w-8 h-8 sm:w-10 sm:h-10" />
         </button>
-        <div className="flex items-center justify-center w-full h-[1200px] p-4">
+        
+        <div className="relative w-full h-full bg-black rounded-xl overflow-hidden shadow-2xl">
           <iframe
-            className="w-full h-full max-w-[1600px] max-h-[1200px] rounded-xl"
+            className="w-full h-full"
             src={youtubeUrl}
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

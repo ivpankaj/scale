@@ -70,7 +70,7 @@ export default function Carousel({ slides }: CarouselProps) {
         {...handlers}
       >
         <ul
-          className="absolute flex mx-[-4vmin] slides-container"
+          className="absolute flex mx-[-14vmin] slides-container"
           style={{
             transform: `translateX(-${current * (100 / slides.length)}%)`,
           }}
