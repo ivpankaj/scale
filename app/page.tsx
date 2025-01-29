@@ -24,6 +24,7 @@ const PageScroll: React.FC = () => {
   const [selectedJobRole, setSelectedJobRole] = useState<string>("");
   const [validationTriggered, setValidationTriggered] = useState<boolean>(false);
   const [sectionKey, setSectionKey] = useState<number>(0);
+ 
 
   const sections: Section[] = useMemo(() => [
     { id: 0, Component: Hero },
@@ -35,7 +36,6 @@ const PageScroll: React.FC = () => {
 
   const handleScroll = useCallback((e: WheelEvent | TouchEvent): void => {
     if (isScrolling) return;
-
     let direction: number;
     if (e instanceof WheelEvent) {
       direction = e.deltaY > 0 ? 1 : -1;
@@ -46,26 +46,24 @@ const PageScroll: React.FC = () => {
     } else {
       return;
     }
-
+  
     const newSection = activeSection + direction;
-    if ((newSection === 2 || newSection === 3) && !(
-      selectedCountry && selectedExperience && selectedJobRole
-    )) {
-      setValidationTriggered(true);
-      alert("Please select all fields before proceeding.");
-      return;
-    } else {
-      setValidationTriggered(false);
-    }
+  
 
+    if ((newSection === 2 || newSection === 3) && !(
+      selectedCountry && selectedExperience && selectedJobRole 
+    )) {
+      alert("Please select all fields including a valid phone number before proceeding.");
+      return;
+    }
+  
     if (newSection >= 0 && newSection < sections.length) {
       setIsScrolling(true);
       setSectionKey(prev => prev + 1);
       setActiveSection(newSection);
       setTimeout(() => setIsScrolling(false), 1000);
     }
-  }, [isScrolling, touchStart, activeSection, sections, selectedCountry, selectedExperience, selectedJobRole, validationTriggered]);
-
+  }, [isScrolling, touchStart, activeSection, sections, selectedCountry, selectedExperience, selectedJobRole]);
   const handleTouchStart = useCallback((e: TouchEvent) => {
     const touchStartPosition = e.changedTouches[0];
     setTouchStart({ x: touchStartPosition.clientX, y: touchStartPosition.clientY });
@@ -141,6 +139,7 @@ const PageScroll: React.FC = () => {
               selectedExperience={selectedExperience}
               selectedCountry={selectedCountry}
               selectedJobRole={selectedJobRole}
+       
               validationTriggered={id === 1 ? validationTriggered : false}
             />
           )}
