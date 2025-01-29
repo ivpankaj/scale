@@ -270,7 +270,7 @@ export function Hero2({
           onClick={handleSubmit}
           disabled={!isPhoneNumberValid || !validationTriggered}
         >
-          Move to Next Page
+          Submit
         </button>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
