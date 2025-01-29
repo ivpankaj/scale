@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import styles from "./Slide.module.css"; 
+import styles from "./Slide.module.css";
 
 interface PopupProps {
   isOpen: boolean;
@@ -11,7 +11,7 @@ interface PopupProps {
 const Popup: React.FC<PopupProps> = ({ isOpen, youtubeUrl, onClose }) => {
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden"; 
+      document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
     }
@@ -24,26 +24,25 @@ const Popup: React.FC<PopupProps> = ({ isOpen, youtubeUrl, onClose }) => {
 
   return (
     <div
-      className={`${styles.popupBackground} fixed top-0 left-0 w-full h-full bg-black/50 backdrop-blur-sm flex items-center justify-center z-50`}
+      className="fixed top-0 left-0 w-full h-full bg-black/70 backdrop-blur-lg z-50"
     >
-      <div
-        className={`${styles.popupContainer} rounded-3xl w-[90vw] max-w-[800px] h-[80vh] overflow-hidden relative`}
-      >
+      <div className="relative w-full h-full">
         <button
-          className="absolute top-3 right-4 text-[45px] font-bold text-[#ff9800]"
+          className="absolute top-6 right-6 text-5xl font-bold text-[#ff9800] z-50 hover:text-[#ffac33] transition-colors"
           onClick={onClose}
+          aria-label="Close video"
         >
           &times;
         </button>
-        <iframe
-          width="100%" 
-          className="rounded-2xl h-full"
-          src={youtubeUrl}
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
+        <div className="flex items-center justify-center w-full h-full p-4">
+          <iframe
+            className="w-full h-full max-w-[1600px] max-h-[900px]"
+            src={youtubeUrl}
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
       </div>
     </div>
   );
