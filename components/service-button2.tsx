@@ -21,7 +21,7 @@ const ServiceButton2: React.FC<ServiceButton2Props> = ({
         <button
           id="pk"
           onClick={onClick}
-          className={`flex items-center justify-between w-[90vw] p-4 bg-[#202020] rounded-lg transition-colors box-border border ${
+          className={`flex items-center justify-between w-full p-4 bg-[#202020] rounded-lg transition-colors box-border border ${
             expanded ? "border-[#ff9800] border-b-transparent" : "border-black"
           }`}
         >
@@ -44,7 +44,7 @@ const ServiceButton2: React.FC<ServiceButton2Props> = ({
               className="w-full bg-[#202020] border border-b-[#ff9800] border-l-[#ff9800]  border-r-[#ff9800] border-t-transparent rounded-lg overflow-hidden box-border"
             >
               <div className="p-4 w-[90vw]">
-                <span className="flex justify-start">{staticData}</span>
+                <span className="flex justify-start text-left">{staticData}</span>
               </div>
             </motion.div>
           )}

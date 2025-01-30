@@ -74,7 +74,7 @@ export function Hero7({ onGoBack, handleProceedToPay }: Hero7Props) {
         <div className="mb-2 flex items-center justify-center gap-4">
           <CheckBadge />
           <motion.h1
-            className="text-sm font-bold text-[#ff9800] sm:text-base md:text-xl"
+            className="text-lg font-bold text-[#ff9800] sm:text-base md:text-xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
