@@ -9,7 +9,7 @@ interface ServiceButtonProps {
 export function ServiceButton({ children }: ServiceButtonProps) {
   return (
     <motion.button
-      className="w-full bg-[#202020] backdrop-blur-sm border border-gray-600 rounded-lg p-4 text-lg text-white transition-colors"
+      className="w-full bg-[#202020] backdrop-blur-sm border border-gray-600 rounded-lg p-4 text-white transition-colors"
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >

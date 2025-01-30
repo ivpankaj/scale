@@ -127,7 +127,8 @@ export function Hero3() {
                   onClick={handleShowMore}
                   className="border-2 border-[#ff9800] text-[#ff9800] border-dashed hover:bg-[#ff9800] hover:text-black px-4 py-3 rounded-lg md:text-2xl sm:text-lg font-bold transition-colors"
                 >
-                  Add on
+                  Add-ons
+
                 </motion.button>
               </motion.div>
             )}

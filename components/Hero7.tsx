@@ -51,9 +51,9 @@ export function Hero7({ onGoBack, handleProceedToPay }: Hero7Props) {
   }, [handleTouchStart, handleTouchMove]);
 
   const services = [
-    "1. Consultant would be assigned to you over chat",
-    "2. Consultant would create & optimize your resume with a guaranteed 80% ATS Score",
-    "3. Access to all the software would be provided for jobs, customized resumes and JD Keyword Tool",
+    "Consultant would be assigned to you over chat",
+    "Consultant would create & optimize your resume with a guaranteed 80% ATS Score",
+    "Access to all the software would be provided for jobs, customized resumes and JD Keyword Tool",
   ];
 
   return (
@@ -107,9 +107,9 @@ export function Hero7({ onGoBack, handleProceedToPay }: Hero7Props) {
         >
           <button
             onClick={handleProceedToPay}
-            className="w-full rounded-xl border border-gray-600 bg-[#ff9800] p-4 text-lg font-semibold text-white transition-colors hover:bg-orange-600 sm:w-64 md:w-72"
+            className="w-full rounded-xl border border-gray-600 bg-[#ff9800] p-4 text-lg font-semibold text-white transition-colors  sm:w-64 md:w-72"
           >
-            Proceed to Pay
+           I am interested
           </button>
         </motion.div>
       </motion.div>

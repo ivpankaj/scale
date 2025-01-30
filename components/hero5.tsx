@@ -129,7 +129,7 @@ export const Hero5: React.FC<Hero5Props> = ({
                   onClick={handleProceedToPay}
                   className="md:w-[300px] sm:w-[100px] bg-[#ff9800] backdrop-blur-sm border border-gray-600 rounded-xl p-4 text-lg text-white font-semibold transition-colors hover:bg-[#f57c00]"
                 >
-                  Proceed to Pay
+                 I am interested
                 </button>
               </motion.div>
               <motion.div
@@ -138,12 +138,7 @@ export const Hero5: React.FC<Hero5Props> = ({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
               >
-                <button
-                  onClick={handleProceedToPay}
-                  className="md:w-[300px] sm:w-[100px] bg-[#ff9800] backdrop-blur-sm border border-gray-600 rounded-xl p-4 text-lg text-white font-semibold transition-colors hover:bg-[#f57c00]"
-                >
-                  Talk to an Expert
-                </button>
+         
               </motion.div>
             </motion.div>
             <motion.div

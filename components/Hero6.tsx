@@ -72,7 +72,7 @@ export function Hero6({ onGoBack, handleProceedToPay }: Hero7Props) {
             onClick={handleProceedToPay}
             className="w-full p-4 bg-[#ff9800] transition-colors font-medium flex items-center justify-center gap-2 border-[2px] border-solid border-[#ff9800] cursor-pointer rounded-lg text-white hover:bg-opacity-95"
           >
-            Proceed To Pay
+            I am interested
           </button>
         </motion.div>
       </div>
