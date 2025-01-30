@@ -5,7 +5,6 @@ import { CheckBadge } from "./check-badge";
 import { AnimatedSection } from "./Animated";
 import ServiceButton2 from "./service-button2";
 
-
 export function Hero4() {
   const services = [
     "Resume re-created with guaranteed 80% above score",
@@ -21,7 +20,6 @@ export function Hero4() {
     "A software access to let you find all the keywords that you need to add in your resume based on JD. (Lifetime + Unlimited Access)",
     "Our guide will help you edit and optimize your LinkedIn profile based on the above resume created by our team",
   ];
-
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [showAllServices, setShowAllServices] = useState(false);
 
@@ -36,7 +34,7 @@ export function Hero4() {
   return (
     <>
       <AnimatedSection>
-        <div className="min-h-[80vh] flex flex-col items-center justify-center relative px-4">
+        <div className="min-h-[80vh] w-full flex flex-col items-center justify-center relative px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -95,9 +93,7 @@ export function Hero4() {
                           onClick={() => toggleExpand(index)}
                           expanded={expandedIndex === index}
                           staticData={<span>{staticData[index]}</span>}
-                          toggleButtonText={
-                            expandedIndex === index ? "-" : "+"
-                          }
+                          toggleButtonText={expandedIndex === index ? "-" : "+"}
                         >
                           {service}
                         </ServiceButton2>
@@ -114,15 +110,16 @@ export function Hero4() {
                 duration: 0.8,
               }}
               className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-            >
-            </motion.div>
+            ></motion.div>
           )}
         </div>
       </AnimatedSection>
       <div className="flex justify-end">
         <nav className="fixed bottom-0 right-0 z-50 p-2">
-          <button   onClick={handleShowMore} className="container mx-auto flex justify-between items-center">
-          
+          <button
+            onClick={handleShowMore}
+            className="container mx-auto flex justify-between items-center"
+          >
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

@@ -17,17 +17,20 @@ const ServiceButton2: React.FC<ServiceButton2Props> = ({
   toggleButtonText,
 }) => {
   return (
-    <div className="relative group w-full max-w-md lg:max-w-lg mx-auto">
+    <div className="relative w-full max-w-md lg:max-w-lg mx-auto">
       {/* Wrapper to maintain width stability */}
       <div className="w-full">
         <button
           onClick={onClick}
-          className="flex  w-full p-4 bg-[#202020] rounded-lg transition-colors box-border border border-transparent"
+          className="flex items-center justify-between w-[90vw] p-4 bg-[#202020] rounded-lg transition-colors box-border border border-transparent"
         >
+          {/* Left-aligned content */}
           <span className="text-white">{children}</span>
-          <span className="text-[#ff9800] text-xl">{toggleButtonText}</span>
+          {/* Right-aligned toggle button */}
+          <span className="text-[#ff9800] text-xl font-bold">
+            {expanded ? "-" : "+"}
+          </span>
         </button>
-
         {/* AnimatePresence ensures smooth mount/unmount animation */}
         <AnimatePresence>
           {expanded && (
@@ -36,7 +39,7 @@ const ServiceButton2: React.FC<ServiceButton2Props> = ({
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="w-full bg-[#393737] border border-[#ff9800] rounded-lg overflow-hidden box-border"
+              className="w-full bg-[#393737] border border-[#ff9800] rounded-lg overflow-hidden box-border mt-2"
             >
               <div className="p-4 w-full">
                 <span className="flex justify-start">{staticData}</span>

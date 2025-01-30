@@ -34,7 +34,7 @@ export function Hero3() {
   return (
     <>
       <AnimatedSection>
-        <div className="min-h-[80vh] flex flex-col items-center justify-center relative px-4">
+        <div className="min-h-screen w-full flex flex-col items-center justify-center relative px-4 overflow-hidden">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
