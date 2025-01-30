@@ -30,106 +30,108 @@ export function Hero4() {
   const handleShowMore = () => {
     setShowAllServices(true);
   };
-
+  const handleBack = () => {
+    setShowAllServices(false);
+    setExpandedIndex(null);
+  };
   return (
     <>
-      <AnimatedSection>
-        <div className="min-h-[80vh] w-full flex flex-col items-center justify-center relative px-4 overflow-hidden">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-3xl mx-auto w-full"
-          >
-            <div className="flex items-center justify-center gap-4 mb-2">
-              <CheckBadge />
-              <motion.h1
-                className="text-2xl md:text-5xl sm:text-xl font-bold text-[#ff9800]"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                How we help!!
-              </motion.h1>
-            </div>
-            <motion.div
-              className="space-y-4 mt-10"
+    <AnimatedSection>
+      <div className="min-h-screen w-full flex flex-col items-center justify-center relative px-4 overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center max-w-3xl mx-auto"
+        >
+          <div className="flex items-center justify-center gap-4 mb-2">
+            <CheckBadge />
+            <motion.h1
+              className="text-2xl md:text-5xl sm:text-xl font-bold text-[#ff9800]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
+              transition={{ delay: 0.2 }}
             >
-              {showAllServices
-                ? services
-                    .slice(3, 5) // Show only the last 2 services
-                    .map((service, index) => (
-                      <motion.div
-                        key={service}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.8 + index * 0.1 }}
+              How we help!!
+            </motion.h1>
+          </div>
+          
+          {showAllServices && (
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              onClick={handleBack}
+              className="mb-4 text-[#ff9800] hover:text-[#ffab2e] transition-colors"
+            >
+              ← Go Back
+            </motion.button>
+          )}
+          
+          <motion.div
+            className="space-y-4 mt-10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+          >
+            {showAllServices
+              ? services
+                  .slice(2, 4)
+                  .map((service, index) => (
+                    <motion.div
+                      key={service}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.8 + index * 0.1 }}
+                    >
+                      <ServiceButton2
+                        onClick={() => toggleExpand(index + 2)}
+                        expanded={expandedIndex === index + 2}
+                        staticData={<span>{staticData[index + 2]}</span>}
+                        toggleButtonText={expandedIndex === index + 2 ? "-" : "+"}
                       >
-                        <ServiceButton2
-                          onClick={() => toggleExpand(index + 3)} // Adjust index for expanded state
-                          expanded={expandedIndex === index + 3}
-                          staticData={<span>{staticData[index + 3]}</span>}
-                          toggleButtonText={
-                            expandedIndex === index + 3 ? "-" : "+"
-                          }
-                        >
-                          {service}
-                        </ServiceButton2>
-                      </motion.div>
-                    ))
-                : services
-                    .slice(0, 3) // Show only the first 3 services
-                    .map((service, index) => (
-                      <motion.div
-                        key={service}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.8 + index * 0.1 }}
-                      >
-                        <ServiceButton2
-                          onClick={() => toggleExpand(index)}
-                          expanded={expandedIndex === index}
-                          staticData={<span>{staticData[index]}</span>}
-                          toggleButtonText={expandedIndex === index ? "-" : "+"}
-                        >
-                          {service}
-                        </ServiceButton2>
-                      </motion.div>
-                    ))}
-            </motion.div>
+                        {service}
+                      </ServiceButton2>
+                    </motion.div>
+                  ))
+              : services.slice(0, 3).map((service, index) => (
+                  <motion.div
+                    key={service}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.8 + index * 0.1 }}
+                  >
+                    <ServiceButton2
+                      onClick={() => toggleExpand(index)}
+                      expanded={expandedIndex === index}
+                      staticData={<span>{staticData[index]}</span>}
+                      toggleButtonText={expandedIndex === index ? "-" : "+"}
+                    >
+                      {service}
+                    </ServiceButton2>
+                  </motion.div>
+                ))}
           </motion.div>
+          
           {!showAllServices && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 1.2,
-                duration: 0.8,
-              }}
-              className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-            ></motion.div>
-          )}
-        </div>
-      </AnimatedSection>
-      <div className="flex justify-end">
-        <nav className="fixed bottom-0 right-0 z-50 p-2">
-          <button
-            onClick={handleShowMore}
-            className="container mx-auto flex justify-between items-center"
-          >
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="border-2 border-[#ff9800] text-[#ff9800] border-dashed hover:bg-[#ff9800] hover:text-black px-4 py-3 rounded-lg md:text-2xl sm:text-lg font-bold hover:bg-social-pink/10 transition-colors"
+              transition={{ delay: 1.2 }}
+              className="mt-8"
             >
-              Add on
-            </motion.button>
-          </button>
-        </nav>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleShowMore}
+                className="border-2 border-[#ff9800] text-[#ff9800] border-dashed hover:bg-[#ff9800] hover:text-black px-4 py-3 rounded-lg md:text-2xl sm:text-lg font-bold transition-colors"
+              >
+                Add on
+              </motion.button>
+            </motion.div>
+          )}
+        </motion.div>
       </div>
-    </>
+    </AnimatedSection>
+  </>
   );
 }

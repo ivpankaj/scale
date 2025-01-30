@@ -2,12 +2,13 @@ import { motion } from "framer-motion";
 import Carousel from "./ui/carousel";
 import { ArrowLeft } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
+
 interface Hero7Props {
   onGoBack: () => void; // Callback to notify parent to navigate back
   handleProceedToPay: () => void; // Pass the proceed to pay functionality
 }
 
-export function Hero6({ onGoBack ,handleProceedToPay}: Hero7Props) {
+export function Hero6({ onGoBack, handleProceedToPay }: Hero7Props) {
   const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(
     null
   );
@@ -15,8 +16,10 @@ export function Hero6({ onGoBack ,handleProceedToPay}: Hero7Props) {
   // Disable scrolling on mount and enable it on unmount
   useEffect(() => {
     document.body.style.overflow = "hidden"; // Disable scrolling
+    document.body.style.touchAction = "none"; // Disable touch gestures globally
     return () => {
       document.body.style.overflow = ""; // Re-enable scrolling
+      document.body.style.touchAction = ""; // Re-enable touch gestures
     };
   }, []);
 
@@ -31,23 +34,35 @@ export function Hero6({ onGoBack ,handleProceedToPay}: Hero7Props) {
   const handleTouchMove = useCallback(
     (e: TouchEvent) => {
       if (!touchStart) return;
+
       const touchEnd = e.changedTouches[0];
       const deltaY = touchEnd.clientY - touchStart.y;
+
+      // Prevent vertical swiping
       if (Math.abs(deltaY) > 50) {
-        onGoBack(); // Trigger go back on swipe down
+        e.preventDefault(); // Block the default behavior
       }
     },
-    [touchStart, onGoBack]
+    [touchStart]
   );
 
+  const handleWheel = useCallback((e: WheelEvent) => {
+    e.preventDefault(); // Block vertical scrolling via mouse wheel
+  }, []);
+
   useEffect(() => {
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    // Add event listeners for touch and wheel events
+    window.addEventListener("touchstart", handleTouchStart, { passive: false });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("wheel", handleWheel, { passive: false });
+
     return () => {
+      // Cleanup event listeners
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("wheel", handleWheel);
     };
-  }, [handleTouchStart, handleTouchMove]);
+  }, [handleTouchStart, handleTouchMove, handleWheel]);
 
   const slideData = [
     {
@@ -90,20 +105,18 @@ export function Hero6({ onGoBack ,handleProceedToPay}: Hero7Props) {
 
   return (
     <div className="flex flex-col min-h-[80vh]">
-<button
-  onClick={() => {
-    console.log("Back button clicked in Hero6");
-    onGoBack();
-  }}
-  className="absolute top-20 left-4 bg-[#ff9800] text-black px-4 py-2 rounded-lg font-semibold hover:bg-[#f57c00] z-50"
->
-  <ArrowLeft />
-</button>
-
+      <button
+        onClick={() => {
+          console.log("Back button clicked in Hero6");
+          onGoBack();
+        }}
+        className="absolute top-20 left-4 bg-[#ff9800] text-black px-4 py-2 rounded-lg font-semibold hover:bg-[#f57c00] z-50"
+      >
+        <ArrowLeft />
+      </button>
       <div className="flex-1 relative overflow-hidden h-[80vh] py-40 w-[100vw]">
         <Carousel slides={slideData} />
       </div>
-
       <div className="fixed bottom-0 left-0 right-0 z-10 bg-[#ff9800]">
         <motion.div
           className="w-full"
@@ -111,7 +124,10 @@ export function Hero6({ onGoBack ,handleProceedToPay}: Hero7Props) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
         >
-          <button    onClick={handleProceedToPay} className="w-full p-4 bg-[#ff9800]  transition-colors font-medium flex items-center justify-center gap-2 border-[2px] border-solid border-[#ff9800] cursor-pointer rounded-lg text-white hover:bg-opacity-95">
+          <button
+            onClick={handleProceedToPay}
+            className="w-full p-4 bg-[#ff9800] transition-colors font-medium flex items-center justify-center gap-2 border-[2px] border-solid border-[#ff9800] cursor-pointer rounded-lg text-white hover:bg-opacity-95"
+          >
             Proceed To Pay
           </button>
         </motion.div>

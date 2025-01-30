@@ -14,7 +14,7 @@ const ServiceButton2: React.FC<ServiceButton2Props> = ({
   onClick,
   expanded,
   staticData,
-  toggleButtonText,
+
 }) => {
   return (
     <div className="relative w-full max-w-md lg:max-w-lg mx-auto">
@@ -42,7 +42,7 @@ const ServiceButton2: React.FC<ServiceButton2Props> = ({
               transition={{ duration: 0.2 }}
               className="w-full bg-[#393737] border border-[#ff9800] rounded-lg overflow-hidden box-border mt-2"
             >
-              <div className="p-4 sm:w-[90vw] md:w-full">
+              <div className="p-4 w-[90vw]">
                 <span className="flex justify-start">{staticData}</span>
               </div>
             </motion.div>

@@ -43,6 +43,7 @@ const PageScroll: React.FC = () => {
     ],
     [renderHero3]
   );
+
   const goToHero7 = useCallback(() => {
     setActiveSection(-1); // Use a special value (-1) for Hero7
   }, []);
@@ -50,7 +51,13 @@ const PageScroll: React.FC = () => {
   const handleScroll = useCallback(
     (e: WheelEvent | TouchEvent): void => {
       if (isScrolling) return;
-      if (activeSection === -1) return;
+
+      // Prevent scrolling when Hero6 or Hero7 is active
+      if (activeSection === sections.length || activeSection === -1) {
+        e.preventDefault(); // Prevent default scroll behavior
+        return;
+      }
+
       let direction: number;
       if (e instanceof WheelEvent) {
         direction = e.deltaY > 0 ? 1 : -1;
@@ -83,6 +90,7 @@ const PageScroll: React.FC = () => {
           return;
         }
       }
+
       setIsScrolling(true);
       setSectionKey((prev) => prev + 1);
       setActiveSection(newSection);
@@ -117,7 +125,12 @@ const PageScroll: React.FC = () => {
 
   const handleTouchMove = useCallback(
     (e: TouchEvent) => {
-      if (activeSection === -1) return;
+      // Prevent scrolling when Hero6 or Hero7 is active
+      if (activeSection === sections.length || activeSection === -1) {
+        e.preventDefault(); // Prevent default touch move behavior
+        return;
+      }
+
       if (!touchStart) return;
       const touchEnd = e.changedTouches[0];
       const deltaX = touchEnd.clientX - touchStart.x;
@@ -153,7 +166,7 @@ const PageScroll: React.FC = () => {
     window.addEventListener("wheel", handleScroll as any, { passive: false });
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
     window.addEventListener("touchmove", handleTouchMove as any, {
-      passive: true,
+      passive: false, // Set to false to allow `e.preventDefault()`
     });
 
     return () => {
@@ -162,6 +175,7 @@ const PageScroll: React.FC = () => {
       window.removeEventListener("touchmove", handleTouchMove as any);
     };
   }, [handleScroll, handleTouchStart, handleTouchMove]);
+
   const handlePhoneValidation = useCallback((isValid: boolean) => {
     setIsPhoneNumberValid(isValid);
   }, []);
@@ -206,7 +220,6 @@ const PageScroll: React.FC = () => {
             )}
           </div>
         ))}
-
       </div>
     </div>
   );

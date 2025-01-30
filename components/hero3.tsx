@@ -9,10 +9,10 @@ export function Hero3() {
   const services = [
     "Resume by Mployee.me team with guaranteed 80% above score",
     "Customized resume for each job",
-
     "Job Description Keyword Finder",
     "Linkedin optimization Guide",
   ];
+  
   const staticData = [
     "Our team of experts will create your resume with unlimited revisions and give you proof of ATS Score from 3 platforms ",
     "We will provide you access to a Software that lets you download customised resumes based on JD.",
@@ -29,6 +29,11 @@ export function Hero3() {
 
   const handleShowMore = () => {
     setShowAllServices(true);
+  };
+
+  const handleBack = () => {
+    setShowAllServices(false);
+    setExpandedIndex(null);
   };
 
   return (
@@ -52,6 +57,18 @@ export function Hero3() {
                 How we help!!
               </motion.h1>
             </div>
+            
+            {showAllServices && (
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                onClick={handleBack}
+                className="mb-4 text-[#ff9800] hover:text-[#ffab2e] transition-colors"
+              >
+                ← Go Back
+              </motion.button>
+            )}
+            
             <motion.div
               className="space-y-4 mt-10"
               initial={{ opacity: 0, y: 20 }}
@@ -60,7 +77,7 @@ export function Hero3() {
             >
               {showAllServices
                 ? services
-                    .slice(2, 4) // Show only the last 2 services
+                    .slice(2, 4)
                     .map((service, index) => (
                       <motion.div
                         key={service}
@@ -69,12 +86,10 @@ export function Hero3() {
                         transition={{ delay: 0.8 + index * 0.1 }}
                       >
                         <ServiceButton2
-                          onClick={() => toggleExpand(index + 2)} // Adjust index for expanded state
+                          onClick={() => toggleExpand(index + 2)}
                           expanded={expandedIndex === index + 2}
                           staticData={<span>{staticData[index + 2]}</span>}
-                          toggleButtonText={
-                            expandedIndex === index + 3 ? "-" : "+"
-                          }
+                          toggleButtonText={expandedIndex === index + 2 ? "-" : "+"}
                         >
                           {service}
                         </ServiceButton2>
@@ -98,36 +113,27 @@ export function Hero3() {
                     </motion.div>
                   ))}
             </motion.div>
+            
+            {!showAllServices && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2 }}
+                className="mt-8"
+              >
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleShowMore}
+                  className="border-2 border-[#ff9800] text-[#ff9800] border-dashed hover:bg-[#ff9800] hover:text-black px-4 py-3 rounded-lg md:text-2xl sm:text-lg font-bold transition-colors"
+                >
+                  Add on
+                </motion.button>
+              </motion.div>
+            )}
           </motion.div>
-          {!showAllServices && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 1.2,
-                duration: 0.8,
-              }}
-              className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-            ></motion.div>
-          )}
         </div>
       </AnimatedSection>
-      <div className="flex justify-end">
-        <nav className="fixed bottom-0 right-0 z-50 p-2">
-          <button
-            onClick={handleShowMore}
-            className="container mx-auto flex justify-between items-center"
-          >
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="border-2 border-[#ff9800] text-[#ff9800] border-dashed hover:bg-[#ff9800] hover:text-black px-4 py-3 rounded-lg md:text-2xl sm:text-lg font-bold hover:bg-social-pink/10 transition-colors"
-            >
-              Add on
-            </motion.button>
-          </button>
-        </nav>
-      </div>
     </>
   );
 }
