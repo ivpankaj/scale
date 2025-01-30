@@ -41,7 +41,7 @@ const ServiceButton2: React.FC<ServiceButton2Props> = ({
               transition={{ duration: 0.2 }}
               className="w-full bg-[#393737] border border-[#ff9800] rounded-lg overflow-hidden box-border mt-2"
             >
-              <div className="p-4 w-full">
+              <div className="p-4 w-[90vw]">
                 <span className="flex justify-start">{staticData}</span>
               </div>
             </motion.div>

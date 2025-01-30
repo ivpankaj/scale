@@ -15,7 +15,7 @@ export function Hero3() {
   ];
   const staticData = [
     "Our team of experts will create your resume with unlimited revisions and give you proof of ATS Score from 3 platforms ",
-    "Customized resume for each job We will provide you access to a Software that lets you download customised resumes based on JD.",
+    "We will provide you access to a Software that lets you download customised resumes based on JD.",
     "A software access to let you find all the keywords that you need to add in your resume based on JD. (Lifetime + Unlimited Access)",
     "Our guide will help you edit and optimize your LinkedIn profile based on the above resume created by our team",
   ];
