@@ -1,107 +1,55 @@
 import { motion } from "framer-motion";
 import Carousel from "./ui/carousel";
 import { ArrowLeft } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+
 
 interface Hero7Props {
-  onGoBack: () => void; // Callback to notify parent to navigate back
-  handleProceedToPay: () => void; // Pass the proceed to pay functionality
+  onGoBack: () => void; 
+  handleProceedToPay: () => void;
 }
 
 export function Hero6({ onGoBack, handleProceedToPay }: Hero7Props) {
-  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(
-    null
-  );
 
-  // Disable scrolling on mount and enable it on unmount
-  useEffect(() => {
-    document.body.style.overflow = "hidden"; // Disable scrolling
-    document.body.style.touchAction = "none"; // Disable touch gestures globally
-    return () => {
-      document.body.style.overflow = ""; // Re-enable scrolling
-      document.body.style.touchAction = ""; // Re-enable touch gestures
-    };
-  }, []);
-
-  const handleTouchStart = useCallback((e: TouchEvent) => {
-    const touchStartPosition = e.changedTouches[0];
-    setTouchStart({
-      x: touchStartPosition.clientX,
-      y: touchStartPosition.clientY,
-    });
-  }, []);
-
-  const handleTouchMove = useCallback(
-    (e: TouchEvent) => {
-      if (!touchStart) return;
-
-      const touchEnd = e.changedTouches[0];
-      const deltaY = touchEnd.clientY - touchStart.y;
-
-      // Prevent vertical swiping
-      if (Math.abs(deltaY) > 50) {
-        e.preventDefault(); // Block the default behavior
-      }
-    },
-    [touchStart]
-  );
-
-  const handleWheel = useCallback((e: WheelEvent) => {
-    e.preventDefault(); // Block vertical scrolling via mouse wheel
-  }, []);
-
-  useEffect(() => {
-    // Add event listeners for touch and wheel events
-    window.addEventListener("touchstart", handleTouchStart, { passive: false });
-    window.addEventListener("touchmove", handleTouchMove, { passive: false });
-    window.addEventListener("wheel", handleWheel, { passive: false });
-
-    return () => {
-      // Cleanup event listeners
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("wheel", handleWheel);
-    };
-  }, [handleTouchStart, handleTouchMove, handleWheel]);
 
   const slideData = [
     {
-      title: "Will you apply on my behalf?",
+      title: "",
       button: "Play",
       youtubeUrl: "https://www.youtube.com/embed/VoFn_tICyas",
-      src: "https://images.unsplash.com/photo-1494806812796-244fe51b774d?q=80&w=3534&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      src: "https://img.youtube.com/vi/VoFn_tICyas/maxresdefault.jpg", // Thumbnail from YouTube
     },
     {
-      title: "Why diff price for international resume?",
+      title: "",
       button: "Play",
       youtubeUrl: "https://www.youtube.com/embed/v0Yv4WegE2o",
-      src: "https://images.unsplash.com/photo-1518710843675-2540dd79065c?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      src: "https://img.youtube.com/vi/v0Yv4WegE2o/maxresdefault.jpg",
     },
     {
-      title: "How can we help you?",
+      title: "",
       button: "Play",
       youtubeUrl: "https://www.youtube.com/embed/MjWtDgQwcJc",
-      src: "https://images.unsplash.com/photo-1590041794748-2d8eb73a571c?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      src: "https://img.youtube.com/vi/MjWtDgQwcJc/maxresdefault.jpg",
     },
     {
-      title: "Can I filter jobs based on salary?",
+      title: "",
       button: "Play",
       youtubeUrl: "https://www.youtube.com/embed/MWMeAK-nHrI",
-      src: "https://images.unsplash.com/photo-1679420437432-80cfbf88986c?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      src: "https://img.youtube.com/vi/MWMeAK-nHrI/maxresdefault.jpg",
     },
     {
-      title: "Will you manually write the resume?",
+      title: "",
       button: "Play",
       youtubeUrl: "https://www.youtube.com/embed/HKsm3IorP3Y",
-      src: "https://images.unsplash.com/photo-1679420437432-80cfbf88986c?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      src: "https://img.youtube.com/vi/HKsm3IorP3Y/maxresdefault.jpg",
     },
     {
-      title: "Is this a one time payment plan (India)?",
+      title: "",
       button: "Play",
       youtubeUrl: "https://www.youtube.com/embed/AZ8GeXemgVc",
-      src: "https://images.unsplash.com/photo-1679420437432-80cfbf88986c?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      src: "https://img.youtube.com/vi/AZ8GeXemgVc/maxresdefault.jpg",
     },
   ];
+  
 
   return (
     <div className="flex flex-col min-h-[80vh]">

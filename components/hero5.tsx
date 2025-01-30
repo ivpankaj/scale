@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { ServiceButton } from "./service-button";
 import { CheckBadge } from "./check-badge";
 import { AnimatedSection } from "./Animated";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Footer } from "./Footer";
 import { Hero7 } from "./Hero7";
 import { Hero6 } from "./Hero6";
@@ -11,7 +11,7 @@ import { Hero6 } from "./Hero6";
 interface Hero5Props {
   selectedExperience: string;
   selectedCountry: string;
-  selectedJobRole:string
+  selectedJobRole: string;
 }
 
 const pricesInINR: Record<string, string> = {
@@ -24,7 +24,11 @@ const pricesInINR: Record<string, string> = {
   "15 plus": "Price : Rs. 4999 /-",
 };
 
-export const Hero5: React.FC<Hero5Props> = ({ selectedExperience, selectedCountry ,selectedJobRole}) => {
+export const Hero5: React.FC<Hero5Props> = ({
+  selectedExperience,
+  selectedCountry,
+  selectedJobRole,
+}) => {
   const [activeComponent, setActiveComponent] = useState<string | null>(null);
 
   const handleQuickGuideClick = () => {
@@ -39,7 +43,26 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience, selectedCountr
     console.log("Going back to Hero5"); // Debugging log
     setActiveComponent(null); // Reset to Hero5
   };
+  const disableScroll = () => {
+    document.body.style.overflow = "hidden";
+    document.body.style.touchAction = "none"; // Disable touch swiping
+  };
+  useEffect(() => {
+    if (activeComponent) {
+      disableScroll(); // Disable scroll when Hero6 or Hero7 is active
+    } else {
+      enableScroll(); // Enable scroll when returning to Hero5
+    }
 
+    // Cleanup function to ensure scroll is re-enabled when component unmounts
+    return () => {
+      enableScroll();
+    };
+  }, [activeComponent]);
+  const enableScroll = () => {
+    document.body.style.overflow = "";
+    document.body.style.touchAction = ""; // Re-enable touch swiping
+  };
   const selectedPrice =
     selectedCountry === "India"
       ? pricesInINR[selectedExperience] || "Price : Rs. 999 - Rs. 4499/-"
@@ -50,10 +73,13 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience, selectedCountr
     const message = `Hi, I'm interested in the Job Search Plan.\n\nDetails:\nCountry: ${selectedCountry}\nExperience: ${selectedExperience}\n${selectedPrice}\nRole: ${selectedJobRole}\n`;
 
     // Basic URL encoding
-    const encodedMessage = message.replace(/\n/g, '%0a');
+    const encodedMessage = message.replace(/\n/g, "%0a");
 
     // Open WhatsApp with the encoded message
-    window.open(`https://api.whatsapp.com/send?phone=917988656256&text=${encodedMessage}`, '_blank');
+    window.open(
+      `https://api.whatsapp.com/send?phone=917988656256&text=${encodedMessage}`,
+      "_blank"
+    );
   };
 
   return (
@@ -77,7 +103,6 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience, selectedCountr
                 >
                   Job Search Plan Costs
                 </motion.h1>
-            
               </div>
               <motion.div
                 className="space-y-4 mt-10"
@@ -134,14 +159,18 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience, selectedCountr
           </div>
         </AnimatedSection>
       )}
-   {activeComponent === "Hero7" && (
-  <Hero7 
-    onGoBack={handleGoBack} 
-    handleProceedToPay={handleProceedToPay} // Pass the function here
-  />
-)}
-      {activeComponent === "Hero6" && <Hero6 onGoBack={handleGoBack}  handleProceedToPay={handleProceedToPay} 
-      />}
+      {activeComponent === "Hero7" && (
+        <Hero7
+          onGoBack={handleGoBack}
+          handleProceedToPay={handleProceedToPay} // Pass the function here
+        />
+      )}
+      {activeComponent === "Hero6" && (
+        <Hero6
+          onGoBack={handleGoBack}
+          handleProceedToPay={handleProceedToPay}
+        />
+      )}
       {!activeComponent && (
         <Footer
           handleQuickGuideClick={handleQuickGuideClick}

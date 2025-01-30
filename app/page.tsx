@@ -5,7 +5,7 @@ import { Hero2 } from "@/components/hero2";
 import { Hero3 } from "@/components/hero3";
 import { Hero4 } from "@/components/hero4";
 import { Hero5 } from "@/components/hero5";
-import { Hero7 } from "@/components/Hero7";
+
 import { Navbar } from "@/components/navbar";
 import useVh from "@/hooks/useVh";
 import useVw from "@/hooks/useVw";
@@ -29,8 +29,8 @@ const PageScroll: React.FC = () => {
   const [validationTriggered, setValidationTriggered] =
     useState<boolean>(false);
   const [sectionKey, setSectionKey] = useState<number>(0);
-  const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(false); // Track phone validation
-  const [phoneNumber, setPhoneNumber] = useState(""); // Add this line
+  const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState(""); 
   useVh();
   useVw();
 
@@ -39,14 +39,12 @@ const PageScroll: React.FC = () => {
       { id: 0, Component: Hero },
       { id: 1, Component: Hero2 },
       { id: 2, Component: renderHero3 ? Hero4 : Hero3 },
-      { id: 3, Component: Hero5 }, // Hero5 is part of the scrollable sections
+      { id: 3, Component: Hero5 },
     ],
     [renderHero3]
   );
 
-  const goToHero7 = useCallback(() => {
-    setActiveSection(-1); // Use a special value (-1) for Hero7
-  }, []);
+
 
   const handleScroll = useCallback(
     (e: WheelEvent | TouchEvent): void => {
@@ -215,7 +213,7 @@ const PageScroll: React.FC = () => {
                 onPhoneValidation={handlePhoneValidation} // Pass phone validation callback
                 validationTriggered={id === 1 ? validationTriggered : false}
                 onSubmitSuccess={goToNextSection}
-                onGoToHero7={id === 3 ? goToHero7 : undefined} // Pass the function to Hero5
+              
               />
             )}
           </div>
