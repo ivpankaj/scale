@@ -22,17 +22,17 @@ export const phoneInputStyles = `
     background-color: transparent;
   }
 
-  .phone-input-container .react-tel-input .country-list {
-    background-color: #1a1a1a;
-    color: white;
-    border: 1px solid #333;
-    font-size: 16px !important;
-    max-height: 200px;
-    overflow-y: auto;
-    position: absolute;
-    z-index: 1000;
-    -webkit-overflow-scrolling: touch;
-  }
+.phone-input-container .react-tel-input .country-list {
+  background-color: #1a1a1a;
+  color: white;
+  border: 1px solid #333;
+  font-size: 16px !important;
+  max-height: 200px; /* Limit the height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  position: absolute;
+  z-index: 1000;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
+}
 
   .phone-input-container .react-tel-input .country-list .country:hover {
     background-color: #333;

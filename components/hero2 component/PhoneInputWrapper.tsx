@@ -7,12 +7,17 @@ interface PhoneInputWrapperProps {
   value: string;
   onChange: (value: string) => void;
   validationTriggered: boolean;
+  onDropdownOpen: () => void; // Callback when dropdown opens
+  onDropdownClose: () => void; 
 }
 
 export const PhoneInputWrapper: React.FC<PhoneInputWrapperProps> = ({
   value,
   onChange,
   validationTriggered,
+  onDropdownOpen,
+  onDropdownClose,
+  
 }) => {
   const [isValid, setIsValid] = useState(true);
   const phoneInputContainerRef = useRef<HTMLDivElement | null>(null);
@@ -25,15 +30,16 @@ export const PhoneInputWrapper: React.FC<PhoneInputWrapperProps> = ({
 
   useEffect(() => {
     const phoneInputContainer = phoneInputContainerRef.current;
-
     if (!phoneInputContainer) return;
 
     const preventBodyScroll = () => {
       document.body.classList.add("no-scroll");
+      onDropdownOpen(); // Notify Hero2 that dropdown is open
     };
 
     const allowBodyScroll = () => {
       document.body.classList.remove("no-scroll");
+      onDropdownClose(); // Notify Hero2 that dropdown is closed
     };
 
     const handleCountryListScroll = (event: Event) => {
@@ -53,9 +59,7 @@ export const PhoneInputWrapper: React.FC<PhoneInputWrapperProps> = ({
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         const countryList = phoneInputContainer.querySelector(".country-list");
-        const selectedFlag = phoneInputContainer.querySelector(
-          ".selected-flag"
-        );
+        const selectedFlag = phoneInputContainer.querySelector(".selected-flag");
 
         if (countryList && selectedFlag) {
           // Attach event listeners to the country list and selected flag
@@ -88,7 +92,8 @@ export const PhoneInputWrapper: React.FC<PhoneInputWrapperProps> = ({
       observer.disconnect();
       document.removeEventListener("click", handleOutsideClick);
     };
-  }, []);
+  }, [onDropdownOpen, onDropdownClose]);
+
 
   return (
     <div className="phone-input-container" ref={phoneInputContainerRef}>

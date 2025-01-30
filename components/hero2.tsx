@@ -25,7 +25,7 @@ export function Hero2({
 }: Hero2Props) {
 
   const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(true);
-
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Track dropdown state
   useEffect(() => {
     const viewport = document.querySelector('meta[name="viewport"]');
     if (viewport) {
@@ -79,6 +79,9 @@ export function Hero2({
 
   return (
     <AnimatedSection>
+       <div
+      className={`hero2-container ${isDropdownOpen ? "no-scroll" : ""}`} // Add no-scroll class when dropdown is open
+    ></div>
       <div className="min-h-screen flex flex-col items-center justify-center relative px-6 md:px-10 lg:px-16">
         <FloatingIcons />
         <motion.div
@@ -101,6 +104,8 @@ export function Hero2({
               value={propPhoneNumber}
               onChange={handlePhoneNumberChange}
               validationTriggered={validationTriggered}
+              onDropdownOpen={() => setIsDropdownOpen(true)} // Callback when dropdown opens
+              onDropdownClose={() => setIsDropdownOpen(false)} // Callback when dropdown closes
             />
             <Dropdown
               value={selectedCountry}

@@ -131,11 +131,7 @@ const PageScroll: React.FC = () => {
     },
     [touchStart, handleScroll]
   );
-  const onGoBackFromHero7 = useCallback(() => {
-    setIsScrolling(true);
-    setActiveSection(3); // Directly set to Hero5's index
-    setTimeout(() => setIsScrolling(false), 1000);
-  }, []);
+
   const handleCountrySelect = useCallback((country: string) => {
     setSelectedCountry(country);
     if (country === "India") {
