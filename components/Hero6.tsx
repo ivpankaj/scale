@@ -2,15 +2,12 @@ import { motion } from "framer-motion";
 import Carousel from "./ui/carousel";
 import { ArrowLeft } from "lucide-react";
 
-
 interface Hero7Props {
-  onGoBack: () => void; 
+  onGoBack: () => void;
   handleProceedToPay: () => void;
 }
 
 export function Hero6({ onGoBack, handleProceedToPay }: Hero7Props) {
-
-
   const slideData = [
     {
       title: "",
@@ -49,7 +46,6 @@ export function Hero6({ onGoBack, handleProceedToPay }: Hero7Props) {
       src: "https://img.youtube.com/vi/AZ8GeXemgVc/maxresdefault.jpg",
     },
   ];
-  
 
   return (
     <div className="flex flex-col min-h-[80vh]">
@@ -58,9 +54,9 @@ export function Hero6({ onGoBack, handleProceedToPay }: Hero7Props) {
           console.log("Back button clicked in Hero6");
           onGoBack();
         }}
-        className="absolute top-20 left-4 bg-[#ff9800] text-black px-4 py-2 rounded-lg font-semibold hover:bg-[#f57c00] z-50"
+        className="absolute top-20 left-4  text-[#ff9800] px-4 py-2 rounded-lg font-semibold hover:bg-[#f57c00] z-50"
       >
-        <ArrowLeft />
+        ← Go Back
       </button>
       <div className="flex-1 relative overflow-hidden h-[80vh] py-40 w-[100vw]">
         <Carousel slides={slideData} />
