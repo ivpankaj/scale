@@ -20,7 +20,7 @@ const ServiceButton2: React.FC<ServiceButton2Props> = ({
     <div className="relative group w-full max-w-lg mx-auto">
       <button
         onClick={onClick}
-        className="flex justify-between w-full p-4 bg-[#202020] rounded-lg transition-colors"
+        className="flex justify-between w-[90vw] p-4 bg-[#202020] rounded-lg transition-colors"
       >
         <span className="text-white flex  ">{children}</span>
         <span className='text-[#ff9800] text-xl flex items-end'>{toggleButtonText}</span>
