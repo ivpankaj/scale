@@ -75,7 +75,7 @@ export function Hero4() {
           >
             {showAllServices
               ? services
-                  .slice(2, 4)
+                  .slice(3, 5)
                   .map((service, index) => (
                     <motion.div
                       key={service}
