@@ -210,14 +210,7 @@ const PageScroll: React.FC = () => {
             )}
           </div>
         ))}
-        {activeSection === -1 && (
-          <div
-            key={`section-hero7-${sectionKey}`}
-            className="absolute inset-0 flex items-center justify-center transition-all duration-1000 ease-out-cubic scale-100 opacity-100"
-          >
-            <Hero7 onGoBack={onGoBackFromHero7} />
-          </div>
-        )}
+
       </div>
     </div>
   );
