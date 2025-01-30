@@ -39,7 +39,7 @@ export function Hero4() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center max-w-3xl mx-auto"
+            className="text-center max-w-3xl mx-auto w-full"
           >
             <div className="flex items-center justify-center gap-4 mb-2">
               <CheckBadge />

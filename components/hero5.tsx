@@ -77,7 +77,7 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience, selectedCountr
                 >
                   Job Search Plan Costs
                 </motion.h1>
-                <CheckBadge />
+            
               </div>
               <motion.div
                 className="space-y-4 mt-10"
@@ -101,9 +101,22 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience, selectedCountr
               >
                 <button
                   onClick={handleProceedToPay}
-                  className="md:w-[300px] sm:w-[100px] bg-[#ff9800] backdrop-blur-sm border border-gray-600 rounded-xl p-4 text-lg text-black font-semibold transition-colors hover:bg-[#f57c00]"
+                  className="md:w-[300px] sm:w-[100px] bg-[#ff9800] backdrop-blur-sm border border-gray-600 rounded-xl p-4 text-lg text-white font-semibold transition-colors hover:bg-[#f57c00]"
                 >
                   Proceed to Pay
+                </button>
+              </motion.div>
+              <motion.div
+                className="space-y-4 mt-10"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+              >
+                <button
+                  onClick={handleProceedToPay}
+                  className="md:w-[300px] sm:w-[100px] bg-[#ff9800] backdrop-blur-sm border border-gray-600 rounded-xl p-4 text-lg text-white font-semibold transition-colors hover:bg-[#f57c00]"
+                >
+                  Talk to an Expert
                 </button>
               </motion.div>
             </motion.div>

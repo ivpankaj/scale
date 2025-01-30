@@ -64,7 +64,4 @@ export const phoneInputStyles = `
     overflow-y: auto;
   }
 
-  body.no-scroll {
-    overflow: hidden;
-  }
 `;
