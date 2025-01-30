@@ -20,63 +20,85 @@ interface Section {
 const PageScroll: React.FC = () => {
   const [activeSection, setActiveSection] = useState<number>(0);
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
-  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(
+    null
+  );
   const [renderHero3, setRenderHero3] = useState<boolean>(false);
   const [selectedExperience, setSelectedExperience] = useState<string>("");
   const [selectedCountry, setSelectedCountry] = useState<string>("");
   const [selectedJobRole, setSelectedJobRole] = useState<string>("");
-  const [validationTriggered, setValidationTriggered] = useState<boolean>(false);
+  const [validationTriggered, setValidationTriggered] =
+    useState<boolean>(false);
   const [sectionKey, setSectionKey] = useState<number>(0);
-
+  const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(false); // Track phone validation
+  const [phoneNumber, setPhoneNumber] = useState(""); // Add this line
   useVh();
   useVw();
 
-  const sections: Section[] = useMemo(() => [
-    { id: 0, Component: Hero },
-    { id: 1, Component: Hero2 },
-    { id: 2, Component: renderHero3 ? Hero4 : Hero3 },
-    { id: 3, Component: Hero5 }, // Hero5 is part of the scrollable sections
-  ], [renderHero3]);
+  const sections: Section[] = useMemo(
+    () => [
+      { id: 0, Component: Hero },
+      { id: 1, Component: Hero2 },
+      { id: 2, Component: renderHero3 ? Hero4 : Hero3 },
+      { id: 3, Component: Hero5 }, // Hero5 is part of the scrollable sections
+    ],
+    [renderHero3]
+  );
   const goToHero7 = useCallback(() => {
     setActiveSection(-1); // Use a special value (-1) for Hero7
   }, []);
 
+  const handleScroll = useCallback(
+    (e: WheelEvent | TouchEvent): void => {
+      if (isScrolling) return;
+      if (activeSection === -1) return;
+      let direction: number;
+      if (e instanceof WheelEvent) {
+        direction = e.deltaY > 0 ? 1 : -1;
+      } else if (e instanceof TouchEvent) {
+        const touchEnd = e.changedTouches[0]?.clientY;
+        if (!touchEnd || !touchStart || touchStart.y === 0) return;
+        direction = touchEnd - touchStart.y > 0 ? -1 : 1;
+      } else {
+        return;
+      }
 
+      let newSection = activeSection + direction;
 
-  const handleScroll = useCallback((e: WheelEvent | TouchEvent): void => {
-    if (isScrolling) return;
-    if (activeSection === -1) return;
-    let direction: number;
-    if (e instanceof WheelEvent) {
-      direction = e.deltaY > 0 ? 1 : -1;
-    } else if (e instanceof TouchEvent) {
-      const touchEnd = e.changedTouches[0]?.clientY;
-      if (!touchEnd || !touchStart || touchStart.y === 0) return;
-      direction = touchEnd - touchStart.y > 0 ? -1 : 1;
-    } else {
-      return;
-    }
+      // Prevent scrolling out of bounds
+      if (newSection < 0 || newSection >= sections.length) {
+        return;
+      }
 
-    let newSection = activeSection + direction;
-
-    // Prevent scrolling out of bounds
-    if (newSection < 0 || newSection >= sections.length) {
-      return;
-    }
-
-    // Validation for certain sections
-    if ((newSection === 2 || newSection === 3) && !(
-      selectedCountry && selectedExperience && selectedJobRole
-    )) {
-      alert("Please select all fields including a valid phone number before proceeding.");
-      return;
-    }
-
-    setIsScrolling(true);
-    setSectionKey(prev => prev + 1);
-    setActiveSection(newSection);
-    setTimeout(() => setIsScrolling(false), 1000);
-  }, [isScrolling, touchStart, activeSection, sections, selectedCountry, selectedExperience, selectedJobRole]);
+      // Validation for certain sections
+      if (newSection === 2 || newSection === 3) {
+        if (!(selectedCountry && selectedExperience && selectedJobRole)) {
+          alert(
+            "Please select all fields including a valid phone number before proceeding."
+          );
+          return;
+        }
+        if (!isPhoneNumberValid) {
+          // Check phone number validity
+          alert("Please enter a valid phone number before proceeding.");
+          return;
+        }
+      }
+      setIsScrolling(true);
+      setSectionKey((prev) => prev + 1);
+      setActiveSection(newSection);
+      setTimeout(() => setIsScrolling(false), 1000);
+    },
+    [
+      isScrolling,
+      touchStart,
+      activeSection,
+      sections,
+      selectedCountry,
+      selectedExperience,
+      selectedJobRole,
+    ]
+  );
 
   const goToNextSection = useCallback(() => {
     if (activeSection < sections.length - 1) {
@@ -88,22 +110,28 @@ const PageScroll: React.FC = () => {
 
   const handleTouchStart = useCallback((e: TouchEvent) => {
     const touchStartPosition = e.changedTouches[0];
-    setTouchStart({ x: touchStartPosition.clientX, y: touchStartPosition.clientY });
+    setTouchStart({
+      x: touchStartPosition.clientX,
+      y: touchStartPosition.clientY,
+    });
   }, []);
 
-  const handleTouchMove = useCallback((e: TouchEvent) => {
-    if (activeSection === -1) return;
-    if (!touchStart) return;
-    const touchEnd = e.changedTouches[0];
-    const deltaX = touchEnd.clientX - touchStart.x;
-    const deltaY = touchEnd.clientY - touchStart.y;
+  const handleTouchMove = useCallback(
+    (e: TouchEvent) => {
+      if (activeSection === -1) return;
+      if (!touchStart) return;
+      const touchEnd = e.changedTouches[0];
+      const deltaX = touchEnd.clientX - touchStart.x;
+      const deltaY = touchEnd.clientY - touchStart.y;
 
-    // Only consider the touch event if it's more vertical than horizontal
-    if (Math.abs(deltaY) > Math.abs(deltaX)) {
-      handleScroll(e);
-    }
-    setTouchStart({ x: touchEnd.clientX, y: touchEnd.clientY });
-  }, [touchStart, handleScroll]);
+      // Only consider the touch event if it's more vertical than horizontal
+      if (Math.abs(deltaY) > Math.abs(deltaX)) {
+        handleScroll(e);
+      }
+      setTouchStart({ x: touchEnd.clientX, y: touchEnd.clientY });
+    },
+    [touchStart, handleScroll]
+  );
   const onGoBackFromHero7 = useCallback(() => {
     setIsScrolling(true);
     setActiveSection(3); // Directly set to Hero5's index
@@ -126,11 +154,12 @@ const PageScroll: React.FC = () => {
     setSelectedJobRole(jobRole);
   }, []);
 
-
   useEffect(() => {
     window.addEventListener("wheel", handleScroll as any, { passive: false });
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove as any, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove as any, {
+      passive: true,
+    });
 
     return () => {
       window.removeEventListener("wheel", handleScroll as any);
@@ -138,6 +167,9 @@ const PageScroll: React.FC = () => {
       window.removeEventListener("touchmove", handleTouchMove as any);
     };
   }, [handleScroll, handleTouchStart, handleTouchMove]);
+  const handlePhoneValidation = useCallback((isValid: boolean) => {
+    setIsPhoneNumberValid(isValid);
+  }, []);
 
   return (
     <div className="fixed inset-0 w-full h-[calc(var(--vh,1vh)*100)] overflow-hidden">
@@ -160,15 +192,22 @@ const PageScroll: React.FC = () => {
             }}
           >
             {id === activeSection && (
-              <Component 
-                onCountrySelect={id === 1 ? handleCountrySelect : undefined} 
-                onExperienceSelect={id === 1 ? handleExperienceSelect : undefined}
+              <Component
+                onCountrySelect={id === 1 ? handleCountrySelect : undefined}
+                onExperienceSelect={
+                  id === 1 ? handleExperienceSelect : undefined
+                }
                 onJobRoleSelect={id === 1 ? handleJobRoleSelect : undefined}
                 selectedExperience={selectedExperience}
                 selectedCountry={selectedCountry}
                 selectedJobRole={selectedJobRole}
+                phoneNumber={phoneNumber} // Pass the phone number value
+                setPhoneNumber={setPhoneNumber} // Pass the setter function
+                onPhoneValidation={handlePhoneValidation} // Pass phone validation callback
                 validationTriggered={id === 1 ? validationTriggered : false}
                 onSubmitSuccess={goToNextSection}
+           
+          
                 onGoToHero7={id === 3 ? goToHero7 : undefined} // Pass the function to Hero5
               />
             )}

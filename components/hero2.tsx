@@ -19,8 +19,11 @@ export function Hero2({
   selectedJobRole,
   onPhoneNumberChange,
   onSubmitSuccess,
+  onPhoneValidation, 
+  phoneNumber: propPhoneNumber, // Lifted state from parent
+  setPhoneNumber: setPropPhoneNumber, // Setter function from parent
 }: Hero2Props) {
-  const [phoneNumber, setPhoneNumber] = useState("");
+
   const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(true);
 
   useEffect(() => {
@@ -40,21 +43,23 @@ export function Hero2({
   }, []);
 
   const handlePhoneNumberChange = (value: string) => {
-    setPhoneNumber(value);
+    setPropPhoneNumber(value); // Update the parent's state
     const isValid = value.length >= 10;
     setIsPhoneNumberValid(isValid);
+    if (onPhoneValidation) {
+      onPhoneValidation(isValid);
+    }
     if (isValid && onPhoneNumberChange) {
       onPhoneNumberChange(value);
     }
   };
-
   const handleSubmit = async () => {
     try {
       const response = await fetch(`http://localhost:4000/start/save`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          phoneNumber,
+          phoneNumber: propPhoneNumber,
           country: selectedCountry,
           experience: selectedExperience,
           jobRole: selectedJobRole,
@@ -92,11 +97,10 @@ export function Hero2({
 
           <div className="space-y-4 mt-8 bg-black">
             <PhoneInputWrapper
-              value={phoneNumber}
+              value={propPhoneNumber}
               onChange={handlePhoneNumberChange}
               validationTriggered={validationTriggered}
             />
-
             <Dropdown
               value={selectedCountry}
               onChange={(e) => onCountrySelect(e.target.value)}

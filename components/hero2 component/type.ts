@@ -18,4 +18,7 @@ export interface Hero2Props {
   selectedJobRole: string;
   onPhoneNumberChange?: (phoneNumber: string) => void;
   onSubmitSuccess?: () => void; // Optional callback for successful submission
+  onPhoneValidation?: (isValid: boolean) => void; // Add this line
+  phoneNumber: string; // Lifted state from parent
+  setPhoneNumber: (phoneNumber: string) => void; // Setter function from parent
 }
