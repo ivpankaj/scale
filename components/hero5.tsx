@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { Footer } from "./Footer";
 import { Hero7 } from "./Hero7";
 import { Hero6 } from "./Hero6";
+import { ServiceButton3 } from "./service-button-price";
 
 interface Hero5Props {
   selectedExperience: string;
@@ -115,7 +116,7 @@ export const Hero5: React.FC<Hero5Props> = ({
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.8 }}
                 >
-                  <ServiceButton>{selectedPrice}</ServiceButton>
+                  <ServiceButton3>{selectedPrice}</ServiceButton3>
                 </motion.div>
               </motion.div>
               <motion.div
