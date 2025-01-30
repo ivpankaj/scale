@@ -1,4 +1,3 @@
-// hero5.tsx
 "use client";
 import { motion } from "framer-motion";
 import { ServiceButton } from "./service-button";
@@ -35,11 +34,20 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience, selectedCountr
     setActiveComponent("Hero6");
   };
 
-  // Determine the price based on the selected country
-  const selectedPrice =
-    selectedCountry === "India"
-      ? pricesInINR[selectedExperience] || "Price : Rs. 999 - Rs. 4499/-"
-      : "Price : $49 - $199 USD";
+  const selectedPrice = selectedCountry === "India"
+    ? pricesInINR[selectedExperience] || "Price : Rs. 999 - Rs. 4499/-"
+    : "Price : $49 - $199 USD";
+
+  const handleProceedToPay = () => {
+    // Create the message first
+    const message = `Hi, I'm interested in the Job Search Plan.\n\nDetails:\nCountry: ${selectedCountry}\nExperience: ${selectedExperience}\n${selectedPrice}`;
+    
+    // Basic URL encoding
+    const encodedMessage = message.replace(/\n/g, '%0a');
+    
+    // Open WhatsApp with the encoded message
+    window.open(`https://api.whatsapp.com/send?phone=917988656256&text=${encodedMessage}`, '_blank');
+  };
 
   return (
     <>
@@ -84,7 +92,10 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience, selectedCountr
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
               >
-                <button className="md:w-[300px] sm:w-[100px] bg-[#ff9800] backdrop-blur-sm border border-gray-600 rounded-xl p-4 text-lg text-black font-semibold transition-colors">
+                <button 
+                  onClick={handleProceedToPay}
+                  className="md:w-[300px] sm:w-[100px] bg-[#ff9800] backdrop-blur-sm border border-gray-600 rounded-xl p-4 text-lg text-black font-semibold transition-colors hover:bg-[#f57c00]"
+                >
                   Proceed to Pay
                 </button>
               </motion.div>

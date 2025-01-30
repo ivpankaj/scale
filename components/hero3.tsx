@@ -80,25 +80,23 @@ export function Hero3() {
                         </ServiceButton2>
                       </motion.div>
                     ))
-                : services
-                    .slice(0, 2) 
-                    .map((service, index) => (
-                      <motion.div
-                        key={service}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.8 + index * 0.1 }}
+                : services.slice(0, 2).map((service, index) => (
+                    <motion.div
+                      key={service}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.8 + index * 0.1 }}
+                    >
+                      <ServiceButton2
+                        onClick={() => toggleExpand(index)}
+                        expanded={expandedIndex === index}
+                        staticData={<span>{staticData[index]}</span>}
+                        toggleButtonText={expandedIndex === index ? "-" : "+"}
                       >
-                        <ServiceButton2
-                          onClick={() => toggleExpand(index)}
-                          expanded={expandedIndex === index}
-                          staticData={<span>{staticData[index]}</span>}
-                          toggleButtonText={expandedIndex === index ? "-" : "+"}
-                        >
-                          {service}
-                        </ServiceButton2>
-                      </motion.div>
-                    ))}
+                        {service}
+                      </ServiceButton2>
+                    </motion.div>
+                  ))}
             </motion.div>
           </motion.div>
           {!showAllServices && (
