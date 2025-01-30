@@ -4,9 +4,10 @@ import { ArrowLeft } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 interface Hero7Props {
   onGoBack: () => void; // Callback to notify parent to navigate back
+  handleProceedToPay: () => void; // Pass the proceed to pay functionality
 }
 
-export function Hero6({ onGoBack }: Hero7Props) {
+export function Hero6({ onGoBack ,handleProceedToPay}: Hero7Props) {
   const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(
     null
   );
@@ -110,7 +111,7 @@ export function Hero6({ onGoBack }: Hero7Props) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
         >
-          <button className="w-full p-4 bg-[#ff9800] hover:bg-[#f57c00] transition-colors text-black font-medium flex items-center justify-center gap-2">
+          <button    onClick={handleProceedToPay} className="w-full p-4 bg-[#ff9800] hover:bg-[#f57c00] transition-colors text-black font-medium flex items-center justify-center gap-2">
             Proceed To Pay
           </button>
         </motion.div>
