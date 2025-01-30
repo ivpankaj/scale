@@ -7,9 +7,10 @@ import { ArrowLeft } from "lucide-react";
 
 interface Hero7Props {
   onGoBack: () => void; // Callback to notify parent to navigate back
+  handleProceedToPay: () => void; // Pass the proceed to pay functionality
 }
 
-export function Hero7({ onGoBack }: Hero7Props) {
+export function Hero7({ onGoBack,handleProceedToPay }: Hero7Props) {
   const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
 
   // Disable scrolling on mount and enable it on unmount
@@ -95,6 +96,19 @@ export function Hero7({ onGoBack }: Hero7Props) {
               <ServiceButton>{service}</ServiceButton>
             </motion.div>
           ))}
+        </motion.div>
+        <motion.div
+          className="space-y-4 mt-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+        >
+          <button
+            onClick={handleProceedToPay}
+            className="md:w-[300px] sm:w-[100px] bg-[#ff9800] backdrop-blur-sm border border-gray-600 rounded-xl p-4 text-lg text-black font-semibold transition-colors hover:bg-[#f57c00]"
+          >
+            Proceed to Pay
+          </button>
         </motion.div>
       </motion.div>
       <motion.div

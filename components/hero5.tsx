@@ -121,7 +121,12 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience, selectedCountr
           </div>
         </AnimatedSection>
       )}
-      {activeComponent === "Hero7" && <Hero7 onGoBack={handleGoBack} />}
+   {activeComponent === "Hero7" && (
+  <Hero7 
+    onGoBack={handleGoBack} 
+    handleProceedToPay={handleProceedToPay} // Pass the function here
+  />
+)}
       {activeComponent === "Hero6" && <Hero6 onGoBack={handleGoBack}/>}
       {!activeComponent && (
         <Footer
