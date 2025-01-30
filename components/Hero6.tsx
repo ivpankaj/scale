@@ -6,45 +6,48 @@ interface Hero7Props {
   onGoBack: () => void; // Callback to notify parent to navigate back
 }
 
+export function Hero6({ onGoBack }: Hero7Props) {
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(
+    null
+  );
 
-export function Hero6({onGoBack}:Hero7Props) {
+  // Disable scrolling on mount and enable it on unmount
+  useEffect(() => {
+    document.body.style.overflow = "hidden"; // Disable scrolling
+    return () => {
+      document.body.style.overflow = ""; // Re-enable scrolling
+    };
+  }, []);
 
-  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
-  
-    // Disable scrolling on mount and enable it on unmount
-    useEffect(() => {
-      document.body.style.overflow = "hidden"; // Disable scrolling
-      return () => {
-        document.body.style.overflow = ""; // Re-enable scrolling
-      };
-    }, []);
-  
-    const handleTouchStart = useCallback((e: TouchEvent) => {
-      const touchStartPosition = e.changedTouches[0];
-      setTouchStart({ x: touchStartPosition.clientX, y: touchStartPosition.clientY });
-    }, []);
-  
-    const handleTouchMove = useCallback(
-      (e: TouchEvent) => {
-        if (!touchStart) return;
-        const touchEnd = e.changedTouches[0];
-        const deltaY = touchEnd.clientY - touchStart.y;
-        if (Math.abs(deltaY) > 50) {
-          onGoBack(); // Trigger go back on swipe down
-        }
-      },
-      [touchStart, onGoBack]
-    );
-  
-    useEffect(() => {
-      window.addEventListener("touchstart", handleTouchStart, { passive: true });
-      window.addEventListener("touchmove", handleTouchMove, { passive: true });
-      return () => {
-        window.removeEventListener("touchstart", handleTouchStart);
-        window.removeEventListener("touchmove", handleTouchMove);
-      };
-    }, [handleTouchStart, handleTouchMove]);
-  
+  const handleTouchStart = useCallback((e: TouchEvent) => {
+    const touchStartPosition = e.changedTouches[0];
+    setTouchStart({
+      x: touchStartPosition.clientX,
+      y: touchStartPosition.clientY,
+    });
+  }, []);
+
+  const handleTouchMove = useCallback(
+    (e: TouchEvent) => {
+      if (!touchStart) return;
+      const touchEnd = e.changedTouches[0];
+      const deltaY = touchEnd.clientY - touchStart.y;
+      if (Math.abs(deltaY) > 50) {
+        onGoBack(); // Trigger go back on swipe down
+      }
+    },
+    [touchStart, onGoBack]
+  );
+
+  useEffect(() => {
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+    };
+  }, [handleTouchStart, handleTouchMove]);
+
   const slideData = [
     {
       title: "Will you apply on my behalf?",
@@ -86,12 +89,16 @@ export function Hero6({onGoBack}:Hero7Props) {
 
   return (
     <div className="flex flex-col min-h-[80vh]">
-      <button
-        onClick={onGoBack}
-        className="absolute top-20 left-4 bg-[#ff9800] text-black px-4 py-2 rounded-lg font-semibold hover:bg-[#f57c00]"
-      >
-        <ArrowLeft />
-      </button>
+<button
+  onClick={() => {
+    console.log("Back button clicked in Hero6");
+    onGoBack();
+  }}
+  className="absolute top-20 left-4 bg-[#ff9800] text-black px-4 py-2 rounded-lg font-semibold hover:bg-[#f57c00] z-50"
+>
+  <ArrowLeft />
+</button>
+
       <div className="flex-1 relative overflow-hidden h-[80vh] py-40 w-[100vw]">
         <Carousel slides={slideData} />
       </div>
