@@ -6,6 +6,7 @@ import { Hero3 } from "@/components/hero3";
 import { Hero4 } from "@/components/hero4";
 import { Hero5 } from "@/components/hero5";
 import { Hero7 } from "@/components/Hero7";
+
 import { Navbar } from "@/components/navbar";
 import useVh from "@/hooks/useVh";
 import useVw from "@/hooks/useVw";
@@ -36,10 +37,15 @@ const PageScroll: React.FC = () => {
     { id: 2, Component: renderHero3 ? Hero4 : Hero3 },
     { id: 3, Component: Hero5 }, // Hero5 is part of the scrollable sections
   ], [renderHero3]);
+  const goToHero7 = useCallback(() => {
+    setActiveSection(-1); // Use a special value (-1) for Hero7
+  }, []);
+
+
 
   const handleScroll = useCallback((e: WheelEvent | TouchEvent): void => {
     if (isScrolling) return;
-
+    if (activeSection === -1) return;
     let direction: number;
     if (e instanceof WheelEvent) {
       direction = e.deltaY > 0 ? 1 : -1;
@@ -51,14 +57,7 @@ const PageScroll: React.FC = () => {
       return;
     }
 
-    let newSection = activeSection;
-
-    // Special case: If on Hero7, navigate back to Hero5
-    if (activeSection === -1) {
-      newSection = 3; // Always navigate back to Hero5
-    } else {
-      newSection = activeSection + direction;
-    }
+    let newSection = activeSection + direction;
 
     // Prevent scrolling out of bounds
     if (newSection < 0 || newSection >= sections.length) {
@@ -93,6 +92,7 @@ const PageScroll: React.FC = () => {
   }, []);
 
   const handleTouchMove = useCallback((e: TouchEvent) => {
+    if (activeSection === -1) return;
     if (!touchStart) return;
     const touchEnd = e.changedTouches[0];
     const deltaX = touchEnd.clientX - touchStart.x;
@@ -104,7 +104,11 @@ const PageScroll: React.FC = () => {
     }
     setTouchStart({ x: touchEnd.clientX, y: touchEnd.clientY });
   }, [touchStart, handleScroll]);
-
+  const onGoBackFromHero7 = useCallback(() => {
+    setIsScrolling(true);
+    setActiveSection(3); // Directly set to Hero5's index
+    setTimeout(() => setIsScrolling(false), 1000);
+  }, []);
   const handleCountrySelect = useCallback((country: string) => {
     setSelectedCountry(country);
     if (country === "India") {
@@ -122,10 +126,6 @@ const PageScroll: React.FC = () => {
     setSelectedJobRole(jobRole);
   }, []);
 
-  // Function to navigate to Hero7
-  const goToHero7 = useCallback(() => {
-    setActiveSection(-1); // Use a special value (-1) for Hero7
-  }, []);
 
   useEffect(() => {
     window.addEventListener("wheel", handleScroll as any, { passive: false });
@@ -174,13 +174,12 @@ const PageScroll: React.FC = () => {
             )}
           </div>
         ))}
-        {/* Render Hero7 separately */}
         {activeSection === -1 && (
           <div
             key={`section-hero7-${sectionKey}`}
             className="absolute inset-0 flex items-center justify-center transition-all duration-1000 ease-out-cubic scale-100 opacity-100"
           >
-            <Hero7 />
+            <Hero7 onGoBack={onGoBackFromHero7} />
           </div>
         )}
       </div>
