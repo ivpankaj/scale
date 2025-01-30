@@ -1,4 +1,3 @@
-"use client";
 import React, { useState, useEffect, useRef } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -27,69 +26,75 @@ export const PhoneInputWrapper: React.FC<PhoneInputWrapperProps> = ({
   useEffect(() => {
     const phoneInputContainer = phoneInputContainerRef.current;
 
-    if (phoneInputContainer) {
-      const countryList = phoneInputContainer.querySelector('.country-list');
-      const selectedFlag = phoneInputContainer.querySelector('.selected-flag');
+    if (!phoneInputContainer) return;
 
-      // Function to prevent scrolling on the body
-      const preventBodyScroll = () => {
-        document.body.classList.add('no-scroll');
-      };
+    const preventBodyScroll = () => {
+      document.body.classList.add("no-scroll");
+    };
 
-      // Function to allow scrolling on the body
-      const allowBodyScroll = () => {
-        document.body.classList.remove('no-scroll');
-      };
+    const allowBodyScroll = () => {
+      document.body.classList.remove("no-scroll");
+    };
 
-      // Prevent dropdown scroll from propagating to the body
-      const handleCountryListScroll = (event: Event) => {
-        event.stopPropagation();
-      };
+    const handleCountryListScroll = (event: Event) => {
+      event.stopPropagation(); // Prevent scroll propagation
+    };
 
-      // When the dropdown opens, prevent body scroll
-      const handleSelectedFlagClick = () => {
-        if (countryList && window.getComputedStyle(countryList).display !== 'none') {
-          preventBodyScroll();
-        } else {
-          allowBodyScroll();
-        }
-      };
-
-      // Close dropdown when clicking outside
-      const handleOutsideClick = (event: MouseEvent) => {
-        if (phoneInputContainer && !phoneInputContainer.contains(event.target as Node)) {
-          allowBodyScroll();
-        }
-      };
-
-      if (countryList) {
-        countryList.addEventListener('scroll', handleCountryListScroll);
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        phoneInputContainer &&
+        !phoneInputContainer.contains(event.target as Node)
+      ) {
+        allowBodyScroll();
       }
+    };
 
-      if (selectedFlag) {
-        selectedFlag.addEventListener('click', handleSelectedFlagClick);
-      }
+    // Use MutationObserver to detect when the country list is rendered
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        const countryList = phoneInputContainer.querySelector(".country-list");
+        const selectedFlag = phoneInputContainer.querySelector(
+          ".selected-flag"
+        );
 
-      document.addEventListener('click', handleOutsideClick);
-
-      // Cleanup event listeners on unmount
-      return () => {
-        if (countryList) {
-          countryList.removeEventListener('scroll', handleCountryListScroll);
+        if (countryList && selectedFlag) {
+          // Attach event listeners to the country list and selected flag
+          countryList.addEventListener("scroll", handleCountryListScroll);
+          selectedFlag.addEventListener("click", () => {
+            if (
+              countryList &&
+              window.getComputedStyle(countryList).display !== "none"
+            ) {
+              preventBodyScroll();
+            } else {
+              allowBodyScroll();
+            }
+          });
         }
+      });
+    });
 
-        if (selectedFlag) {
-          selectedFlag.removeEventListener('click', handleSelectedFlagClick);
-        }
+    // Observe changes in the phone input container
+    observer.observe(phoneInputContainer, {
+      childList: true,
+      subtree: true,
+    });
 
-        document.removeEventListener('click', handleOutsideClick);
-      };
-    }
+    // Add global click listener
+    document.addEventListener("click", handleOutsideClick);
+
+    // Cleanup
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("click", handleOutsideClick);
+    };
   }, []);
 
   return (
     <div className="phone-input-container" ref={phoneInputContainerRef}>
-      <style jsx global>{phoneInputStyles}</style>
+      <style jsx global>
+        {phoneInputStyles}
+      </style>
       <PhoneInput
         country="in"
         value={value}
@@ -107,7 +112,9 @@ export const PhoneInputWrapper: React.FC<PhoneInputWrapperProps> = ({
         containerClass="phone-input-container custom-country-list"
       />
       {!isValid && validationTriggered && (
-        <p className="text-[#ff9800] mt-1">Please enter a valid phone number</p>
+        <p className="text-[#ff9800] mt-1">
+          Please enter a valid phone number
+        </p>
       )}
     </div>
   );

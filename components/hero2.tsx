@@ -54,6 +54,7 @@ export function Hero2({
     }
   };
   const handleSubmit = async () => {
+    console.log("ad")
     try {
       const response = await fetch(`http://localhost:4000/start/save`, {
         method: "POST",
@@ -130,7 +131,6 @@ export function Hero2({
         <button
           className="block w-full px-4 py-2 border mt-1 bg-[#ff9800] text-black rounded-md shadow-md focus:outline-none focus:ring-2"
           onClick={handleSubmit}
-          disabled={!isPhoneNumberValid || !validationTriggered}
         >
           Submit
         </button>
