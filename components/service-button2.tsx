@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import { motion } from 'framer-motion';
+import React, { ReactNode } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ServiceButton2Props {
   children: ReactNode;
@@ -17,25 +17,34 @@ const ServiceButton2: React.FC<ServiceButton2Props> = ({
   toggleButtonText,
 }) => {
   return (
-    <div className="relative group w-full max-w-lg mx-auto">
-      <button
-        onClick={onClick}
-        className="flex justify-between w-[90vw] p-4 bg-[#202020] rounded-lg transition-colors"
-      >
-        <span className="text-white flex  ">{children}</span>
-        <span className='text-[#ff9800] text-xl flex items-end'>{toggleButtonText}</span>
-      </button>
-      {expanded && (
-        <motion.div
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 'auto', opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.1 }}
-          className="p-4 bg-[#393737] border border-[#ff9800] rounded-lg"
+    <div className="relative group w-full max-w-md lg:max-w-lg mx-auto">
+      {/* Wrapper to maintain width stability */}
+      <div className="w-full">
+        <button
+          onClick={onClick}
+          className="flex  w-full p-4 bg-[#202020] rounded-lg transition-colors box-border border border-transparent"
         >
-         <span className='flex justify-start'> {staticData}</span>
-        </motion.div>
-      )}
+          <span className="text-white">{children}</span>
+          <span className="text-[#ff9800] text-xl">{toggleButtonText}</span>
+        </button>
+
+        {/* AnimatePresence ensures smooth mount/unmount animation */}
+        <AnimatePresence>
+          {expanded && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="w-full bg-[#393737] border border-[#ff9800] rounded-lg overflow-hidden box-border"
+            >
+              <div className="p-4 w-full">
+                <span className="flex justify-start">{staticData}</span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 };
