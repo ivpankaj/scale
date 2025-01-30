@@ -103,7 +103,7 @@ export function Hero6({ onGoBack }: Hero7Props) {
         <Carousel slides={slideData} />
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 z-10 bg-white">
+      <div className="fixed bottom-0 left-0 right-0 z-10 bg-[#ff9800]">
         <motion.div
           className="w-full"
           initial={{ opacity: 0, y: 20 }}
