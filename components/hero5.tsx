@@ -11,6 +11,7 @@ import { Hero6 } from "./Hero6";
 interface Hero5Props {
   selectedExperience: string;
   selectedCountry: string;
+  selectedJobRole:string
 }
 
 const pricesInINR: Record<string, string> = {
@@ -23,7 +24,7 @@ const pricesInINR: Record<string, string> = {
   "15 plus": "Price : Rs. 4999 /-",
 };
 
-export const Hero5: React.FC<Hero5Props> = ({ selectedExperience, selectedCountry }) => {
+export const Hero5: React.FC<Hero5Props> = ({ selectedExperience, selectedCountry ,selectedJobRole}) => {
   const [activeComponent, setActiveComponent] = useState<string | null>(null);
 
   const handleQuickGuideClick = () => {
@@ -46,7 +47,7 @@ export const Hero5: React.FC<Hero5Props> = ({ selectedExperience, selectedCountr
 
   const handleProceedToPay = () => {
     // Create the message first
-    const message = `Hi, I'm interested in the Job Search Plan.\n\nDetails:\nCountry: ${selectedCountry}\nExperience: ${selectedExperience}\n${selectedPrice}`;
+    const message = `Hi, I'm interested in the Job Search Plan.\n\nDetails:\nCountry: ${selectedCountry}\nExperience: ${selectedExperience}\n${selectedPrice}\nRole: ${selectedJobRole}\n`;
 
     // Basic URL encoding
     const encodedMessage = message.replace(/\n/g, '%0a');
