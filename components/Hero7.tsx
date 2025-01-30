@@ -57,10 +57,10 @@ export function Hero7({ onGoBack, handleProceedToPay }: Hero7Props) {
   ];
 
   return (
-    <div className="relative flex min-h-[100vh] items-center justify-center px-4">
+    <div className="relative flex min-h-screen items-center justify-center px-4">
       <button
         onClick={onGoBack}
-        className="absolute left-4 top-20 rounded-lg font-semibold text-[#ff9800] hover:text-orange-600"
+        className="absolute left-4 top-24 rounded-lg font-semibold text-[#ff9800] hover:text-orange-600"
       >
         ← Go Back
       </button>
@@ -71,7 +71,7 @@ export function Hero7({ onGoBack, handleProceedToPay }: Hero7Props) {
         transition={{ duration: 0.8 }}
         className="mx-auto max-w-3xl text-center mt-12"
       >
-        <div className=" flex items-center justify-center gap-4 mt-10">
+        <div className=" flex items-center justify-center gap-4 mt-14">
           <CheckBadge />
           <motion.h1
             className="text-lg font-bold text-[#ff9800] sm:text-base md:text-xl "
