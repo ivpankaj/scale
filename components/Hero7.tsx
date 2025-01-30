@@ -60,7 +60,7 @@ export function Hero7({ onGoBack, handleProceedToPay }: Hero7Props) {
     <div className="relative flex min-h-[100vh] items-center justify-center px-4">
       <button
         onClick={onGoBack}
-        className="absolute left-4 top-24 rounded-lg font-semibold text-orange-500 hover:text-orange-600"
+        className="absolute left-4 top-24 rounded-lg font-semibold text-[#ff9800] hover:text-orange-600"
       >
         ← Go Back
       </button>
@@ -74,7 +74,7 @@ export function Hero7({ onGoBack, handleProceedToPay }: Hero7Props) {
         <div className="mb-2 flex items-center justify-center gap-4">
           <CheckBadge />
           <motion.h1
-            className="text-sm font-bold text-orange-500 sm:text-base md:text-xl"
+            className="text-sm font-bold text-[#ff9800] sm:text-base md:text-xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -107,7 +107,7 @@ export function Hero7({ onGoBack, handleProceedToPay }: Hero7Props) {
         >
           <button
             onClick={handleProceedToPay}
-            className="w-full rounded-xl border border-gray-600 bg-orange-500 p-4 text-lg font-semibold text-white transition-colors hover:bg-orange-600 sm:w-64 md:w-72"
+            className="w-full rounded-xl border border-gray-600 bg-[#ff9800] p-4 text-lg font-semibold text-white transition-colors hover:bg-orange-600 sm:w-64 md:w-72"
           >
             Proceed to Pay
           </button>
