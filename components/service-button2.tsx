@@ -26,7 +26,7 @@ const ServiceButton2: React.FC<ServiceButton2Props> = ({
           className="flex items-center justify-between w-[90vw] p-4 bg-[#202020] rounded-lg transition-colors box-border border border-transparent"
         >
     
-          <span className="text-white">{children}</span>
+          <span className="flex justify-start text-left w-full">{children}</span>
 
           <span className="text-[#ff9800] text-xl font-bold">
             {expanded ? "-" : "+"}

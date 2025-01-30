@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
 interface ServiceButtonProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export function ServiceButton({ children }: ServiceButtonProps) {
@@ -13,8 +13,7 @@ export function ServiceButton({ children }: ServiceButtonProps) {
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
-      {children}
+      <span className="flex justify-start text-left w-full">{children}</span>
     </motion.button>
-  )
+  );
 }
-
