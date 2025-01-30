@@ -181,9 +181,9 @@ const PageScroll: React.FC = () => {
   return (
     <div className="fixed inset-0 w-full h-[calc(var(--vh,1vh)*100)] overflow-hidden">
       <GridWrapper />
-  
+      <nav className="fixed top-0 left-0 z-50">
         <Navbar />
-  
+      </nav>
       <div className="relative w-full h-full">
         {sections.map(({ id, Component }) => (
           <div
