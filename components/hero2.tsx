@@ -20,8 +20,8 @@ export function Hero2({
   onPhoneNumberChange,
   onSubmitSuccess,
   onPhoneValidation, 
-  phoneNumber: propPhoneNumber, // Lifted state from parent
-  setPhoneNumber: setPropPhoneNumber, // Setter function from parent
+  phoneNumber: propPhoneNumber, 
+  setPhoneNumber: setPropPhoneNumber,
 }: Hero2Props) {
 
   const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(true);

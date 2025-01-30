@@ -63,4 +63,7 @@ export const phoneInputStyles = `
     max-height: 200px;
     overflow-y: auto;
   }
+    body.no-scroll {
+  overflow: hidden;
+}
 `;

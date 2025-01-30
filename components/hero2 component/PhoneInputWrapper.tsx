@@ -1,9 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { phoneInputStyles } from "./style";
-
 
 interface PhoneInputWrapperProps {
   value: string;
@@ -17,6 +16,7 @@ export const PhoneInputWrapper: React.FC<PhoneInputWrapperProps> = ({
   validationTriggered,
 }) => {
   const [isValid, setIsValid] = useState(true);
+  const phoneInputContainerRef = useRef<HTMLDivElement | null>(null);
 
   const handleChange = (value: string) => {
     const digitsOnly = value.replace(/\D/g, "");
@@ -24,8 +24,71 @@ export const PhoneInputWrapper: React.FC<PhoneInputWrapperProps> = ({
     onChange(digitsOnly);
   };
 
+  useEffect(() => {
+    const phoneInputContainer = phoneInputContainerRef.current;
+
+    if (phoneInputContainer) {
+      const countryList = phoneInputContainer.querySelector('.country-list');
+      const selectedFlag = phoneInputContainer.querySelector('.selected-flag');
+
+      // Function to prevent scrolling on the body
+      const preventBodyScroll = () => {
+        document.body.classList.add('no-scroll');
+      };
+
+      // Function to allow scrolling on the body
+      const allowBodyScroll = () => {
+        document.body.classList.remove('no-scroll');
+      };
+
+      // Prevent dropdown scroll from propagating to the body
+      const handleCountryListScroll = (event: Event) => {
+        event.stopPropagation();
+      };
+
+      // When the dropdown opens, prevent body scroll
+      const handleSelectedFlagClick = () => {
+        if (countryList && window.getComputedStyle(countryList).display !== 'none') {
+          preventBodyScroll();
+        } else {
+          allowBodyScroll();
+        }
+      };
+
+      // Close dropdown when clicking outside
+      const handleOutsideClick = (event: MouseEvent) => {
+        if (phoneInputContainer && !phoneInputContainer.contains(event.target as Node)) {
+          allowBodyScroll();
+        }
+      };
+
+      if (countryList) {
+        countryList.addEventListener('scroll', handleCountryListScroll);
+      }
+
+      if (selectedFlag) {
+        selectedFlag.addEventListener('click', handleSelectedFlagClick);
+      }
+
+      document.addEventListener('click', handleOutsideClick);
+
+      // Cleanup event listeners on unmount
+      return () => {
+        if (countryList) {
+          countryList.removeEventListener('scroll', handleCountryListScroll);
+        }
+
+        if (selectedFlag) {
+          selectedFlag.removeEventListener('click', handleSelectedFlagClick);
+        }
+
+        document.removeEventListener('click', handleOutsideClick);
+      };
+    }
+  }, []);
+
   return (
-    <div className="phone-input-container">
+    <div className="phone-input-container" ref={phoneInputContainerRef}>
       <style jsx global>{phoneInputStyles}</style>
       <PhoneInput
         country="in"
