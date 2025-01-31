@@ -16,7 +16,7 @@ export const PhoneInputField: React.FC<PhoneInputFieldProps> = ({ phoneNumber, i
         country="in"
         value={phoneNumber}
         onChange={handlePhoneNumberChange}
-        inputProps={{ maxLength: 16 }}
+        inputProps={{ maxLength: 20 }}
         enableSearch
         searchPlaceholder="Search countries..."
         containerClass="phone-input-container custom-country-list"

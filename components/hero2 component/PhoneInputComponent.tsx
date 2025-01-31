@@ -24,7 +24,7 @@ const PhoneInputComponent: React.FC<PhoneInputComponentProps> = ({
   const handlePhoneNumberChange = (value: string) => {
     setPhoneNumber(value);
     const digitsOnly = value.replace(/\D/g, "");
-    if (digitsOnly.length >= 10) {
+    if (digitsOnly.length >= 7) {
       setIsPhoneNumberValid(true);
       if (onPhoneNumberChange) {
         onPhoneNumberChange(digitsOnly);

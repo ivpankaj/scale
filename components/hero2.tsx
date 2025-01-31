@@ -43,7 +43,7 @@ export function Hero2({
 
   const handlePhoneNumberChange = (value: string) => {
     setPropPhoneNumber(value); // Update the parent's state
-    const isValid = value.length >= 10;
+    const isValid = value.length >= 7;
 
     if (onPhoneValidation) {
       onPhoneValidation(isValid);
@@ -130,7 +130,7 @@ export function Hero2({
         </motion.div>
 
         <button
-          className="block w-[50vw] px-4 py-2 border mt-4 bg-[#ff9800] hover:bg-[rgba(255,151,16,0.79)] text-white hover:text-gray-200 rounded-[10px] shadow-md focus:outline-none focus:ring-2"
+          className="block w-[50vw] px-4 py-2 border mt-4 bg-[#ff9800] hover:bg-[#ff9710c9] text-white hover:text-gray-200 rounded-[10px] shadow-md focus:outline-none focus:ring-2 font-bold"
           onClick={handleSubmit}
         >
           Submit

@@ -45,7 +45,7 @@ export function FloatingIcons() {
 
       {/* Twitter Icon */}
       <motion.div
-        className="absolute bottom-[12%] left-[0%]"
+        className="absolute bottom-[12%] left-[10%]"
         animate={{
           x: [0, -20, 0],
           rotate: [0, -10, 10, 0],
@@ -62,7 +62,7 @@ export function FloatingIcons() {
 
       {/* LinkedIn Icon */}
       <motion.div
-        className="absolute bottom-[12%] right-[0%]"
+        className="absolute bottom-[12%] right-[10%]"
         animate={{
           x: [0, 20, 0],
           rotate: [0, 10, -10, 0],

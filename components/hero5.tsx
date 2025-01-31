@@ -99,14 +99,14 @@ export const Hero5: React.FC<Hero5Props> = ({
     <>
       {!activeComponent && (
         <AnimatedSection>
-          <div className="min-h-[100vh] flex flex-col items-center justify-center relative px-4">
+          <div className="min-h-full flex flex-col items-center justify-center relative px-4 -mt-14">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-center max-w-3xl mx-auto"
+              className="text-center max-w-4xl mx-auto"
             >
-              <div className="flex items-center justify-center gap-4 mb-2">
+              <div className="flex items-center justify-center gap-4 ">
                 <CheckBadge />
                 <motion.h1
                   className="text-xl md:text-5xl sm:text-xl font-bold text-[#ff9800]"
@@ -139,7 +139,7 @@ export const Hero5: React.FC<Hero5Props> = ({
               >
                 <button
                   onClick={handleProceedToPay}
-                  className="md:w-[300px] sm:w-[100px] bg-[#ff9800] backdrop-blur-sm border border-gray-600 rounded-xl p-4 text-lg text-white font-semibold transition-colors hover:bg-[#f57c00]"
+                  className="md:w-[300px] sm:w-[100px] px-4 py-2 border mt-4 bg-[#ff9800] hover:bg-[#ff9710c9] text-white hover:text-gray-200 rounded-[10px] shadow-md focus:outline-none focus:ring-2 font-bold"
                 >
                   I am interested
                 </button>

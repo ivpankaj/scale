@@ -22,7 +22,7 @@ export const PhoneInputWrapper: React.FC<PhoneInputWrapperProps> = ({
 
   const handleChange = (value: string) => {
     const digitsOnly = value.replace(/\D/g, "");
-    setIsValid(digitsOnly.length >= 10);
+    setIsValid(digitsOnly.length >= 7);
     onChange(digitsOnly);
   };
 
@@ -71,7 +71,7 @@ export const PhoneInputWrapper: React.FC<PhoneInputWrapperProps> = ({
         inputProps={{
           maxLength: 16,
           onBlur: (e: React.FocusEvent<HTMLInputElement>) => {
-            if (e.target.value.replace(/\D/g, "").length < 10) {
+            if (e.target.value.replace(/\D/g, "").length < 7) {
               setIsValid(false);
             }
           },
