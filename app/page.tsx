@@ -5,6 +5,8 @@ import { Hero2 } from "@/components/hero2";
 import { Hero3 } from "@/components/hero3";
 import { Hero4 } from "@/components/hero4";
 import { Hero5 } from "@/components/hero5";
+import { Hero6 } from "@/components/Hero6";
+import { Hero7 } from "@/components/Hero7";
 
 import { Navbar } from "@/components/navbar";
 import useVh from "@/hooks/useVh";
@@ -30,7 +32,9 @@ const PageScroll: React.FC = () => {
     useState<boolean>(false);
   const [sectionKey, setSectionKey] = useState<number>(0);
   const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState(""); 
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [isAddOnsVisible, setIsAddOnsVisible] = useState(false); // Lifted state
+  const [isHero5ActiveComponent, setIsHero5ActiveComponent] = useState(false);
   useVh();
   useVw();
 
@@ -40,16 +44,28 @@ const PageScroll: React.FC = () => {
       { id: 1, Component: Hero2 },
       { id: 2, Component: renderHero3 ? Hero4 : Hero3 },
       { id: 3, Component: Hero5 },
+      { id: 4, Component: Hero6 },
+      { id: 5, Component: Hero7 },
     ],
     [renderHero3]
   );
 
-
-
   const handleScroll = useCallback(
     (e: WheelEvent | TouchEvent): void => {
-      if (isScrolling) return;
+      if (isScrolling || isHero5ActiveComponent) return;
+      if (isAddOnsVisible) {
+        e.preventDefault();
+        return;
+      }
+      if (activeSection === 3 && e instanceof WheelEvent && e.deltaY > 0) {
+        e.preventDefault();
+        return;
+      }
 
+      if (activeSection === 4 || activeSection === 5) {
+        e.preventDefault(); // Prevent default scroll behavior
+        return;
+      }
       // Prevent scrolling when Hero6 or Hero7 is active
       if (activeSection === sections.length || activeSection === -1) {
         e.preventDefault(); // Prevent default scroll behavior
@@ -73,7 +89,9 @@ const PageScroll: React.FC = () => {
       if (newSection < 0 || newSection >= sections.length) {
         return;
       }
-
+      if (activeSection === 3 && direction === 1) {
+        return;
+      }
       // Validation for certain sections
       if (newSection === 2 || newSection === 3) {
         if (!(selectedCountry && selectedExperience && selectedJobRole)) {
@@ -102,6 +120,8 @@ const PageScroll: React.FC = () => {
       selectedCountry,
       selectedExperience,
       selectedJobRole,
+      isAddOnsVisible,
+      isHero5ActiveComponent
     ]
   );
 
@@ -123,6 +143,14 @@ const PageScroll: React.FC = () => {
 
   const handleTouchMove = useCallback(
     (e: TouchEvent) => {
+      if (isHero5ActiveComponent) {
+        e.preventDefault(); // Prevent touch scrolling if Hero5's activeComponent is active
+        return;
+      }
+      if (isAddOnsVisible) {
+        e.preventDefault(); // Prevent scrolling when complementary services screen is active
+        return;
+      }
       // Prevent scrolling when Hero6 or Hero7 is active
       if (activeSection === sections.length || activeSection === -1) {
         e.preventDefault(); // Prevent default touch move behavior
@@ -130,17 +158,28 @@ const PageScroll: React.FC = () => {
       }
 
       if (!touchStart) return;
+      if (activeSection === 4 || activeSection === 5) {
+        e.preventDefault();
+        return;
+      }
+   
       const touchEnd = e.changedTouches[0];
       const deltaX = touchEnd.clientX - touchStart.x;
       const deltaY = touchEnd.clientY - touchStart.y;
-
+      if (activeSection === 3 && deltaY < 0) {
+        e.preventDefault();
+        return;
+      }
       // Only consider the touch event if it's more vertical than horizontal
       if (Math.abs(deltaY) > Math.abs(deltaX)) {
         handleScroll(e);
       }
+      if (Math.abs(deltaY) > 50) {
+        handleScroll(e);
+      }
       setTouchStart({ x: touchEnd.clientX, y: touchEnd.clientY });
     },
-    [touchStart, handleScroll]
+    [touchStart, handleScroll, isAddOnsVisible ,isHero5ActiveComponent]
   );
 
   const handleCountrySelect = useCallback((country: string) => {
@@ -207,13 +246,23 @@ const PageScroll: React.FC = () => {
                 onJobRoleSelect={id === 1 ? handleJobRoleSelect : undefined}
                 selectedExperience={selectedExperience}
                 selectedCountry={selectedCountry}
+                {...(id === 2 && {
+                  isAddOnsVisible,
+                  setIsAddOnsVisible,
+                })}
+                {...(id === 3 && {
+                  onActiveComponentChange: setIsHero5ActiveComponent, // Pass callback for Hero5
+                })}
                 selectedJobRole={selectedJobRole}
                 phoneNumber={phoneNumber} // Pass the phone number value
                 setPhoneNumber={setPhoneNumber} // Pass the setter function
                 onPhoneValidation={handlePhoneValidation} // Pass phone validation callback
                 validationTriggered={id === 1 ? validationTriggered : false}
                 onSubmitSuccess={goToNextSection}
-              
+                {...(id === 4 || id === 5) && {
+                  onTouchMove: (e: TouchEvent) => e.stopPropagation(),
+                  onWheel: (e: WheelEvent) => e.stopPropagation(),
+                }}
               />
             )}
           </div>
@@ -224,3 +273,6 @@ const PageScroll: React.FC = () => {
 };
 
 export default PageScroll;
+
+
+

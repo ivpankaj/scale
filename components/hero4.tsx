@@ -4,8 +4,15 @@ import { useState } from "react";
 import { CheckBadge } from "./check-badge";
 import { AnimatedSection } from "./Animated";
 import ServiceButton2 from "./service-button2";
+import { useGesture } from "react-use-gesture";
 
-export function Hero4() {
+export function Hero4({
+  isAddOnsVisible,
+  setIsAddOnsVisible,
+}: {
+  isAddOnsVisible: boolean;
+  setIsAddOnsVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const services = [
     "Resume re-created with guaranteed 80% above score",
     "5 jobs daily till you get a job",
@@ -22,15 +29,28 @@ export function Hero4() {
   ];
 
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-  const [isAddOnsVisible, setIsAddOnsVisible] = useState(false);
+
 
   const toggleExpand = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
+  // Handle swipe down to go back
+  const bindSwipe = useGesture({
+    onDragEnd: ({ movement: [mx, my] }) => {
+      if (my > 50 && isAddOnsVisible) {
+        setIsAddOnsVisible(false);
+        setExpandedIndex(null);
+      }
+    },
+  });
+
   return (
     <AnimatedSection>
-      <div className="min-h-screen w-full flex flex-col items-center justify-center relative px-4 overflow-hidden">
+      <div
+        className="min-h-screen w-full flex flex-col items-center justify-center relative px-4 overflow-hidden"
+        {...bindSwipe()}
+      >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -49,7 +69,6 @@ export function Hero4() {
               {isAddOnsVisible ? " Complimentary Services" : "How we help!!"}
             </motion.h1>
           </div>
-
           {/* Container for services with fixed width */}
           <div className="w-full max-w-2xl mx-auto">
             {/* Main Services or Add-ons */}
@@ -96,7 +115,6 @@ export function Hero4() {
                   ))}
             </motion.div>
           </div>
-
           {/* Toggle Add-ons Button */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

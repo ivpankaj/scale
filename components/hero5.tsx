@@ -1,6 +1,5 @@
 "use client";
 import { motion } from "framer-motion";
-import { ServiceButton } from "./service-button";
 import { CheckBadge } from "./check-badge";
 import { AnimatedSection } from "./Animated";
 import React, { useEffect, useState } from "react";
@@ -13,6 +12,7 @@ interface Hero5Props {
   selectedExperience: string;
   selectedCountry: string;
   selectedJobRole: string;
+  onActiveComponentChange: (isActive: boolean) => void; 
 }
 
 const pricesInINR: Record<string, string> = {
@@ -29,41 +29,49 @@ export const Hero5: React.FC<Hero5Props> = ({
   selectedExperience,
   selectedCountry,
   selectedJobRole,
+  onActiveComponentChange,
 }) => {
   const [activeComponent, setActiveComponent] = useState<string | null>(null);
 
   const handleQuickGuideClick = () => {
     setActiveComponent("Hero7");
+    onActiveComponentChange(true);
   };
 
   const handleKnowMoreClick = () => {
     setActiveComponent("Hero6");
+    onActiveComponentChange(true);
   };
 
   const handleGoBack = () => {
     console.log("Going back to Hero5"); // Debugging log
-    setActiveComponent(null); // Reset to Hero5
+    setActiveComponent(null);
+    onActiveComponentChange(false);  // Reset to Hero5
   };
+
   const disableScroll = () => {
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = "hidden"; // Disable global scroll
     document.body.style.touchAction = "none"; // Disable touch swiping
+    window.scrollTo(0, 0); // Ensure the page scrolls to the top
   };
+
+  const enableScroll = () => {
+    document.body.style.overflow = ""; // Re-enable global scroll
+    document.body.style.touchAction = ""; // Re-enable touch swiping
+  };
+
   useEffect(() => {
     if (activeComponent) {
       disableScroll(); // Disable scroll when Hero6 or Hero7 is active
     } else {
       enableScroll(); // Enable scroll when returning to Hero5
     }
-
     // Cleanup function to ensure scroll is re-enabled when component unmounts
     return () => {
       enableScroll();
     };
   }, [activeComponent]);
-  const enableScroll = () => {
-    document.body.style.overflow = "";
-    document.body.style.touchAction = ""; // Re-enable touch swiping
-  };
+
   const selectedPrice =
     selectedCountry === "India"
       ? pricesInINR[selectedExperience] || "Price : Rs. 999 - Rs. 4499/-"
@@ -72,10 +80,8 @@ export const Hero5: React.FC<Hero5Props> = ({
   const handleProceedToPay = () => {
     // Create the message first
     const message = `Hi, I'm interested in the Job Search Plan.\n\nDetails:\nCountry: ${selectedCountry}\nExperience: ${selectedExperience}\n${selectedPrice}\nRole: ${selectedJobRole}\n`;
-
     // Basic URL encoding
     const encodedMessage = message.replace(/\n/g, "%0a");
-
     // Open WhatsApp with the encoded message
     window.open(
       `https://api.whatsapp.com/send?phone=917988656256&text=${encodedMessage}`,
@@ -129,36 +135,17 @@ export const Hero5: React.FC<Hero5Props> = ({
                   onClick={handleProceedToPay}
                   className="md:w-[300px] sm:w-[100px] bg-[#ff9800] backdrop-blur-sm border border-gray-600 rounded-xl p-4 text-lg text-white font-semibold transition-colors hover:bg-[#f57c00]"
                 >
-                 I am interested
+                  I am interested
                 </button>
               </motion.div>
-              <motion.div
-                className="space-y-4 mt-10"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-              >
-         
-              </motion.div>
             </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 1.2,
-                duration: 0.8,
-                repeat: Infinity,
-                repeatType: "reverse",
-              }}
-              className="absolute bottom-0 left-1/2 transform -translate-x-1/2"
-            ></motion.div>
           </div>
         </AnimatedSection>
       )}
       {activeComponent === "Hero7" && (
         <Hero7
           onGoBack={handleGoBack}
-          handleProceedToPay={handleProceedToPay} // Pass the function here
+          handleProceedToPay={handleProceedToPay}
         />
       )}
       {activeComponent === "Hero6" && (

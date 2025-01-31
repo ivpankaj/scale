@@ -54,7 +54,7 @@ export function Hero6({ onGoBack, handleProceedToPay }: Hero7Props) {
           console.log("Back button clicked in Hero6");
           onGoBack();
         }}
-        className="absolute top-20 left-4  text-[#ff9800] px-4 py-2 rounded-lg font-semibold hover:bg-[#f57c00] z-50"
+        className="absolute top-20 left-4  text-[#ff9800] px-4 py-2 rounded-lg font-semibold  z-50"
       >
         ← Go Back
       </button>
