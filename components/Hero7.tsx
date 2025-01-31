@@ -60,7 +60,7 @@ export function Hero7({ onGoBack, handleProceedToPay }: Hero7Props) {
     <div className="relative flex min-h-screen items-center justify-center px-4">
       <button
         onClick={onGoBack}
-        className="absolute left-4 top-24 rounded-lg font-semibold text-[#ff9800] hover:text-orange-600"
+        className="absolute left-4 top-24 rounded-lg font-semibold text-[#ff9800] hover:text-orange-600 mt-3"
       >
         ← Go Back
       </button>

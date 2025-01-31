@@ -11,37 +11,37 @@ export function Hero6({ onGoBack, handleProceedToPay }: Hero7Props) {
   const slideData = [
     {
       title: "",
-      button: "Play",
+      button: "",
       youtubeUrl: "https://www.youtube.com/embed/VoFn_tICyas",
       src: "https://img.youtube.com/vi/VoFn_tICyas/maxresdefault.jpg", // Thumbnail from YouTube
     },
     {
       title: "",
-      button: "Play",
+      button: "",
       youtubeUrl: "https://www.youtube.com/embed/v0Yv4WegE2o",
       src: "https://img.youtube.com/vi/v0Yv4WegE2o/maxresdefault.jpg",
     },
     {
       title: "",
-      button: "Play",
+      button: "",
       youtubeUrl: "https://www.youtube.com/embed/MjWtDgQwcJc",
       src: "https://img.youtube.com/vi/MjWtDgQwcJc/maxresdefault.jpg",
     },
     {
       title: "",
-      button: "Play",
+      button: "",
       youtubeUrl: "https://www.youtube.com/embed/MWMeAK-nHrI",
       src: "https://img.youtube.com/vi/MWMeAK-nHrI/maxresdefault.jpg",
     },
     {
       title: "",
-      button: "Play",
+      button: "",
       youtubeUrl: "https://www.youtube.com/embed/HKsm3IorP3Y",
       src: "https://img.youtube.com/vi/HKsm3IorP3Y/maxresdefault.jpg",
     },
     {
       title: "",
-      button: "Play",
+      button: "",
       youtubeUrl: "https://www.youtube.com/embed/AZ8GeXemgVc",
       src: "https://img.youtube.com/vi/AZ8GeXemgVc/maxresdefault.jpg",
     },

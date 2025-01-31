@@ -2,7 +2,7 @@
 
 // Slide.tsx
 import { useRef, useEffect, useState } from "react";
-import { Play } from "lucide-react";
+import { Play, Youtube } from "lucide-react";
 import Popup from "./Popup";
 import { SlideProps } from "./type";
 
@@ -111,7 +111,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
                 }}
               >
                 <span className="">
-                  <Play />
+                  <Youtube />
                 </span>{" "}
                 {button}
               </button>
