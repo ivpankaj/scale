@@ -93,6 +93,7 @@ export function Hero2({
               <br />
               your <span className="text-white">Information</span>
               <br />
+              <p className="text-sm text-white">to suggest you best plan</p>
             </span>
           </h1>
 

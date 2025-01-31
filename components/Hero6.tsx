@@ -70,7 +70,7 @@ export function Hero6({ onGoBack, handleProceedToPay }: Hero7Props) {
         >
           <button
             onClick={handleProceedToPay}
-            className="w-full p-4  border  bg-[#ff9800] hover:bg-[#ff9710c9] text-white hover:text-gray-200 rounded-[10px] shadow-md focus:outline-none focus:ring-2 font-bold"
+            className="w-full p-4  border  bg-[#ff9800] hover:bg-[#ff9710c9] text-white hover:text-gray-200  shadow-md focus:outline-none focus:ring-2 font-bold"
           >
             I am interested
           </button>

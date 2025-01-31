@@ -6,8 +6,8 @@ import 'flag-icon-css/css/flag-icons.min.css';
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Social Tag India - One Stop Solution for Influencer Marketing",
-  description: "We help brands with Strategy Led Influencer Marketing Campaigns",
+  title: "Job Search Plan by Mployee.me",
+  description: "Elevate your job search with our expert guidance. We provide customized job recommendations that match your resume, helping you secure your dream position.",
 }
 
 export default function RootLayout({
