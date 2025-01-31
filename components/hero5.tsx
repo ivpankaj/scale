@@ -12,7 +12,7 @@ interface Hero5Props {
   selectedExperience: string;
   selectedCountry: string;
   selectedJobRole: string;
-  onActiveComponentChange: (isActive: boolean) => void; 
+  onActiveComponentChange: (isActive: boolean) => void; // Callback to notify parent
 }
 
 const pricesInINR: Record<string, string> = {
@@ -35,18 +35,18 @@ export const Hero5: React.FC<Hero5Props> = ({
 
   const handleQuickGuideClick = () => {
     setActiveComponent("Hero7");
-    onActiveComponentChange(true);
+    onActiveComponentChange(true); // Notify parent that activeComponent is active
   };
 
   const handleKnowMoreClick = () => {
     setActiveComponent("Hero6");
-    onActiveComponentChange(true);
+    onActiveComponentChange(true); // Notify parent that activeComponent is active
   };
 
   const handleGoBack = () => {
     console.log("Going back to Hero5"); // Debugging log
     setActiveComponent(null);
-    onActiveComponentChange(false);  // Reset to Hero5
+    onActiveComponentChange(false); // Notify parent that activeComponent is inactive
   };
 
   const disableScroll = () => {
@@ -60,15 +60,21 @@ export const Hero5: React.FC<Hero5Props> = ({
     document.body.style.touchAction = ""; // Re-enable touch swiping
   };
 
+  const preventTouchScroll = (e: TouchEvent) => e.preventDefault();
+
   useEffect(() => {
     if (activeComponent) {
       disableScroll(); // Disable scroll when Hero6 or Hero7 is active
+      document.addEventListener("touchmove", preventTouchScroll, { passive: false }); // Prevent touch scrolling
     } else {
       enableScroll(); // Enable scroll when returning to Hero5
+      document.removeEventListener("touchmove", preventTouchScroll); // Remove touch event listener
     }
+
     // Cleanup function to ensure scroll is re-enabled when component unmounts
     return () => {
       enableScroll();
+      document.removeEventListener("touchmove", preventTouchScroll); // Remove touch event listener
     };
   }, [activeComponent]);
 

@@ -49,10 +49,22 @@ const PageScroll: React.FC = () => {
     ],
     [renderHero3]
   );
+  useEffect(() => {
+    // Disable body scrolling when isHero5ActiveComponent or isAddOnsVisible is true
+    if (isHero5ActiveComponent || isAddOnsVisible) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
 
+    return () => {
+      // Reset overflow on unmount
+      document.body.style.overflow = "auto";
+    };
+  }, [isHero5ActiveComponent, isAddOnsVisible]);
   const handleScroll = useCallback(
     (e: WheelEvent | TouchEvent): void => {
-      if (isScrolling || isHero5ActiveComponent) return;
+      if (isScrolling || isHero5ActiveComponent || isAddOnsVisible) return;
       if (isAddOnsVisible) {
         e.preventDefault();
         return;
@@ -143,7 +155,7 @@ const PageScroll: React.FC = () => {
 
   const handleTouchMove = useCallback(
     (e: TouchEvent) => {
-      if (isHero5ActiveComponent) {
+      if (isHero5ActiveComponent || isAddOnsVisible) {
         e.preventDefault(); // Prevent touch scrolling if Hero5's activeComponent is active
         return;
       }
@@ -152,10 +164,7 @@ const PageScroll: React.FC = () => {
         return;
       }
       // Prevent scrolling when Hero6 or Hero7 is active
-      if (activeSection === sections.length || activeSection === -1) {
-        e.preventDefault(); // Prevent default touch move behavior
-        return;
-      }
+
 
       if (!touchStart) return;
       if (activeSection === 4 || activeSection === 5) {
@@ -170,10 +179,7 @@ const PageScroll: React.FC = () => {
         e.preventDefault();
         return;
       }
-      // Only consider the touch event if it's more vertical than horizontal
-      if (Math.abs(deltaY) > Math.abs(deltaX)) {
-        handleScroll(e);
-      }
+ 
       if (Math.abs(deltaY) > 50) {
         handleScroll(e);
       }
