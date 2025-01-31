@@ -179,10 +179,11 @@ const PageScroll: React.FC = () => {
         e.preventDefault();
         return;
       }
- 
-      if (Math.abs(deltaY) > 50) {
+      // Only consider the touch event if it's more vertical than horizontal
+      if (Math.abs(deltaY) > Math.abs(deltaX)) {
         handleScroll(e);
       }
+  
       setTouchStart({ x: touchEnd.clientX, y: touchEnd.clientY });
     },
     [touchStart, handleScroll, isAddOnsVisible ,isHero5ActiveComponent]
